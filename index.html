@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homam & Muniya Hub 🚀</title>
+    <title>Homam & Muniya Private Hub 🔐</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -23,15 +23,50 @@
             padding: 20px;
         }
 
+        /* Password Overlay */
+        #login-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f172a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .login-box {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 1px solid #334155;
+            max-width: 350px;
+            width: 90%;
+        }
+
+        input[type="password"], input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            font-family: 'Cairo', sans-serif;
+            box-sizing: border-box;
+        }
+
         header {
             text-align: center;
-            padding: 20px 0;
+            padding: 10px 0 20px;
             border-bottom: 2px solid #334155;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin: 0;
             background: linear-gradient(45deg, var(--accent-homam), var(--accent-muniya));
             -webkit-background-clip: text;
@@ -39,10 +74,10 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
         }
 
@@ -56,127 +91,278 @@
 
         .card h2 {
             margin-top: 0;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             border-bottom: 1px solid #334155;
             padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .profile-tag {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .homam { background-color: var(--accent-homam); }
-        .muniya { background-color: var(--accent-muniya); }
-
-        button {
+        .btn {
             background: linear-gradient(45deg, var(--primary), var(--accent-muniya));
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 15px;
             border-radius: 8px;
             cursor: pointer;
             font-family: 'Cairo', sans-serif;
             font-weight: bold;
-            transition: transform 0.2s;
+            transition: 0.2s;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
-        button:hover {
-            transform: scale(1.02);
+        .btn-small {
+            width: auto;
+            padding: 5px 10px;
+            font-size: 0.8rem;
         }
 
-        .wheel-result {
+        .btn:hover { transform: scale(1.02); }
+
+        /* Leaderboard styling */
+        .score-board {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
             background: #0f172a;
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 12px;
             text-align: center;
-            font-weight: bold;
-            margin-top: 15px;
-            min-height: 40px;
         }
 
-        ul { list-style: none; padding: 0; }
-        li { margin-bottom: 10px; padding: 8px; background: #0f172a; border-radius: 6px; }
+        .score-box h3 { margin: 5px 0; font-size: 1.8rem; }
+        .score-homam { color: var(--accent-homam); }
+        .score-muniya { color: var(--accent-muniya); }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .tag-homam { background: var(--accent-homam); }
+        .tag-muniya { background: var(--accent-muniya); }
+
+        .data-box {
+            background: #0f172a;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+
+        /* Backup tools */
+        .backup-section {
+            grid-column: 1 / -1;
+            background: #1e293b;
+            border: 2px dashed #475569;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Lock Screen -->
+    <div id="login-overlay">
+        <div class="login-box">
+            <h2>🔐 المساحة الخاصة</h2>
+            <p>أدخل كلمة المرور للدخول</p>
+            <input type="password" id="pass-input" placeholder="كلمة السر...">
+            <button class="btn" onclick="checkPassword()">دخول 🚀</button>
+            <p id="pass-error" style="color: #ef4444; display: none; font-size: 0.85rem; margin-top: 10px;">كلمة المرور خاطئة!</p>
+        </div>
+    </div>
+
+    <!-- Main App -->
     <header>
-        <h1>🎮 Homam & Muniya Space</h1>
-        <p>مساحتنا اليومية الخاصة للفعاليات والتحديات</p>
+        <h1>⚡ ساحة التنافس: همام & مُنية</h1>
+        <p>عالمنا الخاص والتحديات اليومية</p>
     </header>
 
     <div class="container">
-        
-        <!-- Daily Check-in -->
-        <div class="card">
-            <h2>✨ سؤال اليوم وتحديث المزاج</h2>
-            <div id="daily-question" style="font-weight: bold; color: #cbd5e1; margin-bottom: 15px;"></div>
-            
-            <span class="profile-tag homam">همام</span>
-            <p id="homam-answer"></p>
-            
-            <span class="profile-tag muniya">مُنية</span>
-            <p id="muniya-answer"></p>
+
+        <!-- Leaderboard -->
+        <div class="card" style="grid-column: 1 / -1;">
+            <h2>🏆 لوحة الصدارة والتنافس</h2>
+            <div class="score-board">
+                <div class="score-box">
+                    <span class="tag tag-homam">همام 👦🏻</span>
+                    <h3 id="score-homam" class="score-homam">0</h3>
+                    <button class="btn btn-small" onclick="addPoints('homam', 5)">+5 نقاط</button>
+                </div>
+                <div style="align-self: center; font-size: 1.5rem; font-weight: bold;">VS</div>
+                <div class="score-box">
+                    <span class="tag tag-muniya">مُنية 👧🏻</span>
+                    <h3 id="score-muniya" class="score-muniya">0</h3>
+                    <button class="btn btn-small" onclick="addPoints('muniya', 5)">+5 نقاط</button>
+                </div>
+            </div>
         </div>
 
-        <!-- Wheel / Activity Randomizer -->
+        <!-- Daily Question -->
         <div class="card">
-            <h2>🎯 فعاليتنا لليوم (العجلة العشوائية)</h2>
-            <p>مش عارفين شن تديروا؟ اضغط على الزر واختاروا فعالية اليوم!</p>
-            <button onclick="pickActivity()">دَوّر العجلة 🎲</button>
-            <div id="activity-display" class="wheel-result">اضغط لاختيار فعالية...</div>
+            <h2>❓ سؤال اليوم التفاعلي</h2>
+            <div class="data-box">
+                <strong id="q-title">جاري تحميل السؤال...</strong>
+                <hr style="border-color: #334155;">
+                <p><span class="tag tag-homam">همام:</span> <span id="ans-homam">لا توجد إجابة بعد</span></p>
+                <p><span class="tag tag-muniya">مُنية:</span> <span id="ans-muniya">لا توجد إجابة بعد</span></p>
+            </div>
+            <textarea id="my-answer" placeholder="اكتب إجابتك هنا..."></textarea>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn" style="background: var(--accent-homam);" onclick="saveAnswer('homam')">حفظ كـ همام</button>
+                <button class="btn" style="background: var(--accent-muniya);" onclick="saveAnswer('muniya')">حفظ كـ مُنية</button>
+            </div>
         </div>
 
-        <!-- Story Quest -->
+        <!-- Wheel of Fun -->
         <div class="card">
-            <h2>📖 مغامرة اليوم (Story Quest)</h2>
-            <p id="story-text"></p>
-            <div id="story-choices"></div>
+            <h2>🎲 عجلة الفعاليات اليومية</h2>
+            <p>مش عارفين شن تديروا اليوم؟</p>
+            <button class="btn" onclick="spinWheel()">اختيار فعالية عشوائية 🎡</button>
+            <div id="wheel-result" class="data-box" style="text-align: center; font-weight: bold; min-height: 40px;">
+                اضغط لاختيار فعالية!
+            </div>
         </div>
 
-        <!-- Bug Hunt / Puzzle -->
+        <!-- Interactive Story -->
         <div class="card">
-            <h2>🧩 لغز البرمجة / تحدي اليوم</h2>
-            <p id="puzzle-desc"></p>
-            <pre style="background:#0f172a; padding:10px; border-radius:6px; color:#a5f3fc;" id="puzzle-code"></pre>
+            <h2>📖 مغامرة القصة المشتركة</h2>
+            <div class="data-box" id="story-history" style="max-height: 150px; overflow-y: auto;">
+                <!-- Story progression -->
+            </div>
+            <input type="text" id="story-input" placeholder="أضف السطر أو الخيار القادم...">
+            <button class="btn" onclick="addStoryLine()">إضافة للقصة ✍️</button>
+        </div>
+
+        <!-- Backup & Sync Section -->
+        <div class="card backup-section">
+            <h2>🔄 حفظ ونقل البيانات بين الجهازين</h2>
+            <p style="font-size: 0.85rem; color: #94a3b8;">علشان البيانات تتحدث عند الطرفين وتضمنوا عدم ضياع أي نقطة:</p>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button class="btn btn-small" onclick="exportData()">📥 تصدير ملف النسخة (Export)</button>
+                <button class="btn btn-small" onclick="document.getElementById('import-file').click()">📤 رفع نسخة جديدة (Import)</button>
+                <input type="file" id="import-file" style="display: none;" onchange="importData(event)">
+            </div>
         </div>
 
     </div>
 
-    <script src="data.js"></script>
     <script>
-        // Load Daily Data
-        document.getElementById('daily-question').innerText = dailyData.question;
-        document.getElementById('homam-answer').innerText = dailyData.homamAnswer;
-        document.getElementById('muniya-answer').innerText = dailyData.muniyaAnswer;
+        // Password System (Change "1234" to whatever password you both want)
+        const SECRET_PASS = "1234";
 
-        // Activity Picker
-        function pickActivity() {
-            const random = activities[Math.floor(Math.random() * activities.length)];
-            document.getElementById('activity-display').innerText = random;
+        function checkPassword() {
+            const input = document.getElementById('pass-input').value;
+            if(input === SECRET_PASS) {
+                document.getElementById('login-overlay').style.display = 'none';
+            } else {
+                document.getElementById('pass-error').style.display = 'block';
+            }
         }
 
-        // Load Story
-        document.getElementById('story-text').innerText = storyQuest.currentChapter;
-        const choicesDiv = document.getElementById('story-choices');
-        storyQuest.options.forEach(opt => {
-            const btn = document.createElement('button');
-            btn.innerText = opt;
-            btn.style.margin = "5px 0";
-            btn.onclick = () => alert('تم اختيار: ' + opt + '! حان دور الطرف الآخر لتحديث القصة في data.js');
-            choicesDiv.appendChild(btn);
-        });
+        // Default App State
+        let appData = {
+            scores: { homam: 0, muniya: 0 },
+            question: "شنو الحلم أو الهدف اللي تبي تحققه هذا الشهر؟",
+            answers: { homam: "لم تُحدد", muniya: "لم تُحدد" },
+            story: ["بدأت المغامرة عندما وجد همام ومُنية خريطة كنز قديمة في المستودع..."]
+        };
 
-        // Load Puzzle
-        document.getElementById('puzzle-desc').innerText = currentPuzzle.description;
-        document.getElementById('puzzle-code').innerText = currentPuzzle.code;
+        const activities = [
+            "تحدي رسم شخصية في 3 دقائق ومقارنتها 🎨",
+            "لعب لعبة أسئلة صراحة (لو خيروك) 💬",
+            "مشاهدة وثائقي أو حلقة فيلم مع بعض 🎬",
+            "تحدي معرفة الأغاني من أول ثانيتين 🎵",
+            "كل واحد يحكي موقف يضحك صارله وهو صغير 👶"
+        ];
+
+        // Load Saved Data from LocalStorage
+        function initData() {
+            const saved = localStorage.getItem('homam_muniya_data');
+            if(saved) {
+                appData = JSON.parse(saved);
+            }
+            renderUI();
+        }
+
+        function saveData() {
+            localStorage.setItem('homam_muniya_data', JSON.stringify(appData));
+            renderUI();
+        }
+
+        function renderUI() {
+            document.getElementById('score-homam').innerText = appData.scores.homam;
+            document.getElementById('score-muniya').innerText = appData.scores.muniya;
+            document.getElementById('q-title').innerText = appData.question;
+            document.getElementById('ans-homam').innerText = appData.answers.homam;
+            document.getElementById('ans-muniya').innerText = appData.answers.muniya;
+
+            const storyBox = document.getElementById('story-history');
+            storyBox.innerHTML = appData.story.map(s => `<p>• ${s}</p>`).join('');
+        }
+
+        // Leaderboard Logic
+        function addPoints(user, pts) {
+            appData.scores[user] += pts;
+            saveData();
+        }
+
+        // Answer Logic
+        function saveAnswer(user) {
+            const val = document.getElementById('my-answer').value;
+            if(!val) return;
+            appData.answers[user] = val;
+            document.getElementById('my-answer').value = '';
+            saveData();
+        }
+
+        // Story Logic
+        function addStoryLine() {
+            const input = document.getElementById('story-input');
+            if(!input.value) return;
+            appData.story.push(input.value);
+            input.value = '';
+            saveData();
+        }
+
+        // Wheel Spin
+        function spinWheel() {
+            const random = activities[Math.floor(Math.random() * activities.length)];
+            document.getElementById('wheel-result').innerText = random;
+        }
+
+        // Export Data to JSON File
+        function exportData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `homam_muniya_backup_${new Date().toLocaleDateString()}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        // Import Data from JSON File
+        function importData(event) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    appData = JSON.parse(e.target.result);
+                    saveData();
+                    alert('تم تحديث البيانات بنجاح! 🎉');
+                } catch(err) {
+                    alert('الملف غير صحيح!');
+                }
+            };
+            reader.readAsText(event.target.files[0]);
+        }
+
+        // Initialize App
+        initData();
     </script>
 </body>
 </html>
