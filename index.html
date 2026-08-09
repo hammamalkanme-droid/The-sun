@@ -3,248 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homam & Muniya Private Hub 🔐</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>شمس مُنية ☀️ و بدر همام 🌙</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --primary: #6366f1;
-            --accent-homam: #3b82f6;
-            --accent-muniya: #ec4899;
-            --text: #f8fafc;
+            --bg-dark: #0b0f19;
+            --sun-color: #f59e0b; /* ذهبي/برتقالي */
+            --sun-glow: rgba(245, 158, 11, 0.4);
+            --moon-color: #38bdf8; /* فضي/سماوي */
+            --moon-glow: rgba(56, 189, 248, 0.4);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
         }
 
         body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text);
+            font-family: 'Tajawal', sans-serif;
+            background: radial-gradient(circle at center, #1e1b4b, var(--bg-dark));
+            color: var(--text-main);
             margin: 0;
             padding: 20px;
+            min-height: 100vh;
+            background-attachment: fixed;
         }
 
-        /* Password Overlay */
+        /* تأثيرات النجوم في الخلفية */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(white 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* شاشة القفل */
         #login-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #0f172a;
+            background: rgba(11, 15, 25, 0.95);
+            backdrop-filter: blur(10px);
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
 
         .login-box {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 24px;
             text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            border: 1px solid #334155;
-            max-width: 350px;
-            width: 90%;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            width: 320px;
         }
 
-        input[type="password"], input[type="text"], textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            background: #0f172a;
-            color: white;
-            font-family: 'Cairo', sans-serif;
-            box-sizing: border-box;
-        }
+        h1, h2, h3 { margin-top: 0; }
 
         header {
             text-align: center;
-            padding: 10px 0 20px;
-            border-bottom: 2px solid #334155;
-            margin-bottom: 25px;
+            padding: 20px 0;
+            margin-bottom: 40px;
         }
 
         header h1 {
-            font-size: 2.2rem;
-            margin: 0;
-            background: linear-gradient(45deg, var(--accent-homam), var(--accent-muniya));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 3rem;
+            text-shadow: 0 0 20px rgba(255,255,255,0.2);
+            font-weight: 900;
         }
+
+        .sun-text { color: var(--sun-color); text-shadow: 0 0 15px var(--sun-glow); }
+        .moon-text { color: var(--moon-color); text-shadow: 0 0 15px var(--moon-glow); }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 25px;
         }
 
+        /* تصميم البطاقات الزجاجي (Glassmorphism) */
         .card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            border: 1px solid #334155;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
         }
+        .card:hover { transform: translateY(-5px); }
 
         .card h2 {
-            margin-top: 0;
-            font-size: 1.3rem;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 10px;
+            font-size: 1.4rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* الأزرار والمدخلات */
+        input[type="password"], input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-family: 'Tajawal', sans-serif;
+            box-sizing: border-box;
+            outline: none;
+        }
+        input:focus, textarea:focus { border-color: var(--moon-color); }
+
+        .btn {
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn:hover { background: rgba(255,255,255,0.2); transform: scale(1.02); }
+
+        .btn-sun { background: linear-gradient(45deg, #d97706, #f59e0b); box-shadow: 0 0 15px var(--sun-glow); border: none; }
+        .btn-moon { background: linear-gradient(45deg, #0284c7, #38bdf8); box-shadow: 0 0 15px var(--moon-glow); border: none; }
+
+        /* لوحة النقاط */
+        .scoreboard {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(0,0,0,0.4);
+            padding: 20px;
+            border-radius: 16px;
         }
-
-        .btn {
-            background: linear-gradient(45deg, var(--primary), var(--accent-muniya));
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Cairo', sans-serif;
-            font-weight: bold;
-            transition: 0.2s;
-            width: 100%;
-            margin-top: 8px;
+        .player {
+            text-align: center;
+            width: 40%;
         }
-
-        .btn-small {
-            width: auto;
-            padding: 5px 10px;
-            font-size: 0.8rem;
-        }
-
-        .btn:hover { transform: scale(1.02); }
-
-        /* Leaderboard styling */
-        .score-board {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 15px;
-            background: #0f172a;
+        .player.moon { border-bottom: 3px solid var(--moon-color); padding-bottom: 10px; }
+        .player.sun { border-bottom: 3px solid var(--sun-color); padding-bottom: 10px; }
+        
+        .score-number { font-size: 2.5rem; font-weight: 900; margin: 10px 0; }
+        
+        /* صناديق العرض */
+        .display-box {
+            background: rgba(0,0,0,0.3);
             padding: 15px;
             border-radius: 12px;
-            text-align: center;
+            margin: 15px 0;
+            border-right: 4px solid #fff;
+            min-height: 60px;
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
-        .score-box h3 { margin: 5px 0; font-size: 1.8rem; }
-        .score-homam { color: var(--accent-homam); }
-        .score-muniya { color: var(--accent-muniya); }
+        .sun-box { border-color: var(--sun-color); }
+        .moon-box { border-color: var(--moon-color); }
 
-        .tag {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        .tag-homam { background: var(--accent-homam); }
-        .tag-muniya { background: var(--accent-muniya); }
-
-        .data-box {
-            background: #0f172a;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-size: 0.95rem;
-        }
-
-        /* Backup tools */
-        .backup-section {
-            grid-column: 1 / -1;
-            background: #1e293b;
-            border: 2px dashed #475569;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
 
-    <!-- Lock Screen -->
+    <!-- شاشة الدخول -->
     <div id="login-overlay">
         <div class="login-box">
-            <h2>🔐 المساحة الخاصة</h2>
-            <p>أدخل كلمة المرور للدخول</p>
-            <input type="password" id="pass-input" placeholder="كلمة السر...">
-            <button class="btn" onclick="checkPassword()">دخول 🚀</button>
-            <p id="pass-error" style="color: #ef4444; display: none; font-size: 0.85rem; margin-top: 10px;">كلمة المرور خاطئة!</p>
+            <h2><span class="sun-text">شمس</span> و <span class="moon-text">بدر</span> 🔐</h2>
+            <p style="color: #94a3b8;">أدخل رمز الدخول للمساحة الخاصة</p>
+            <input type="password" id="pass-input" placeholder="الرمز السري...">
+            <button class="btn btn-moon" onclick="checkPassword()">دخول المدار 🚀</button>
         </div>
     </div>
 
-    <!-- Main App -->
     <header>
-        <h1>⚡ ساحة التنافس: همام & مُنية</h1>
-        <p>عالمنا الخاص والتحديات اليومية</p>
+        <h1><span class="sun-text">شمس مُنية ☀️</span> & <span class="moon-text">🌙 بدر همام</span></h1>
+        <p style="color: #cbd5e1; font-size: 1.2rem;">رغم المسافات.. نلتقي هنا كل يوم</p>
     </header>
 
     <div class="container">
 
-        <!-- Leaderboard -->
+        <!-- 1. لوحة الصدارة -->
         <div class="card" style="grid-column: 1 / -1;">
-            <h2>🏆 لوحة الصدارة والتنافس</h2>
-            <div class="score-board">
-                <div class="score-box">
-                    <span class="tag tag-homam">همام 👦🏻</span>
-                    <h3 id="score-homam" class="score-homam">0</h3>
-                    <button class="btn btn-small" onclick="addPoints('homam', 5)">+5 نقاط</button>
+            <h2>🏆 التنافس وميزان القوى</h2>
+            <div class="scoreboard">
+                <div class="player moon">
+                    <h3 class="moon-text">البدر (همام)</h3>
+                    <div class="score-number moon-text" id="score-homam">0</div>
+                    <button class="btn btn-moon" onclick="addPoints('homam', 10)">+10 نقاط الفوز</button>
                 </div>
-                <div style="align-self: center; font-size: 1.5rem; font-weight: bold;">VS</div>
-                <div class="score-box">
-                    <span class="tag tag-muniya">مُنية 👧🏻</span>
-                    <h3 id="score-muniya" class="score-muniya">0</h3>
-                    <button class="btn btn-small" onclick="addPoints('muniya', 5)">+5 نقاط</button>
+                <div style="font-size: 2rem; color: #94a3b8; font-weight: 900;">VS</div>
+                <div class="player sun">
+                    <h3 class="sun-text">الشمس (مُنية)</h3>
+                    <div class="score-number sun-text" id="score-muniya">0</div>
+                    <button class="btn btn-sun" onclick="addPoints('muniya', 10)">+10 نقاط الفوز</button>
                 </div>
             </div>
         </div>
 
-        <!-- Daily Question -->
+        <!-- 2. سؤال اليوم العشوائي -->
         <div class="card">
-            <h2>❓ سؤال اليوم التفاعلي</h2>
-            <div class="data-box">
-                <strong id="q-title">جاري تحميل السؤال...</strong>
-                <hr style="border-color: #334155;">
-                <p><span class="tag tag-homam">همام:</span> <span id="ans-homam">لا توجد إجابة بعد</span></p>
-                <p><span class="tag tag-muniya">مُنية:</span> <span id="ans-muniya">لا توجد إجابة بعد</span></p>
-            </div>
-            <textarea id="my-answer" placeholder="اكتب إجابتك هنا..."></textarea>
+            <h2>💬 بوح اليوم (تتغير عشوائياً)</h2>
+            <button class="btn" onclick="generateQuestion()">سؤال جديد 🔄</button>
+            <div class="display-box" id="q-title">اضغط لتوليد سؤال اليوم...</div>
+            
+            <p class="moon-text">إجابة البدر (همام): <span id="ans-homam" style="color:#fff;">...</span></p>
+            <p class="sun-text">إجابة الشمس (مُنية): <span id="ans-muniya" style="color:#fff;">...</span></p>
+            
+            <textarea id="my-answer" placeholder="اكتب إجابتك هنا..." rows="2"></textarea>
             <div style="display: flex; gap: 10px;">
-                <button class="btn" style="background: var(--accent-homam);" onclick="saveAnswer('homam')">حفظ كـ همام</button>
-                <button class="btn" style="background: var(--accent-muniya);" onclick="saveAnswer('muniya')">حفظ كـ مُنية</button>
+                <button class="btn btn-moon" onclick="saveAnswer('homam')">إجابة البدر</button>
+                <button class="btn btn-sun" onclick="saveAnswer('muniya')">إجابة الشمس</button>
             </div>
         </div>
 
-        <!-- Wheel of Fun -->
+        <!-- 3. فعاليات عن بعد -->
         <div class="card">
-            <h2>🎲 عجلة الفعاليات اليومية</h2>
-            <p>مش عارفين شن تديروا اليوم؟</p>
-            <button class="btn" onclick="spinWheel()">اختيار فعالية عشوائية 🎡</button>
-            <div id="wheel-result" class="data-box" style="text-align: center; font-weight: bold; min-height: 40px;">
-                اضغط لاختيار فعالية!
+            <h2>🌍 فعاليات المسافات (Long Distance)</h2>
+            <p style="font-size:0.9rem; color:#94a3b8;">ماذا سنفعل اليوم رغم البعد؟ (أكثر من 30 فعالية)</p>
+            <div class="display-box sun-box" id="activity-result" style="text-align: center; font-weight: bold;">
+                هل أنتم مستعدون؟
             </div>
+            <button class="btn btn-sun" onclick="generateActivity()">عجلة الفعاليات ☀️</button>
         </div>
 
-        <!-- Interactive Story -->
+        <!-- 4. ألعاب وتحديات -->
         <div class="card">
-            <h2>📖 مغامرة القصة المشتركة</h2>
-            <div class="data-box" id="story-history" style="max-height: 150px; overflow-y: auto;">
-                <!-- Story progression -->
+            <h2>🎮 ألعاب وتحديات الأذكياء</h2>
+            <p style="font-size:0.9rem; color:#94a3b8;">لعبة اليوم اللي عليها 10 نقاط (من بين 30 لعبة)!</p>
+            <div class="display-box moon-box" id="game-result" style="text-align: center; font-weight: bold;">
+                من سيفوز اليوم؟
             </div>
-            <input type="text" id="story-input" placeholder="أضف السطر أو الخيار القادم...">
-            <button class="btn" onclick="addStoryLine()">إضافة للقصة ✍️</button>
+            <button class="btn btn-moon" onclick="generateGame()">تحدي جديد 🌙</button>
         </div>
 
-        <!-- Backup & Sync Section -->
-        <div class="card backup-section">
-            <h2>🔄 حفظ ونقل البيانات بين الجهازين</h2>
-            <p style="font-size: 0.85rem; color: #94a3b8;">علشان البيانات تتحدث عند الطرفين وتضمنوا عدم ضياع أي نقطة:</p>
-            <div style="display: flex; gap: 10px; justify-content: center;">
-                <button class="btn btn-small" onclick="exportData()">📥 تصدير ملف النسخة (Export)</button>
-                <button class="btn btn-small" onclick="document.getElementById('import-file').click()">📤 رفع نسخة جديدة (Import)</button>
+        <!-- 5. مذكرات ومغامرات مشتركة -->
+        <div class="card" style="grid-column: 1 / -1;">
+            <h2>📖 مذكرات المجرة (اكتبوا قصتكم أو يومياتكم سطر بسطر)</h2>
+            <div class="display-box" id="story-history" style="height: 150px; overflow-y: auto; background: rgba(0,0,0,0.5);">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="story-input" placeholder="اكتب سطر للقصة أو ذكرى اليوم...">
+                <button class="btn" style="width: 150px;" onclick="addStoryLine()">إضافة ✍️</button>
+            </div>
+        </div>
+
+        <!-- 6. المزامنة (Import/Export) -->
+        <div class="card" style="grid-column: 1 / -1; text-align: center; border: 1px dashed rgba(255,255,255,0.3);">
+            <h2>🔄 مزامنة الكواكب (حفظ ونقل البيانات)</h2>
+            <p style="color: #94a3b8; font-size: 0.9rem;">اسحب نسخة بعد أي تعديل وابعثها للطرف الثاني ليرفعها هنا وتبقى نقاطكم ويومياتكم محفوظة!</p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button class="btn btn-moon" style="max-width: 250px;" onclick="exportData()">📥 سحب نسخة (لترسلها)</button>
+                <button class="btn btn-sun" style="max-width: 250px;" onclick="document.getElementById('import-file').click()">📤 رفع نسخة (وصلتك)</button>
                 <input type="file" id="import-file" style="display: none;" onchange="importData(event)">
             </div>
         </div>
@@ -252,66 +274,163 @@
     </div>
 
     <script>
-        // Password System (Change "1234" to whatever password you both want)
         const SECRET_PASS = "1234";
 
         function checkPassword() {
-            const input = document.getElementById('pass-input').value;
-            if(input === SECRET_PASS) {
+            if(document.getElementById('pass-input').value === SECRET_PASS) {
                 document.getElementById('login-overlay').style.display = 'none';
             } else {
-                document.getElementById('pass-error').style.display = 'block';
+                alert('الرمز خاطئ!');
             }
         }
 
-        // Default App State
-        let appData = {
-            scores: { homam: 0, muniya: 0 },
-            question: "شنو الحلم أو الهدف اللي تبي تحققه هذا الشهر؟",
-            answers: { homam: "لم تُحدد", muniya: "لم تُحدد" },
-            story: ["بدأت المغامرة عندما وجد همام ومُنية خريطة كنز قديمة في المستودع..."]
-        };
+        // ================= البيانات الضخمة المبرمجة =================
 
-        const activities = [
-            "تحدي رسم شخصية في 3 دقائق ومقارنتها 🎨",
-            "لعب لعبة أسئلة صراحة (لو خيروك) 💬",
-            "مشاهدة وثائقي أو حلقة فيلم مع بعض 🎬",
-            "تحدي معرفة الأغاني من أول ثانيتين 🎵",
-            "كل واحد يحكي موقف يضحك صارله وهو صغير 👶"
+        // 30 سؤال عميق وممتع
+        const questionsDB = [
+            "لو كان بإمكانك السفر بالزمن، لأي يوم بالتحديد في علاقتنا بترجع؟",
+            "شنو أكثر صفة تعجبك في الطرف الثاني؟",
+            "لو أُلفت رواية عنا، شنو بيكون عنوانها؟",
+            "شنو أكثر أغنية تحس إنها تمثلنا؟",
+            "لو فزنا بمليون دولار، شنو أول شيء مجنون نديروه مع بعض؟",
+            "شنو أكثر موقف يضحك صارلنا؟",
+            "متى حسيت لأول مرة إن الطرف الثاني شخص مهم جداً بحياتك؟",
+            "لو كنا شخصيات في أنمي أو كرتون، من بنكون؟",
+            "شنو الأكلة اللي مستحيل تشاركها مع الطرف الثاني؟ 😂",
+            "أكثر شيء غريب اكتشفته فيني بعد ما عرفتني؟",
+            "لو عندك قوة خارقة، شنو بتختار؟ وكيف بتستعملها ضدي؟",
+            "شنو أكثر شيء فخور فيه بحياتك حالياً؟",
+            "مكان تتمنى نسافر له مع بعض أول ما نلتقي؟",
+            "شنو أسوأ فيلم شفته بحياتك وتبي الطرف الثاني يشوفه عشان يتعذب معاك؟",
+            "لو تقدر تغير شيء واحد في روتيني اليومي، شنو بتغير؟",
+            "أكثر شيء يسعدك لما تكون متضايق؟",
+            "لو كل العالم يسمعك لمدة 30 ثانية، شنو بتقول؟",
+            "شنو العادة الغريبة اللي تدير فيها وما حد يعرفها غيري؟",
+            "لو حياتنا كانت فيلم، شنو بيكون تصنيفه؟ (كوميدي، رعب، دراما..)",
+            "أفضل نصيحة سمعتها بحياتك؟",
+            "شيء كنت تخاف منه ولما كبرت اكتشفت إنه تافه؟",
+            "لو نقدر نعيش في أي عصر تاريخي، أي عصر بتختار؟",
+            "شنو الموهبة اللي تتمنى تكون عندك؟",
+            "لو عندك فرصة تعتذر لشخص من ماضيك، من بيكون؟",
+            "أكثر شيء يعصبك بسرعة؟",
+            "كيف تتخيل شكلنا وحياتنا بعد 10 سنين؟",
+            "شنو الشيء اللي مستحيل تسامح عليه؟",
+            "لو طلبوا منك توصفني في 3 كلمات بس، شنو بتكون؟",
+            "أغنية لو سمعتها مستحيل ما تغني معاها؟",
+            "شنو أكثر سؤال تخاف حد يسأله لك؟"
         ];
 
-        // Load Saved Data from LocalStorage
+        // 30+ فعالية تناسب المسافات المتباعدة
+        const activitiesDB = [
+            "🎬 نتفرجوا على فيلم أو حلقة مسلسل في نفس الوقت",
+            "🎧 كل واحد يصمم للثاني Playlist فيها 5 أغاني يسمعها اليوم",
+            "🍔 كل واحد يطلب عشاء للثاني أونلاين (أو يتفقوا يطبخوا نفس الأكلة)",
+            "🚶‍♂️ مكالمة صوتية وإحنا نمشوا برة البيت في نفس الوقت",
+            "🌅 تصوير الغروب أو شروق الشمس وإرسال الصورة (الشمس والبدر)",
+            "☕ نشربوا قهوة الصبح مع بعض فيديو كول",
+            "📚 نقرأ نفس الفصل من كتاب ونتناقش فيه",
+            "🖼️ جولة افتراضية في متحف عالمي عن طريق Google Arts",
+            "📱 Screen Share ونتفرجوا على ريلز أو تيك توك مع بعض",
+            "🎨 نرسموا بعض في 3 دقائق ونقارن الكوارث 😂",
+            "😴 مكالمة هادية قبل النوم لين نرقدوا",
+            "🧘‍♀️ نسجلوا في كورس أونلاين بسيط وندرسه مع بعض",
+            "🛒 تسوق أونلاين: كل واحد يختار للثاني لبسة (تخيلية)",
+            "💌 نبعثوا لبعض رسالة إيميل طويلة (كأننا في التسعينات)",
+            "🎤 نغنوا كاريوكي في مكالمة صوتية",
+            "🧩 نحلوا لغز أو Puzzle أونلاين مع بعض",
+            "✈️ نخططوا لرحلة خيالية بالتفصيل (تذاكر، فنادق، جدول سياحي)",
+            "📸 تحدي التصوير: كل واحد يصور 5 أشياء باللون الأزرق في مكانه",
+            "📝 نكتبوا قائمة أهداف (Bucket List) للأشياء اللي بنديروها لما نلتقي",
+            "👶 كل واحد يبعث صورة وهو صغير ونعلقوا عليها",
+            "👻 نحكي لبعض قصص رعب في مكالمة بالليل",
+            "🍳 تحدي الطبخ: نصنع أكلة من 3 مكونات فقط في البيت",
+            "🤫 نقعدوا 10 دقائق صمت في المكالمة ونشتغل أو نقرأ بدون كلام",
+            "👗 كل واحد يصور لبسته اليوم ونعطوا تقييم من 10",
+            "🏡 نرسموا بيت أحلامنا المشترك على ورقة ونبعث الصور",
+            "🌍 نلعبوا GeoGuessr ونكتشف العالم",
+            "🎵 نلعبوا لعبة الكلمات: واحد يقول كلمة والثاني يغني أغنية فيها الكلمة",
+            "💡 نعلم بعضنا مهارة جديدة (كلمات لغة جديدة، حركة، معلومة)",
+            "📜 كل واحد يكتب قصيدة سطر بسطر (أنا سطر وأنت سطر)",
+            "🎁 نصمموا كروت معايدة إلكترونية لبعض بدون مناسبة"
+        ];
+
+        // 30+ تحدي ولعبة (نظام الفوز والنقاط)
+        const gamesDB = [
+            "🎯 حقيقتين وكذبة (كل واحد يقول 3 أشياء عن يومه، والثاني يخمن الكذبة)",
+            "🎯 لعبة Skribbl.io (لعبة الرسم والتخمين أونلاين)",
+            "🎯 تحدي الذاكرة: من يقدر يذكر أكثر تفاصيل عن لبس الثاني في آخر لقاء/مكالمة؟",
+            "🎯 لعبة الشطرنج أو Ludo أونلاين",
+            "🎯 تحدي من يكتب فقرة أطول بدون أخطاء إملائية في دقيقة ⌨️",
+            "🎯 لعبة 'لو خيروك' بأسئلة محرجة وصعبة 🔥",
+            "🎯 تحدي عدم الضحك (واحد يبعث ميمز والثاني يصور وجهه فيديو بدون ما يضحك)",
+            "🎯 تخمين الأغنية من الإيموجي فقط 🎵",
+            "🎯 لعبة الحروف: نختار حرف، ولازم نجاوب على 5 أسئلة بكلمات تبدأ بنفس الحرف",
+            "🎯 تحدي من يعرف الثاني أكثر؟ (10 أسئلة شخصية)",
+            "🎯 مسابقة مسح الجوال: أول واحد يلقى صورة شيء لونه 'أصفر' يربح",
+            "🎯 لعبة الأوامر: الخاسر في حجر-ورق-مقص ينفذ طلب الثاني",
+            "🎯 تحدي الكلمات المتقاطعة أو Wordle",
+            "🎯 تحدي تقليد الأصوات: من يقلد شخصية مشهورة أفضل؟",
+            "🎯 تخمين الكلمة: واحد يوصف شيء بدون ما يذكر اسمه والثاني يحزر",
+            "🎯 لعبة 'عمرك درت كذا؟' (Never Have I Ever)",
+            "🎯 تحدي النكت: من يقدر يخلي الثاني يضحك أولاً؟",
+            "🎯 لعبة 20 سؤال (فكر في شخصية والثاني يحاول يعرفها بـ 20 سؤال فقط)",
+            "🎯 تحدي اللهجات: حاول تتكلم بلهجة ثانية لمدة 3 دقائق بدون ما تغلط",
+            "🎯 مسابقة أسرع بحث في جوجل: (مثال: كم عدد أسنان القط؟)",
+            "🎯 لعبة إكمال القصة المضحكة: كل واحد يقول كلمة وحدة بس ونبني قصة",
+            "🎯 تحدي قراءة الشفاه: في الفيديو كول، واحد يقفل المايك ويتكلم والثاني يحزر",
+            "🎯 لعبة 'فكر بسرعة': اذكر 5 أشياء في المطبخ خلال 5 ثواني",
+            "🎯 تحدي الرسم الأعمى: ارسم شيء وأنت مغمض عيونك",
+            "🎯 لعبة 'يا أنا يا هو': أسئلة مثل (من يعصب أسرع؟ من ينام أكثر؟)",
+            "🎯 تحدي الـ 5 دقائق: من يقدر يرتب غرفته أسرع في 5 دقائق (بالفيديو)؟",
+            "🎯 مسابقة الغناء بكلمات غلط متعمدة بدون ما توقف",
+            "🎯 تحدي العثور على أقدم صورة في المعرض (Gallery)",
+            "🎯 لعبة الحزر بالتلميحات: ارسل صورة مقصوصة جداً لشيء عندك والثاني يحزر",
+            "🎯 تحدي البقاء مستيقظاً أطول فترة (للسهارى)"
+        ];
+
+        // ================= إدارة البيانات والمزامنة =================
+        let appData = {
+            scores: { homam: 0, muniya: 0 },
+            currentQ: "اضغط على زر (سؤال جديد) لتبدأ",
+            answers: { homam: "...", muniya: "..." },
+            story: ["🌟 في مجرة بعيدة، التقى البدر بالشمس وبدأت الحكاية..."]
+        };
+
         function initData() {
-            const saved = localStorage.getItem('homam_muniya_data');
-            if(saved) {
-                appData = JSON.parse(saved);
-            }
+            const saved = localStorage.getItem('shams_badr_data');
+            if(saved) appData = JSON.parse(saved);
             renderUI();
         }
 
         function saveData() {
-            localStorage.setItem('homam_muniya_data', JSON.stringify(appData));
+            localStorage.setItem('shams_badr_data', JSON.stringify(appData));
             renderUI();
         }
 
         function renderUI() {
             document.getElementById('score-homam').innerText = appData.scores.homam;
             document.getElementById('score-muniya').innerText = appData.scores.muniya;
-            document.getElementById('q-title').innerText = appData.question;
+            document.getElementById('q-title').innerText = appData.currentQ;
             document.getElementById('ans-homam').innerText = appData.answers.homam;
             document.getElementById('ans-muniya').innerText = appData.answers.muniya;
-
+            
             const storyBox = document.getElementById('story-history');
-            storyBox.innerHTML = appData.story.map(s => `<p>• ${s}</p>`).join('');
+            storyBox.innerHTML = appData.story.map(s => `<div style="margin-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">${s}</div>`).join('');
+            storyBox.scrollTop = storyBox.scrollHeight;
         }
 
-        // Leaderboard Logic
         function addPoints(user, pts) {
             appData.scores[user] += pts;
             saveData();
         }
 
-        // Answer Logic
+        function generateQuestion() {
+            const random = questionsDB[Math.floor(Math.random() * questionsDB.length)];
+            appData.currentQ = random;
+            appData.answers = { homam: "...", muniya: "..." };
+            saveData();
+        }
+
         function saveAnswer(user) {
             const val = document.getElementById('my-answer').value;
             if(!val) return;
@@ -320,40 +439,41 @@
             saveData();
         }
 
-        // Story Logic
+        function generateActivity() {
+            const random = activitiesDB[Math.floor(Math.random() * activitiesDB.length)];
+            document.getElementById('activity-result').innerText = random;
+        }
+
+        function generateGame() {
+            const random = gamesDB[Math.floor(Math.random() * gamesDB.length)];
+            document.getElementById('game-result').innerText = random;
+        }
+
         function addStoryLine() {
             const input = document.getElementById('story-input');
             if(!input.value) return;
-            appData.story.push(input.value);
+            appData.story.push("✨ " + input.value);
             input.value = '';
             saveData();
         }
 
-        // Wheel Spin
-        function spinWheel() {
-            const random = activities[Math.floor(Math.random() * activities.length)];
-            document.getElementById('wheel-result').innerText = random;
-        }
-
-        // Export Data to JSON File
         function exportData() {
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `homam_muniya_backup_${new Date().toLocaleDateString()}.json`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
+            const dl = document.createElement('a');
+            dl.setAttribute("href", dataStr);
+            dl.setAttribute("download", `Shams_Badr_Backup.json`);
+            document.body.appendChild(dl);
+            dl.click();
+            dl.remove();
         }
 
-        // Import Data from JSON File
         function importData(event) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
                     appData = JSON.parse(e.target.result);
                     saveData();
-                    alert('تم تحديث البيانات بنجاح! 🎉');
+                    alert('تم مزامنة بيانات الكوكبين بنجاح! ☀️🌙');
                 } catch(err) {
                     alert('الملف غير صحيح!');
                 }
@@ -361,7 +481,6 @@
             reader.readAsText(event.target.files[0]);
         }
 
-        // Initialize App
         initData();
     </script>
 </body>
