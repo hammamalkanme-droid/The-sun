@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homam & Muniya Hub 🚀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --primary: #6366f1;
+            --accent-homam: #3b82f6;
+            --accent-muniya: #ec4899;
+            --text: #f8fafc;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #334155;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            background: linear-gradient(45deg, var(--accent-homam), var(--accent-muniya));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 10px;
+        }
+
+        .profile-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .homam { background-color: var(--accent-homam); }
+        .muniya { background-color: var(--accent-muniya); }
+
+        button {
+            background: linear-gradient(45deg, var(--primary), var(--accent-muniya));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: bold;
+            transition: transform 0.2s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: scale(1.02);
+        }
+
+        .wheel-result {
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px;
+            min-height: 40px;
+        }
+
+        ul { list-style: none; padding: 0; }
+        li { margin-bottom: 10px; padding: 8px; background: #0f172a; border-radius: 6px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🎮 Homam & Muniya Space</h1>
+        <p>مساحتنا اليومية الخاصة للفعاليات والتحديات</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- Daily Check-in -->
+        <div class="card">
+            <h2>✨ سؤال اليوم وتحديث المزاج</h2>
+            <div id="daily-question" style="font-weight: bold; color: #cbd5e1; margin-bottom: 15px;"></div>
+            
+            <span class="profile-tag homam">همام</span>
+            <p id="homam-answer"></p>
+            
+            <span class="profile-tag muniya">مُنية</span>
+            <p id="muniya-answer"></p>
+        </div>
+
+        <!-- Wheel / Activity Randomizer -->
+        <div class="card">
+            <h2>🎯 فعاليتنا لليوم (العجلة العشوائية)</h2>
+            <p>مش عارفين شن تديروا؟ اضغط على الزر واختاروا فعالية اليوم!</p>
+            <button onclick="pickActivity()">دَوّر العجلة 🎲</button>
+            <div id="activity-display" class="wheel-result">اضغط لاختيار فعالية...</div>
+        </div>
+
+        <!-- Story Quest -->
+        <div class="card">
+            <h2>📖 مغامرة اليوم (Story Quest)</h2>
+            <p id="story-text"></p>
+            <div id="story-choices"></div>
+        </div>
+
+        <!-- Bug Hunt / Puzzle -->
+        <div class="card">
+            <h2>🧩 لغز البرمجة / تحدي اليوم</h2>
+            <p id="puzzle-desc"></p>
+            <pre style="background:#0f172a; padding:10px; border-radius:6px; color:#a5f3fc;" id="puzzle-code"></pre>
+        </div>
+
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        // Load Daily Data
+        document.getElementById('daily-question').innerText = dailyData.question;
+        document.getElementById('homam-answer').innerText = dailyData.homamAnswer;
+        document.getElementById('muniya-answer').innerText = dailyData.muniyaAnswer;
+
+        // Activity Picker
+        function pickActivity() {
+            const random = activities[Math.floor(Math.random() * activities.length)];
+            document.getElementById('activity-display').innerText = random;
+        }
+
+        // Load Story
+        document.getElementById('story-text').innerText = storyQuest.currentChapter;
+        const choicesDiv = document.getElementById('story-choices');
+        storyQuest.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.innerText = opt;
+            btn.style.margin = "5px 0";
+            btn.onclick = () => alert('تم اختيار: ' + opt + '! حان دور الطرف الآخر لتحديث القصة في data.js');
+            choicesDiv.appendChild(btn);
+        });
+
+        // Load Puzzle
+        document.getElementById('puzzle-desc').innerText = currentPuzzle.description;
+        document.getElementById('puzzle-code').innerText = currentPuzzle.code;
+    </script>
+</body>
+</html>
