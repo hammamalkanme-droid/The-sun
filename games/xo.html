@@ -2,705 +2,811 @@
 <html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    >
-
-    <meta name="theme-color" content="#050916">
-
-    <title>إكس أو | بدر × شمس</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            min-height: 100%;
-            font-family:
-                "Segoe UI",
-                Tahoma,
-                Arial,
-                sans-serif;
-            background:
-                radial-gradient(
-                    circle at 50% -10%,
-                    #1b315e 0%,
-                    #091126 42%,
-                    #040711 100%
-                );
-            color: white;
-        }
-
-        body {
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        button {
-            font: inherit;
-            cursor: pointer;
-        }
-
-        button:active {
-            transform: scale(.97);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-
-        /* =========================================
-           BACKGROUND
-        ========================================= */
-
-        .background {
-            position: fixed;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(55px);
-            opacity: .22;
-        }
-
-        .moon-orb {
-            width: 240px;
-            height: 240px;
-            right: -80px;
-            top: 80px;
-            background: #237ee8;
-        }
-
-        .sun-orb {
-            width: 220px;
-            height: 220px;
-            left: -80px;
-            bottom: 80px;
-            background: #ff8c28;
-        }
-
-        .stars {
-            position: absolute;
-            inset: 0;
-            opacity: .55;
-            background-image:
-                radial-gradient(
-                    circle,
-                    rgba(255,255,255,.7) 1px,
-                    transparent 1px
-                ),
-                radial-gradient(
-                    circle,
-                    rgba(255,255,255,.35) 1px,
-                    transparent 1px
-                );
-            background-size:
-                75px 75px,
-                125px 125px;
-            background-position:
-                10px 20px,
-                40px 60px;
-        }
-
-
-        /* =========================================
-           MAIN
-        ========================================= */
-
-        .game {
-            position: relative;
-            z-index: 2;
-            width: min(560px, calc(100% - 24px));
-            min-height: 100vh;
-            margin: auto;
-            padding: 16px 0 28px;
-        }
-
-
-        /* =========================================
-           HEADER
-        ========================================= */
-
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-
-        .back-button {
-            width: 44px;
-            height: 44px;
-            border: 1px solid rgba(255,255,255,.09);
-            border-radius: 14px;
-            background: rgba(255,255,255,.045);
-            color: white;
-            font-size: 22px;
-            transition: .2s;
-        }
-
-        .back-button:hover {
-            background: rgba(255,255,255,.08);
-        }
-
-        .title {
-            flex: 1;
-            text-align: center;
-        }
-
-        .title small {
-            display: block;
-            color: #718099;
-            font-size: 10px;
-            margin-bottom: 3px;
-        }
-
-        .title strong {
-            font-size: 18px;
-        }
-
-        .title strong span {
-            color: #78869d;
-        }
-
-        .round-badge {
-            min-width: 74px;
-            padding: 9px 10px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,.07);
-            border-radius: 13px;
-            background: rgba(255,255,255,.04);
-        }
-
-        .round-badge small {
-            display: block;
-            color: #69768c;
-            font-size: 8px;
-        }
-
-        .round-badge strong {
-            font-size: 13px;
-        }
-
-
-        /* =========================================
-           SCORE
-        ========================================= */
-
-        .score-card {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: center;
-            gap: 8px;
-            padding: 13px;
-            border: 1px solid rgba(255,255,255,.07);
-            border-radius: 20px;
-            background: rgba(255,255,255,.035);
-            box-shadow:
-                0 15px 45px rgba(0,0,0,.18),
-                inset 0 1px 0 rgba(255,255,255,.025);
-        }
-
-        .player-score {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            min-width: 0;
-        }
-
-        .player-score.sun {
-            flex-direction: row-reverse;
-            text-align: right;
-        }
-
-        .avatar {
-            width: 42px;
-            height: 42px;
-            flex-shrink: 0;
-            border-radius: 13px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 23px;
-        }
-
-        .moon .avatar {
-            color: #79bdff;
-            background: rgba(55,140,255,.13);
-            box-shadow:
-                0 0 25px rgba(55,140,255,.08);
-        }
-
-        .sun .avatar {
-            color: #ffad4d;
-            background: rgba(255,140,40,.13);
-            box-shadow:
-                0 0 25px rgba(255,140,40,.08);
-        }
-
-        .player-info {
-            min-width: 0;
-        }
-
-        .player-info small {
-            display: block;
-            color: #69768b;
-            font-size: 9px;
-        }
-
-        .player-info strong {
-            display: block;
-            margin-top: 2px;
-            font-size: 14px;
-        }
-
-        .score-number {
-            margin-top: 3px;
-            font-size: 19px;
-            font-weight: 900;
-        }
-
-        .versus {
-            text-align: center;
-            color: #68758a;
-        }
-
-        .versus small {
-            display: block;
-            font-size: 8px;
-        }
-
-        .versus strong {
-            font-size: 11px;
-            color: #a2adbf;
-        }
-
-
-        /* =========================================
-           STATUS
-        ========================================= */
-
-        .status-card {
-            margin-top: 14px;
-            padding: 17px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,.07);
-            border-radius: 20px;
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(25,45,82,.72),
-                    rgba(8,14,29,.85)
-                );
-        }
-
-        .status-icon {
-            width: 54px;
-            height: 54px;
-            margin: 0 auto 9px;
-            border-radius: 17px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            background: rgba(255,255,255,.045);
-            transition: .3s;
-        }
-
-        .status-card.your-turn .status-icon {
-            animation: pulse 1.5s infinite;
-        }
-
-        .status-title {
-            font-size: 17px;
-            font-weight: 900;
-        }
-
-        .status-subtitle {
-            margin-top: 4px;
-            color: #7d8aa0;
-            font-size: 10px;
-        }
-
-        @keyframes pulse {
-            0%,100% {
-                box-shadow: 0 0 0 0 rgba(90,170,255,.15);
-            }
-
-            50% {
-                box-shadow: 0 0 0 12px rgba(90,170,255,0);
-            }
-        }
-
-
-        /* =========================================
-           BOARD
-        ========================================= */
-
-        .board-wrap {
-            margin-top: 16px;
-            padding: 13px;
-            border: 1px solid rgba(255,255,255,.07);
-            border-radius: 25px;
-            background:
-                rgba(4,9,20,.72);
-            box-shadow:
-                0 25px 70px rgba(0,0,0,.25);
-        }
-
-        .board {
-            width: 100%;
-            aspect-ratio: 1;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 9px;
-        }
-
-        .cell {
-            position: relative;
-            min-width: 0;
-            border: 1px solid rgba(255,255,255,.07);
-            border-radius: 18px;
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,.055),
-                    rgba(255,255,255,.018)
-                );
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: clamp(42px, 14vw, 74px);
-            font-weight: 900;
-            transition:
-                transform .18s,
-                background .18s,
-                border .18s,
-                box-shadow .18s;
-            overflow: hidden;
-        }
-
-        .cell:not(.taken):hover {
-            transform: translateY(-2px);
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(70,150,255,.09),
-                    rgba(255,255,255,.025)
-                );
-            border-color: rgba(110,180,255,.22);
-        }
-
-        .cell:disabled {
-            cursor: default;
-        }
-
-        .cell.moon-mark {
-            color: #78c0ff;
-            text-shadow:
-                0 0 22px rgba(70,160,255,.45);
-            animation: markIn .28s ease-out;
-        }
-
-        .cell.sun-mark {
-            color: #ffad4d;
-            text-shadow:
-                0 0 22px rgba(255,145,40,.4);
-            animation: markIn .28s ease-out;
-        }
-
-        @keyframes markIn {
-            0% {
-                opacity: 0;
-                transform: scale(.35) rotate(-12deg);
-            }
-
-            70% {
-                transform: scale(1.12) rotate(2deg);
-            }
-
-            100% {
-                opacity: 1;
-                transform: scale(1) rotate(0);
-            }
-        }
-
-        .cell.winner {
-            animation:
-                winnerCell .7s infinite alternate;
-            z-index: 2;
-        }
-
-        @keyframes winnerCell {
-            from {
-                box-shadow:
-                    0 0 10px rgba(255,255,255,.08);
-            }
-
-            to {
-                box-shadow:
-                    0 0 30px rgba(255,190,70,.32),
-                    inset 0 0 20px rgba(255,190,70,.06);
-            }
-        }
-
-
-        /* =========================================
-           CONTROLS
-        ========================================= */
-
-        .controls {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 9px;
-            margin-top: 13px;
-        }
-
-        .control-button {
-            min-height: 48px;
-            border: 1px solid rgba(255,255,255,.08);
-            border-radius: 15px;
-            background: rgba(255,255,255,.045);
-            color: #dfe6f2;
-            font-weight: 700;
-            transition: .2s;
-        }
-
-        .control-button:hover {
-            border-color: rgba(255,255,255,.16);
-            background: rgba(255,255,255,.07);
-        }
-
-        .control-button.primary {
-            background:
-                linear-gradient(
-                    135deg,
-                    #1763b7,
-                    #2e86df
-                );
-            border-color: transparent;
-            box-shadow:
-                0 12px 30px rgba(35,120,230,.18);
-        }
-
-
-        /* =========================================
-           TIP
-        ========================================= */
-
-        .tip {
-            margin-top: 13px;
-            padding: 12px;
-            text-align: center;
-            color: #69768b;
-            font-size: 9px;
-            line-height: 1.7;
-        }
-
-
-        /* =========================================
-           RESULT OVERLAY
-        ========================================= */
-
-        .result-overlay {
-            position: fixed;
-            z-index: 100;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background:
-                rgba(2,5,12,.78);
-            backdrop-filter: blur(12px);
-            animation: fadeIn .25s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .result-card {
-            width: min(390px, 100%);
-            padding: 30px 23px 23px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,.09);
-            border-radius: 28px;
-            background:
-                linear-gradient(
-                    145deg,
-                    #152544,
-                    #080d1b
-                );
-            box-shadow:
-                0 30px 100px rgba(0,0,0,.55);
-            animation: resultPop .35s ease-out;
-        }
-
-        @keyframes resultPop {
-            from {
-                transform: scale(.8) translateY(20px);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1) translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .result-icon {
-            width: 84px;
-            height: 84px;
-            margin: 0 auto 14px;
-            border-radius: 26px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 45px;
-            background: rgba(255,255,255,.05);
-        }
-
-        .result-card h2 {
-            margin: 0;
-            font-size: 26px;
-        }
-
-        .result-card p {
-            margin: 9px 0 0;
-            color: #8794a9;
-            font-size: 12px;
-            line-height: 1.7;
-        }
-
-        .reward {
-            margin: 18px 0;
-            padding: 13px;
-            border-radius: 15px;
-            background: rgba(255,170,60,.07);
-            border: 1px solid rgba(255,170,60,.1);
-            color: #ffb35c;
-            font-weight: 900;
-        }
-
-        .result-actions {
-            display: grid;
-            gap: 9px;
-        }
-
-        .result-actions button {
-            min-height: 49px;
-            border: none;
-            border-radius: 15px;
-            color: white;
-            font-weight: 800;
-        }
-
-        .play-again {
-            background:
-                linear-gradient(
-                    135deg,
-                    #1763b7,
-                    #3286df
-                );
-        }
-
-        .close-result {
-            background: rgba(255,255,255,.06);
-        }
-
-
-        /* =========================================
-           CONFETTI
-        ========================================= */
-
-        .confetti {
-            position: fixed;
-            z-index: 150;
-            width: 8px;
-            height: 13px;
-            top: -20px;
-            pointer-events: none;
-            animation:
-                confettiFall
-                var(--duration)
-                linear
-                forwards;
-        }
-
-        @keyframes confettiFall {
-            to {
-                transform:
-                    translate3d(
-                        var(--x),
-                        110vh,
-                        0
-                    )
-                    rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-
-        /* =========================================
-           RESPONSIVE
-        ========================================= */
-
-        @media (max-width: 390px) {
-
-            .game {
-                width: min(100% - 16px, 560px);
-                padding-top: 10px;
-            }
-
-            .score-card {
-                padding: 10px;
-            }
-
-            .avatar {
-                width: 38px;
-                height: 38px;
-            }
-
-            .board-wrap {
-                padding: 9px;
-            }
-
-            .board {
-                gap: 6px;
-            }
-
-            .cell {
-                border-radius: 14px;
-            }
-
-        }
-
-    </style>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
+<meta name="theme-color" content="#050916">
+
+<title>إكس أو | بدر × شمس</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family:
+        "Segoe UI",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            #1b315e 0%,
+            #091126 42%,
+            #040711 100%
+        );
+
+    color: white;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(.97);
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================
+   BACKGROUND
+========================================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(55px);
+    opacity: .22;
+}
+
+.moon-orb {
+    width: 240px;
+    height: 240px;
+    right: -80px;
+    top: 80px;
+    background: #237ee8;
+}
+
+.sun-orb {
+    width: 220px;
+    height: 220px;
+    left: -80px;
+    bottom: 80px;
+    background: #ff8c28;
+}
+
+.stars {
+    position: absolute;
+    inset: 0;
+    opacity: .55;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.7) 1px,
+            transparent 1px
+        ),
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.35) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        75px 75px,
+        125px 125px;
+
+    background-position:
+        10px 20px,
+        40px 60px;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.game {
+    position: relative;
+    z-index: 2;
+    width: min(560px, calc(100% - 24px));
+    min-height: 100vh;
+    margin: auto;
+    padding: 16px 0 28px;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.back-button {
+    width: 44px;
+    height: 44px;
+
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 14px;
+
+    background: rgba(255,255,255,.045);
+    color: white;
+
+    font-size: 22px;
+}
+
+.title {
+    flex: 1;
+    text-align: center;
+}
+
+.title small {
+    display: block;
+    color: #718099;
+    font-size: 10px;
+    margin-bottom: 3px;
+}
+
+.title strong {
+    font-size: 18px;
+}
+
+.title strong span {
+    color: #78869d;
+}
+
+.round-badge {
+    min-width: 74px;
+    padding: 9px 10px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 13px;
+
+    background: rgba(255,255,255,.04);
+}
+
+.round-badge small {
+    display: block;
+    color: #69768c;
+    font-size: 8px;
+}
+
+.round-badge strong {
+    font-size: 13px;
+}
+
+
+/* =========================================
+   SCORE
+========================================= */
+
+.score-card {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+
+    align-items: center;
+    gap: 8px;
+
+    padding: 13px;
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.035);
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.18),
+        inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.player-score {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+}
+
+.player-score.sun {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 23px;
+}
+
+.moon .avatar {
+    color: #79bdff;
+    background: rgba(55,140,255,.13);
+}
+
+.sun .avatar {
+    color: #ffad4d;
+    background: rgba(255,140,40,.13);
+}
+
+.player-info {
+    min-width: 0;
+}
+
+.player-info small {
+    display: block;
+    color: #69768b;
+    font-size: 9px;
+}
+
+.player-info strong {
+    display: block;
+    margin-top: 2px;
+    font-size: 14px;
+}
+
+.score-number {
+    margin-top: 3px;
+    font-size: 19px;
+    font-weight: 900;
+}
+
+.versus {
+    text-align: center;
+    color: #68758a;
+}
+
+.versus small {
+    display: block;
+    font-size: 8px;
+}
+
+.versus strong {
+    font-size: 11px;
+    color: #a2adbf;
+}
+
+
+/* =========================================
+   MY PLAYER BADGE
+========================================= */
+
+.my-player {
+    margin-top: 10px;
+
+    padding: 9px 12px;
+
+    border-radius: 13px;
+
+    text-align: center;
+
+    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(255,255,255,.06);
+
+    color: #8996aa;
+
+    font-size: 10px;
+}
+
+.my-player strong {
+    color: white;
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.status-card {
+    margin-top: 14px;
+
+    padding: 17px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(25,45,82,.72),
+            rgba(8,14,29,.85)
+        );
+
+    transition: .25s;
+}
+
+.status-card.your-turn {
+    border-color: rgba(80,160,255,.25);
+}
+
+.status-card.waiting {
+    opacity: .9;
+}
+
+.status-icon {
+    width: 54px;
+    height: 54px;
+
+    margin: 0 auto 9px;
+
+    border-radius: 17px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 28px;
+
+    background: rgba(255,255,255,.045);
+}
+
+.status-card.your-turn .status-icon {
+    animation: pulse 1.5s infinite;
+}
+
+.status-title {
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.status-subtitle {
+    margin-top: 4px;
+    color: #7d8aa0;
+    font-size: 10px;
+}
+
+@keyframes pulse {
+
+    0%,100% {
+        box-shadow: 0 0 0 0 rgba(90,170,255,.15);
+    }
+
+    50% {
+        box-shadow: 0 0 0 12px rgba(90,170,255,0);
+    }
+
+}
+
+
+/* =========================================
+   BOARD
+========================================= */
+
+.board-wrap {
+    margin-top: 16px;
+
+    padding: 13px;
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 25px;
+
+    background: rgba(4,9,20,.72);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.25);
+}
+
+.board {
+    width: 100%;
+    aspect-ratio: 1;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 9px;
+}
+
+.cell {
+    position: relative;
+
+    min-width: 0;
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.018)
+        );
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(42px, 14vw, 74px);
+    font-weight: 900;
+
+    transition:
+        transform .18s,
+        background .18s,
+        border .18s,
+        box-shadow .18s;
+}
+
+.cell:not(.taken):not(:disabled):hover {
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(70,150,255,.09),
+            rgba(255,255,255,.025)
+        );
+
+    border-color: rgba(110,180,255,.22);
+}
+
+.cell:disabled {
+    cursor: not-allowed;
+}
+
+.cell.moon-mark {
+    color: #78c0ff;
+
+    text-shadow:
+        0 0 22px rgba(70,160,255,.45);
+
+    animation: markIn .28s ease-out;
+}
+
+.cell.sun-mark {
+    color: #ffad4d;
+
+    text-shadow:
+        0 0 22px rgba(255,145,40,.4);
+
+    animation: markIn .28s ease-out;
+}
+
+@keyframes markIn {
+
+    0% {
+        opacity: 0;
+        transform: scale(.35) rotate(-12deg);
+    }
+
+    70% {
+        transform: scale(1.12) rotate(2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+
+}
+
+.cell.winner {
+    animation:
+        winnerCell .7s infinite alternate;
+
+    z-index: 2;
+}
+
+@keyframes winnerCell {
+
+    from {
+        box-shadow:
+            0 0 10px rgba(255,255,255,.08);
+    }
+
+    to {
+        box-shadow:
+            0 0 30px rgba(255,190,70,.32),
+            inset 0 0 20px rgba(255,190,70,.06);
+    }
+
+}
+
+
+/* =========================================
+   CONTROLS
+========================================= */
+
+.controls {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 9px;
+
+    margin-top: 13px;
+}
+
+.control-button {
+    min-height: 48px;
+
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 15px;
+
+    background: rgba(255,255,255,.045);
+
+    color: #dfe6f2;
+
+    font-weight: 700;
+}
+
+.control-button.primary {
+    background:
+        linear-gradient(
+            135deg,
+            #1763b7,
+            #2e86df
+        );
+
+    border-color: transparent;
+}
+
+
+/* =========================================
+   TIP
+========================================= */
+
+.tip {
+    margin-top: 13px;
+
+    padding: 12px;
+
+    text-align: center;
+
+    color: #69768b;
+
+    font-size: 9px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   RESULT
+========================================= */
+
+.result-overlay {
+    position: fixed;
+
+    z-index: 100;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(2,5,12,.78);
+
+    backdrop-filter: blur(12px);
+}
+
+.result-card {
+    width: min(390px, 100%);
+
+    padding: 30px 23px 23px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #152544,
+            #080d1b
+        );
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.55);
+}
+
+.result-icon {
+    width: 84px;
+    height: 84px;
+
+    margin: 0 auto 14px;
+
+    border-radius: 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 45px;
+
+    background: rgba(255,255,255,.05);
+}
+
+.result-card h2 {
+    margin: 0;
+    font-size: 26px;
+}
+
+.result-card p {
+    margin: 9px 0 0;
+
+    color: #8794a9;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+.reward {
+    margin: 18px 0;
+
+    padding: 13px;
+
+    border-radius: 15px;
+
+    background: rgba(255,170,60,.07);
+
+    border:
+        1px solid
+        rgba(255,170,60,.1);
+
+    color: #ffb35c;
+
+    font-weight: 900;
+}
+
+.result-actions {
+    display: grid;
+    gap: 9px;
+}
+
+.result-actions button {
+    min-height: 49px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    color: white;
+
+    font-weight: 800;
+}
+
+.play-again {
+    background:
+        linear-gradient(
+            135deg,
+            #1763b7,
+            #3286df
+        );
+}
+
+.close-result {
+    background: rgba(255,255,255,.06);
+}
+
+
+/* =========================================
+   CONFETTI
+========================================= */
+
+.confetti {
+    position: fixed;
+
+    z-index: 150;
+
+    width: 8px;
+    height: 13px;
+
+    top: -20px;
+
+    pointer-events: none;
+
+    animation:
+        confettiFall
+        var(--duration)
+        linear
+        forwards;
+}
+
+@keyframes confettiFall {
+
+    to {
+
+        transform:
+            translate3d(
+                var(--x),
+                110vh,
+                0
+            )
+            rotate(720deg);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 390px) {
+
+    .game {
+        width: min(100% - 16px, 560px);
+        padding-top: 10px;
+    }
+
+    .score-card {
+        padding: 10px;
+    }
+
+    .avatar {
+        width: 38px;
+        height: 38px;
+    }
+
+    .board-wrap {
+        padding: 9px;
+    }
+
+    .board {
+        gap: 6px;
+    }
+
+    .cell {
+        border-radius: 14px;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -709,285 +815,233 @@
 
 
 <div class="background">
+
     <div class="stars"></div>
+
     <div class="orb moon-orb"></div>
+
     <div class="orb sun-orb"></div>
+
 </div>
 
 
 <main class="game">
 
-    <!-- =========================================
-         TOP BAR
-    ========================================== -->
 
-    <header class="topbar">
+<header class="topbar">
 
-        <button
-            type="button"
-            class="back-button"
-            onclick="goBack()"
-            aria-label="رجوع"
-        >
-            →
-        </button>
-
-
-        <div class="title">
-
-            <small>
-                مواجهة بدر × شمس
-            </small>
-
-            <strong>
-                إكس أو
-                <span>✦</span>
-            </strong>
-
-        </div>
-
-
-        <div class="round-badge">
-
-            <small>
-                الجولة
-            </small>
-
-            <strong id="roundNumber">
-                1
-            </strong>
-
-        </div>
-
-    </header>
-
-
-    <!-- =========================================
-         SCORE
-    ========================================== -->
-
-    <section class="score-card">
-
-        <div class="player-score moon">
-
-            <div class="avatar">
-                ☾
-            </div>
-
-            <div class="player-info">
-
-                <small>
-                    اللاعب الأول
-                </small>
-
-                <strong>
-                    بدر
-                </strong>
-
-                <div
-                    class="score-number"
-                    id="baderGameScore"
-                >
-                    0
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="versus">
-
-            <small>
-                مواجهة
-            </small>
-
-            <strong>
-                VS
-            </strong>
-
-        </div>
-
-
-        <div class="player-score sun">
-
-            <div class="avatar">
-                ☀
-            </div>
-
-            <div class="player-info">
-
-                <small>
-                    اللاعب الثاني
-                </small>
-
-                <strong>
-                    شمس
-                </strong>
-
-                <div
-                    class="score-number"
-                    id="shamsGameScore"
-                >
-                    0
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================================
-         STATUS
-    ========================================== -->
-
-    <section
-        id="statusCard"
-        class="status-card your-turn"
+    <button
+        type="button"
+        class="back-button"
+        onclick="goBack()"
+        aria-label="رجوع"
     >
+        →
+    </button>
 
-        <div
-            id="statusIcon"
-            class="status-icon"
-        >
+
+    <div class="title">
+
+        <small>
+            مواجهة بدر × شمس
+        </small>
+
+        <strong>
+            إكس أو
+            <span>✦</span>
+        </strong>
+
+    </div>
+
+
+    <div class="round-badge">
+
+        <small>
+            الجولة
+        </small>
+
+        <strong id="roundNumber">
+            1
+        </strong>
+
+    </div>
+
+</header>
+
+
+<section class="score-card">
+
+
+    <div class="player-score moon">
+
+        <div class="avatar">
             ☾
         </div>
 
-        <div
-            id="statusTitle"
-            class="status-title"
-        >
-            دور بدر
-        </div>
+        <div class="player-info">
 
-        <div
-            id="statusSubtitle"
-            class="status-subtitle"
-        >
-            اختار خانتك وابدأ الهجوم
-        </div>
+            <small>
+                اللاعب الأول
+            </small>
 
-    </section>
+            <strong>
+                بدر
+            </strong>
 
-
-    <!-- =========================================
-         BOARD
-    ========================================== -->
-
-    <section class="board-wrap">
-
-        <div
-            id="board"
-            class="board"
-        >
-
-            <button
-                type="button"
-                class="cell"
-                data-index="0"
-                aria-label="الخانة 1"
-            ></button>
-
-            <button
-                type="button"
-                class="cell"
-                data-index="1"
-                aria-label="الخانة 2"
-            ></button>
-
-            <button
-                type="button"
-                class="cell"
-                data-index="2"
-                aria-label="الخانة 3"
-            ></button>
-
-            <button
-                type="button"
-                class="cell"
-                data-index="3"
-                aria-label="الخانة 4"
-            ></button>
-
-            <button
-                type="button"
-                class="cell"
-                data-index="4"
-                aria-label="الخانة 5"
-            ></button>
-
-            <button
-                type="button"
-                class="cell"
-                data-index="5"
-                aria-label="الخانة 6"
-            ></button>
-
-            <button
-                type="button"
-                class="cell"
-                data-index="6"
-                aria-label="الخانة 7"
-            ></button>
-
-            <button
-                type="button"
-                class="cell"
-                data-index="7"
-                aria-label="الخانة 8"
-            ></button>
-
-            <button
-                type="button"
-                class="cell"
-                data-index="8"
-                aria-label="الخانة 9"
-            ></button>
+            <div
+                class="score-number"
+                id="baderGameScore"
+            >
+                0
+            </div>
 
         </div>
 
-    </section>
-
-
-    <!-- =========================================
-         CONTROLS
-    ========================================== -->
-
-    <section class="controls">
-
-        <button
-            type="button"
-            class="control-button primary"
-            onclick="restartRound()"
-        >
-            🔄 جولة جديدة
-        </button>
-
-        <button
-            type="button"
-            class="control-button"
-            onclick="resetMatch()"
-        >
-            🧹 تصفير المباراة
-        </button>
-
-    </section>
-
-
-    <div class="tip">
-        ✦ كل فوز يمنح اللاعب نقطة واحدة
-        <br>
-        ✦ المباراة تستمر بين بدر وشمس حتى تقرروا التوقف
     </div>
+
+
+    <div class="versus">
+
+        <small>
+            مواجهة
+        </small>
+
+        <strong>
+            VS
+        </strong>
+
+    </div>
+
+
+    <div class="player-score sun">
+
+        <div class="avatar">
+            ☀
+        </div>
+
+        <div class="player-info">
+
+            <small>
+                اللاعب الثاني
+            </small>
+
+            <strong>
+                شمس
+            </strong>
+
+            <div
+                class="score-number"
+                id="shamsGameScore"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<div class="my-player">
+
+    أنت تلعب الآن باسم:
+
+    <strong id="myPlayerName">
+        جاري التحقق...
+    </strong>
+
+</div>
+
+
+<section
+    id="statusCard"
+    class="status-card"
+>
+
+    <div
+        id="statusIcon"
+        class="status-icon"
+    >
+        ☾
+    </div>
+
+    <div
+        id="statusTitle"
+        class="status-title"
+    >
+        جاري تجهيز الجولة...
+    </div>
+
+    <div
+        id="statusSubtitle"
+        class="status-subtitle"
+    >
+        انتظر لحظة
+    </div>
+
+</section>
+
+
+<section class="board-wrap">
+
+    <div
+        id="board"
+        class="board"
+    >
+
+        <button type="button" class="cell" data-index="0"></button>
+        <button type="button" class="cell" data-index="1"></button>
+        <button type="button" class="cell" data-index="2"></button>
+
+        <button type="button" class="cell" data-index="3"></button>
+        <button type="button" class="cell" data-index="4"></button>
+        <button type="button" class="cell" data-index="5"></button>
+
+        <button type="button" class="cell" data-index="6"></button>
+        <button type="button" class="cell" data-index="7"></button>
+        <button type="button" class="cell" data-index="8"></button>
+
+    </div>
+
+</section>
+
+
+<section class="controls">
+
+    <button
+        type="button"
+        class="control-button primary"
+        onclick="restartRound()"
+    >
+        🔄 جولة جديدة
+    </button>
+
+    <button
+        type="button"
+        class="control-button"
+        onclick="resetMatch()"
+    >
+        🧹 تصفير المباراة
+    </button>
+
+</section>
+
+
+<div class="tip">
+
+    ✦ كل فوز يمنح اللاعب نقطة واحدة
+
+    <br>
+
+    ✦ لا يستطيع اللاعب تنفيذ حركة نيابة عن اللاعب الآخر
+
+</div>
+
 
 </main>
 
-
-<!-- =========================================
-     RESULT
-========================================== -->
 
 <div
     id="resultOverlay"
@@ -1049,53 +1103,52 @@
 
 
 /* =========================================================
-   إعدادات اللعبة
+   اللاعبين
 ========================================================= */
 
 const PLAYER = {
 
-    MOON: "hammam",
+    BADER: "bader",
 
-    SUN: "monia"
+    SHAMS: "shams"
 
 };
 
 
 const SYMBOL = {
 
-    [PLAYER.MOON]: "☾",
+    [PLAYER.BADER]: "☾",
 
-    [PLAYER.SUN]: "☀"
+    [PLAYER.SHAMS]: "☀"
 
 };
 
 
 const PLAYER_NAME = {
 
-    [PLAYER.MOON]: "بدر",
+    [PLAYER.BADER]: "بدر",
 
-    [PLAYER.SUN]: "شمس"
+    [PLAYER.SHAMS]: "شمس"
 
 };
 
 
+/* =========================================================
+   خطوط الفوز
+========================================================= */
+
 const WINNING_LINES = [
 
-    [0, 1, 2],
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
 
-    [3, 4, 5],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
 
-    [6, 7, 8],
-
-    [0, 3, 6],
-
-    [1, 4, 7],
-
-    [2, 5, 8],
-
-    [0, 4, 8],
-
-    [2, 4, 6]
+    [0,4,8],
+    [2,4,6]
 
 ];
 
@@ -1104,21 +1157,11 @@ const WINNING_LINES = [
    حالة اللعبة
 ========================================================= */
 
-let board = [
+let board = Array(9).fill(null);
 
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+let currentPlayer = PLAYER.BADER;
 
-];
-
-let currentPlayer = PLAYER.MOON;
+let myPlayer = null;
 
 let gameOver = false;
 
@@ -1126,15 +1169,28 @@ let round = 1;
 
 
 /*
-    نقاط المباراة الخاصة باللعبة.
-    نحاول أولاً قراءة النقاط من index.html.
+    صاحب بداية الجولة.
+
+    مهم جدًا:
+
+    لا نتركه يتبدل عشوائيًا.
+
+    يتم تحديده من الصفحة الرئيسية
+    أو من اللاعب الذي فتح الجولة.
 */
+
+let roundStarter = PLAYER.BADER;
+
+
+/* =========================================================
+   النقاط
+========================================================= */
 
 let matchScores = {
 
-    hammam: 0,
+    [PLAYER.BADER]: 0,
 
-    monia: 0
+    [PLAYER.SHAMS]: 0
 
 };
 
@@ -1160,6 +1216,9 @@ const statusTitle =
 const statusSubtitle =
     document.getElementById("statusSubtitle");
 
+const myPlayerName =
+    document.getElementById("myPlayerName");
+
 const resultOverlay =
     document.getElementById("resultOverlay");
 
@@ -1176,19 +1235,168 @@ const rewardText =
     document.getElementById("rewardText");
 
 
+/* =========================================================
+   الحصول على اللاعب من الرابط
+========================================================= */
+
+function getPlayerFromURL() {
+
+    try {
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const player =
+            params.get("player");
+
+        if (
+            player === PLAYER.BADER ||
+            player === PLAYER.SHAMS
+        ) {
+
+            return player;
+
+        }
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+    return null;
+
+}
+
 
 /* =========================================================
-   قراءة النقاط من الصفحة الأساسية
+   تحديد هوية اللاعب
+========================================================= */
+
+function resolveMyPlayer() {
+
+    /*
+        الأولوية:
+
+        1. رسالة من الصفحة الرئيسية
+        2. URL
+        3. متغير عام من الصفحة الرئيسية
+        4. localStorage
+        5. افتراضي بدر
+    */
+
+
+    if (
+        window.GAME_PLAYER === PLAYER.BADER ||
+        window.GAME_PLAYER === PLAYER.SHAMS
+    ) {
+
+        return window.GAME_PLAYER;
+
+    }
+
+
+    const urlPlayer =
+        getPlayerFromURL();
+
+    if (urlPlayer) {
+
+        return urlPlayer;
+
+    }
+
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                "badrShamsCurrentPlayer"
+            );
+
+        if (
+            saved === PLAYER.BADER ||
+            saved === PLAYER.SHAMS
+        ) {
+
+            return saved;
+
+        }
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+
+    /*
+        fallback:
+
+        إذا لم ترسل الصفحة الأساسية هوية اللاعب،
+        نعتبر الجهاز بدر.
+
+        الأفضل أن الصفحة الأساسية ترسل
+        SET_PLAYER_ROLE.
+    */
+
+    return PLAYER.BADER;
+
+}
+
+
+/* =========================================================
+   ضبط هوية اللاعب
+========================================================= */
+
+function setMyPlayer(player) {
+
+    if (
+        player !== PLAYER.BADER &&
+        player !== PLAYER.SHAMS
+    ) {
+
+        return;
+
+    }
+
+
+    myPlayer = player;
+
+
+    try {
+
+        localStorage.setItem(
+            "badrShamsCurrentPlayer",
+            player
+        );
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+
+    myPlayerName.textContent =
+        PLAYER_NAME[player];
+
+
+    updateBoardAvailability();
+
+    updateStatus();
+
+}
+
+
+/* =========================================================
+   قراءة النقاط
 ========================================================= */
 
 function loadScores() {
 
     try {
-
-        /*
-            الصفحة الأساسية تحتفظ بالنقاط في localStorage
-            باسم badrShamsScores.
-        */
 
         const saved =
             localStorage.getItem(
@@ -1202,12 +1410,18 @@ function loadScores() {
                 JSON.parse(saved);
 
 
-            matchScores.hammam =
-                Number(parsed.hammam) || 0;
+            matchScores[PLAYER.BADER] =
+                Number(
+                    parsed.bader ??
+                    parsed.hammam
+                ) || 0;
 
 
-            matchScores.monia =
-                Number(parsed.monia) || 0;
+            matchScores[PLAYER.SHAMS] =
+                Number(
+                    parsed.shams ??
+                    parsed.monia
+                ) || 0;
 
         }
 
@@ -1235,28 +1449,87 @@ function updateScoreUI() {
     document.getElementById(
         "baderGameScore"
     ).textContent =
-        matchScores.hammam;
+        matchScores[PLAYER.BADER];
 
 
     document.getElementById(
         "shamsGameScore"
     ).textContent =
-        matchScores.monia;
+        matchScores[PLAYER.SHAMS];
 
 }
 
 
 /* =========================================================
-   إضافة نقطة للاعب
+   حفظ النقاط
+========================================================= */
+
+function saveScores() {
+
+    try {
+
+        localStorage.setItem(
+
+            "badrShamsScores",
+
+            JSON.stringify({
+
+                bader:
+                    matchScores[PLAYER.BADER],
+
+                shams:
+                    matchScores[PLAYER.SHAMS],
+
+                /*
+                    توافق مع النظام القديم
+                */
+
+                hammam:
+                    matchScores[PLAYER.BADER],
+
+                monia:
+                    matchScores[PLAYER.SHAMS]
+
+            })
+
+        );
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+}
+
+
+/* =========================================================
+   إضافة نقطة
 ========================================================= */
 
 function addPoint(player) {
 
-    /*
-        أهم جزء للتكامل مع index.html.
+    if (
+        player !== PLAYER.BADER &&
+        player !== PLAYER.SHAMS
+    ) {
 
-        إذا كانت اللعبة مفتوحة داخل iframe،
-        نستعمل parent.addPoints().
+        return;
+
+    }
+
+
+    matchScores[player] =
+        (matchScores[player] || 0) + 1;
+
+
+    updateScoreUI();
+
+    saveScores();
+
+
+    /*
+        إرسال النقطة للصفحة الرئيسية.
     */
 
     try {
@@ -1264,7 +1537,8 @@ function addPoint(player) {
         if (
             window.parent &&
             window.parent !== window &&
-            typeof window.parent.addPoints === "function"
+            typeof window.parent.addPoints ===
+                "function"
         ) {
 
             window.parent.addPoints(
@@ -1276,23 +1550,53 @@ function addPoint(player) {
 
     } catch (error) {
 
-        console.log(
-            "تعذر إرسال النقطة للصفحة الأساسية",
-            error
-        );
+        console.log(error);
 
     }
 
 
     /*
-        نحدّث النقاط محليًا كذلك.
+        إرسال رسالة أيضًا.
     */
 
-    matchScores[player] =
-        (matchScores[player] || 0) + 1;
+    sendToParent({
+
+        type: "SCORE_ADDED",
+
+        player: player,
+
+        amount: 1
+
+    });
+
+}
 
 
-    updateScoreUI();
+/* =========================================================
+   إرسال رسالة للصفحة الأساسية
+========================================================= */
+
+function sendToParent(data) {
+
+    try {
+
+        if (
+            window.parent &&
+            window.parent !== window
+        ) {
+
+            window.parent.postMessage(
+                data,
+                "*"
+            );
+
+        }
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
 
 }
 
@@ -1325,22 +1629,70 @@ cells.forEach(cell => {
 
 function playMove(index) {
 
-    if (gameOver) {
-        return;
-    }
+    /*
+        حماية 1:
+        لا يوجد لاعب معروف.
+    */
 
+    if (!myPlayer) {
 
-    if (board[index] !== null) {
         return;
+
     }
 
 
     /*
-        تسجيل الحركة
+        حماية 2:
+        الجولة انتهت.
+    */
+
+    if (gameOver) {
+
+        return;
+
+    }
+
+
+    /*
+        حماية 3:
+        هذه ليست خانة فارغة.
+    */
+
+    if (
+        board[index] !== null
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+        الحماية الأهم:
+
+        اللاعب لا يستطيع اللعب
+        إلا إذا كان الدور له.
+    */
+
+    if (
+        currentPlayer !== myPlayer
+    ) {
+
+        showWaitingMessage();
+
+        return;
+
+    }
+
+
+    /*
+        الحركة دائمًا باسم اللاعب الحقيقي
+        وليس باسم currentPlayer القادم
+        من الواجهة.
     */
 
     board[index] =
-        currentPlayer;
+        myPlayer;
 
 
     const cell =
@@ -1348,28 +1700,49 @@ function playMove(index) {
 
 
     cell.textContent =
-        SYMBOL[currentPlayer];
-
-
-    cell.classList.add("taken");
+        SYMBOL[myPlayer];
 
 
     cell.classList.add(
-        currentPlayer === PLAYER.MOON
+        "taken"
+    );
+
+
+    cell.classList.add(
+        myPlayer === PLAYER.BADER
             ? "moon-mark"
             : "sun-mark"
     );
 
 
-    /*
-        صوت خفيف إن كان المتصفح يسمح
-    */
+    cell.disabled = true;
+
 
     playMoveSound();
 
 
     /*
-        فحص الفوز
+        إرسال الحركة للصفحة الأساسية.
+
+        الصفحة الأساسية تستطيع بعد ذلك
+        إرسالها للطرف الآخر.
+    */
+
+    sendToParent({
+
+        type: "XO_MOVE",
+
+        player: myPlayer,
+
+        index: index,
+
+        round: round
+
+    });
+
+
+    /*
+        الفوز
     */
 
     const winningLine =
@@ -1379,7 +1752,7 @@ function playMove(index) {
     if (winningLine) {
 
         finishWin(
-            currentPlayer,
+            myPlayer,
             winningLine
         );
 
@@ -1389,7 +1762,7 @@ function playMove(index) {
 
 
     /*
-        فحص التعادل
+        التعادل
     */
 
     if (
@@ -1406,16 +1779,194 @@ function playMove(index) {
 
 
     /*
-        تبديل الدور
+        تبديل الدور.
     */
 
     currentPlayer =
-        currentPlayer === PLAYER.MOON
-            ? PLAYER.SUN
-            : PLAYER.MOON;
+        otherPlayer(
+            currentPlayer
+        );
 
 
     updateStatus();
+
+    updateBoardAvailability();
+
+
+    /*
+        إرسال الدور الجديد.
+    */
+
+    sendToParent({
+
+        type: "XO_TURN_CHANGED",
+
+        currentPlayer:
+            currentPlayer,
+
+        round:
+            round
+
+    });
+
+}
+
+
+/* =========================================================
+   تنفيذ حركة قادمة من اللاعب الآخر
+========================================================= */
+
+function applyRemoteMove(
+    player,
+    index,
+    remoteRound
+) {
+
+    /*
+        لا نقبل حركة من لاعب غير معروف.
+    */
+
+    if (
+        player !== PLAYER.BADER &&
+        player !== PLAYER.SHAMS
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+        لا نقبل حركة لجولة مختلفة.
+    */
+
+    if (
+        Number(remoteRound) !==
+        Number(round)
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+        لا نقبل حركة ليست من صاحب الدور.
+    */
+
+    if (
+        player !== currentPlayer
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+        لا نقبل خانة مستخدمة.
+    */
+
+    if (
+        board[index] !== null
+    ) {
+
+        return;
+
+    }
+
+
+    board[index] =
+        player;
+
+
+    const cell =
+        cells[index];
+
+
+    cell.textContent =
+        SYMBOL[player];
+
+
+    cell.classList.add(
+        "taken"
+    );
+
+
+    cell.classList.add(
+        player === PLAYER.BADER
+            ? "moon-mark"
+            : "sun-mark"
+    );
+
+
+    cell.disabled = true;
+
+
+    playMoveSound();
+
+
+    /*
+        الفوز
+    */
+
+    const winningLine =
+        getWinningLine();
+
+
+    if (winningLine) {
+
+        finishWin(
+            player,
+            winningLine
+        );
+
+        return;
+
+    }
+
+
+    /*
+        التعادل
+    */
+
+    if (
+        board.every(
+            value => value !== null
+        )
+    ) {
+
+        finishDraw();
+
+        return;
+
+    }
+
+
+    /*
+        نقل الدور.
+    */
+
+    currentPlayer =
+        otherPlayer(player);
+
+
+    updateStatus();
+
+    updateBoardAvailability();
+
+}
+
+
+/* =========================================================
+   اللاعب الآخر
+========================================================= */
+
+function otherPlayer(player) {
+
+    return player === PLAYER.BADER
+        ? PLAYER.SHAMS
+        : PLAYER.BADER;
 
 }
 
@@ -1431,7 +1982,7 @@ function getWinningLine() {
         of WINNING_LINES
     ) {
 
-        const [a, b, c] =
+        const [a,b,c] =
             line;
 
 
@@ -1449,6 +2000,169 @@ function getWinningLine() {
 
 
     return null;
+
+}
+
+
+/* =========================================================
+   تحديث صلاحية الخانات
+========================================================= */
+
+function updateBoardAvailability() {
+
+    cells.forEach(cell => {
+
+        const index =
+            Number(
+                cell.dataset.index
+            );
+
+
+        /*
+            بعد انتهاء الجولة:
+            كل شيء مقفل.
+        */
+
+        if (gameOver) {
+
+            cell.disabled = true;
+
+            return;
+
+        }
+
+
+        /*
+            خانة مستخدمة:
+            مقفلة.
+        */
+
+        if (
+            board[index] !== null
+        ) {
+
+            cell.disabled = true;
+
+            return;
+
+        }
+
+
+        /*
+            إذا كان دوري:
+            أقدر ألعب.
+        */
+
+        if (
+            currentPlayer === myPlayer
+        ) {
+
+            cell.disabled = false;
+
+        }
+
+        /*
+            إذا لم يكن دوري:
+            لا أقدر ألعب.
+        */
+
+        else {
+
+            cell.disabled = true;
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   حالة الانتظار
+========================================================= */
+
+function showWaitingMessage() {
+
+    const opponent =
+        PLAYER_NAME[
+            currentPlayer
+        ];
+
+
+    statusIcon.textContent =
+        SYMBOL[currentPlayer];
+
+
+    statusTitle.textContent =
+        `انتظر دور ${opponent}`;
+
+
+    statusSubtitle.textContent =
+        "هذه الجولة ليست حركتك الآن 🔒";
+
+
+    statusCard.classList.remove(
+        "your-turn"
+    );
+
+}
+
+
+/* =========================================================
+   تحديث الحالة
+========================================================= */
+
+function updateStatus() {
+
+    if (!myPlayer) {
+
+        return;
+
+    }
+
+
+    const isMyTurn =
+        currentPlayer === myPlayer;
+
+
+    statusIcon.textContent =
+        SYMBOL[currentPlayer];
+
+
+    if (isMyTurn) {
+
+        statusTitle.textContent =
+            `دورك يا ${PLAYER_NAME[myPlayer]}`;
+
+
+        statusSubtitle.textContent =
+            myPlayer === PLAYER.BADER
+                ? "بدر، اختار خانتك 🌙"
+                : "شمس، ورّينا الحركة ☀️";
+
+
+        statusCard.classList.add(
+            "your-turn"
+        );
+
+    } else {
+
+        statusTitle.textContent =
+            `دور ${PLAYER_NAME[currentPlayer]}`;
+
+
+        statusSubtitle.textContent =
+            `انتظر ${PLAYER_NAME[currentPlayer]} يكمل حركته`;
+
+
+        statusCard.classList.remove(
+            "your-turn"
+        );
+
+    }
+
+
+    updateBoardAvailability();
 
 }
 
@@ -1482,37 +2196,22 @@ function finishWin(
 
 
     /*
-        إضافة النقطة.
+        النقطة تُحسب مرة واحدة فقط.
     */
 
     addPoint(player);
 
 
-    /*
-        تحديث الحالة.
-    */
-
-    const name =
-        PLAYER_NAME[player];
-
-
-    if (player === PLAYER.MOON) {
-
-        statusIcon.textContent = "☾";
-
-    } else {
-
-        statusIcon.textContent = "☀";
-
-    }
+    statusIcon.textContent =
+        SYMBOL[player];
 
 
     statusTitle.textContent =
-        `فوز ${name}!`;
+        `فوز ${PLAYER_NAME[player]}!`;
 
 
     statusSubtitle.textContent =
-        "يا سلام! الجولة كانت قوية 🔥";
+        "الجولة انتهت 🔥";
 
 
     statusCard.classList.remove(
@@ -1520,28 +2219,24 @@ function finishWin(
     );
 
 
-    /*
-        النتيجة.
-    */
-
     resultIcon.textContent =
-        player === PLAYER.MOON
+        player === PLAYER.BADER
             ? "🌙"
             : "☀️";
 
 
     resultTitle.textContent =
-        `البطل: ${name}`;
+        `البطل: ${PLAYER_NAME[player]}`;
 
 
     resultText.textContent =
-        player === PLAYER.MOON
+        player === PLAYER.BADER
             ? "البدر حسم الجولة! شمس عندها فرصة للرد."
-            : "الشمس أشرقت بقوة! البدر لازم ينتقم في الجولة القادمة.";
+            : "الشمس أشرقت بقوة! البدر يقدر ينتقم في الجولة القادمة.";
 
 
     rewardText.textContent =
-        `+1 نقطة لـ ${name} ⭐`;
+        `+1 نقطة لـ ${PLAYER_NAME[player]} ⭐`;
 
 
     createConfetti();
@@ -1579,7 +2274,7 @@ function finishDraw() {
 
 
     statusTitle.textContent =
-        "تعادل!" ;
+        "تعادل!";
 
 
     statusSubtitle.textContent =
@@ -1596,11 +2291,11 @@ function finishDraw() {
 
 
     resultTitle.textContent =
-        "تعادل!" ;
+        "تعادل!";
 
 
     resultText.textContent =
-        "الجولة انتهت بدون فائز... نعيدها ونشوف من يحسمها.";
+        "الجولة انتهت بدون فائز.";
 
 
     rewardText.textContent =
@@ -1619,62 +2314,20 @@ function finishDraw() {
 
 
 /* =========================================================
-   تحديث الدور
+   بدء جولة جديدة
 ========================================================= */
 
-function updateStatus() {
-
-    const isMoon =
-        currentPlayer === PLAYER.MOON;
-
-
-    statusIcon.textContent =
-        isMoon
-            ? "☾"
-            : "☀";
-
-
-    statusTitle.textContent =
-        `دور ${PLAYER_NAME[currentPlayer]}`;
-
-
-    statusSubtitle.textContent =
-        isMoon
-            ? "البدر، اختار خانتك 🌙"
-            : "شمس، ورّينا الحركة ☀️";
-
-
-    statusCard.classList.add(
-        "your-turn"
-    );
-
-}
-
-
-/* =========================================================
-   جولة جديدة
-========================================================= */
-
-window.restartRound = function() {
+window.restartRound = function(
+    starter = null
+) {
 
     resultOverlay
         .classList
         .add("hidden");
 
 
-    board = [
-
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-
-    ];
+    board =
+        Array(9).fill(null);
 
 
     gameOver = false;
@@ -1690,22 +2343,45 @@ window.restartRound = function() {
 
 
     /*
-        الفائز السابق يبدأ الجولة التالية؟
-        لا.
-        نبدّل البداية حتى تكون عادلة.
+        إذا الصفحة الأساسية حددت
+        صاحب الجولة، نستخدمه.
+
+        وإلا:
+
+        الشخص الذي ضغط "جولة جديدة"
+        يبدأ الجولة.
     */
 
+    if (
+        starter === PLAYER.BADER ||
+        starter === PLAYER.SHAMS
+    ) {
+
+        roundStarter =
+            starter;
+
+    }
+
+    else if (
+        myPlayer === PLAYER.BADER ||
+        myPlayer === PLAYER.SHAMS
+    ) {
+
+        roundStarter =
+            myPlayer;
+
+    }
+
+
     currentPlayer =
-        round % 2 === 0
-            ? PLAYER.SUN
-            : PLAYER.MOON;
+        roundStarter;
 
 
     cells.forEach(cell => {
 
         cell.textContent = "";
 
-        cell.disabled = false;
+        cell.disabled = true;
 
         cell.classList.remove(
             "taken",
@@ -1718,6 +2394,23 @@ window.restartRound = function() {
 
 
     updateStatus();
+
+
+    /*
+        نبلغ الصفحة الرئيسية
+        أن الجولة بدأت.
+    */
+
+    sendToParent({
+
+        type: "XO_NEW_ROUND",
+
+        round: round,
+
+        starter:
+            roundStarter
+
+    });
 
 };
 
@@ -1735,42 +2428,42 @@ window.resetMatch = function() {
 
 
     if (!confirmed) {
+
         return;
+
     }
 
 
-    /*
-        تصفير النقاط داخل الصفحة الأساسية.
-    */
+    matchScores = {
+
+        [PLAYER.BADER]: 0,
+
+        [PLAYER.SHAMS]: 0
+
+    };
+
+
+    saveScores();
+
+    updateScoreUI();
+
 
     try {
-
-        localStorage.setItem(
-            "badrShamsScores",
-            JSON.stringify({
-                hammam: 0,
-                monia: 0
-            })
-        );
-
 
         if (
             window.parent &&
             window.parent !== window
         ) {
 
-            /*
-                نعيد قراءة النقاط من الصفحة الأساسية
-                عن طريق دالة addPoints لا تصلح للتصفير،
-                لذلك نرسل حدثًا مخصصًا.
-            */
-
             window.parent.postMessage(
+
                 {
                     type:
                         "RESET_BADR_SHAMS_SCORES"
                 },
+
                 "*"
+
             );
 
         }
@@ -1782,15 +2475,15 @@ window.resetMatch = function() {
     }
 
 
-    matchScores.hammam = 0;
+    round = 0;
 
-    matchScores.monia = 0;
-
-
-    updateScoreUI();
+    roundStarter =
+        myPlayer || PLAYER.BADER;
 
 
-    restartRound();
+    restartRound(
+        roundStarter
+    );
 
 };
 
@@ -1809,22 +2502,18 @@ window.closeResult = function() {
 
 
 /* =========================================================
-   الرجوع للصفحة الأساسية
+   الرجوع
 ========================================================= */
 
 window.goBack = function() {
-
-    /*
-        إذا كانت اللعبة داخل iframe،
-        نطلب من الصفحة الأساسية إغلاق اللعبة.
-    */
 
     try {
 
         if (
             window.parent &&
             window.parent !== window &&
-            typeof window.parent.closeGame === "function"
+            typeof window.parent.closeGame ===
+                "function"
         ) {
 
             window.parent.closeGame();
@@ -1840,11 +2529,9 @@ window.goBack = function() {
     }
 
 
-    /*
-        احتياط إذا فتحت xo.html مباشرة.
-    */
-
-    if (history.length > 1) {
+    if (
+        history.length > 1
+    ) {
 
         history.back();
 
@@ -1854,15 +2541,10 @@ window.goBack = function() {
 
 
 /* =========================================================
-   مؤثرات الحركة
+   الصوت
 ========================================================= */
 
 function playMoveSound() {
-
-    /*
-        صوت Web Audio بسيط جدًا.
-        لا يحتاج أي ملف خارجي.
-    */
 
     try {
 
@@ -1872,7 +2554,9 @@ function playMoveSound() {
 
 
         if (!AudioContext) {
+
             return;
+
         }
 
 
@@ -1893,7 +2577,7 @@ function playMoveSound() {
 
 
         oscillator.frequency.value =
-            currentPlayer === PLAYER.MOON
+            currentPlayer === PLAYER.BADER
                 ? 520
                 : 650;
 
@@ -1918,7 +2602,9 @@ function playMoveSound() {
 
         oscillator.connect(gain);
 
-        gain.connect(context.destination);
+        gain.connect(
+            context.destination
+        );
 
 
         oscillator.start();
@@ -1929,18 +2615,13 @@ function playMoveSound() {
 
     } catch (error) {
 
-        /*
-            إذا رفض المتصفح الصوت،
-            اللعبة تستمر طبيعي.
-        */
-
     }
 
 }
 
 
 /* =========================================================
-   احتفال الفوز
+   الاحتفال
 ========================================================= */
 
 function createConfetti() {
@@ -1955,7 +2636,9 @@ function createConfetti() {
     ) {
 
         const piece =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
 
         piece.className =
@@ -1963,7 +2646,8 @@ function createConfetti() {
 
 
         piece.style.right =
-            Math.random() * 100 + "vw";
+            Math.random() * 100 +
+            "vw";
 
 
         piece.style.setProperty(
@@ -2011,20 +2695,195 @@ function createConfetti() {
 
 
 /* =========================================================
-   استقبال رسائل الصفحة الأساسية
+   استقبال رسائل الصفحة الرئيسية
 ========================================================= */
 
 window.addEventListener(
     "message",
     function(event) {
 
+        const data =
+            event.data;
+
+
+        if (!data) {
+
+            return;
+
+        }
+
+
+        /* -----------------------------------------
+           تحديد اللاعب
+        ----------------------------------------- */
+
         if (
-            event.data &&
-            event.data.type ===
+            data.type ===
+            "SET_PLAYER_ROLE"
+        ) {
+
+            setMyPlayer(
+                data.player
+            );
+
+            return;
+
+        }
+
+
+        /* -----------------------------------------
+           بدء الجولة
+        ----------------------------------------- */
+
+        if (
+            data.type ===
+            "START_XO_ROUND"
+        ) {
+
+            if (
+                data.round
+            ) {
+
+                round =
+                    Number(data.round);
+
+                document.getElementById(
+                    "roundNumber"
+                ).textContent =
+                    round;
+
+            }
+
+
+            if (
+                data.starter ===
+                    PLAYER.BADER ||
+                data.starter ===
+                    PLAYER.SHAMS
+            ) {
+
+                roundStarter =
+                    data.starter;
+
+                currentPlayer =
+                    data.starter;
+
+            }
+
+
+            if (
+                Array.isArray(
+                    data.board
+                )
+            ) {
+
+                board =
+                    data.board.slice(
+                        0,
+                        9
+                    );
+
+                renderBoard();
+
+            }
+
+
+            gameOver =
+                false;
+
+
+            resultOverlay
+                .classList
+                .add("hidden");
+
+
+            updateStatus();
+
+            return;
+
+        }
+
+
+        /* -----------------------------------------
+           حركة اللاعب الآخر
+        ----------------------------------------- */
+
+        if (
+            data.type ===
+            "XO_REMOTE_MOVE"
+        ) {
+
+            applyRemoteMove(
+
+                data.player,
+
+                Number(data.index),
+
+                Number(data.round)
+
+            );
+
+            return;
+
+        }
+
+
+        /* -----------------------------------------
+           تغيير الدور
+        ----------------------------------------- */
+
+        if (
+            data.type ===
+            "XO_SET_TURN"
+        ) {
+
+            if (
+                data.player ===
+                    PLAYER.BADER ||
+                data.player ===
+                    PLAYER.SHAMS
+            ) {
+
+                currentPlayer =
+                    data.player;
+
+                updateStatus();
+
+            }
+
+            return;
+
+        }
+
+
+        /* -----------------------------------------
+           تحديث النقاط
+        ----------------------------------------- */
+
+        if (
+            data.type ===
             "SCORES_UPDATED"
         ) {
 
             loadScores();
+
+            return;
+
+        }
+
+
+        /* -----------------------------------------
+           إعادة المباراة
+        ----------------------------------------- */
+
+        if (
+            data.type ===
+            "XO_RESET_ROUND"
+        ) {
+
+            restartRound(
+                data.starter
+            );
 
         }
 
@@ -2033,20 +2892,134 @@ window.addEventListener(
 
 
 /* =========================================================
-   تشغيل اللعبة
+   رسم اللوحة
 ========================================================= */
 
-loadScores();
+function renderBoard() {
 
-updateStatus();
+    cells.forEach(cell => {
+
+        const index =
+            Number(
+                cell.dataset.index
+            );
 
 
-console.log(
-    "🌙☀️ إكس أو — بدر × شمس جاهزة!"
-);
+        const player =
+            board[index];
+
+
+        cell.textContent =
+            player
+                ? SYMBOL[player]
+                : "";
+
+
+        cell.classList.remove(
+            "taken",
+            "moon-mark",
+            "sun-mark",
+            "winner"
+        );
+
+
+        if (player) {
+
+            cell.classList.add(
+                "taken"
+            );
+
+
+            cell.classList.add(
+
+                player === PLAYER.BADER
+                    ? "moon-mark"
+                    : "sun-mark"
+
+            );
+
+        }
+
+    });
+
+
+    updateBoardAvailability();
+
+}
+
+
+/* =========================================================
+   تشغيل النظام
+========================================================= */
+
+function initGame() {
+
+    /*
+        تحديد اللاعب أولًا.
+    */
+
+    myPlayer =
+        resolveMyPlayer();
+
+
+    myPlayerName.textContent =
+        PLAYER_NAME[myPlayer];
+
+
+    /*
+        قراءة النقاط.
+    */
+
+    loadScores();
+
+
+    /*
+        الجولة الأولى تبدأ ببدر
+        ما لم ترسل الصفحة الرئيسية
+        صاحب الجولة.
+    */
+
+    currentPlayer =
+        roundStarter;
+
+
+    renderBoard();
+
+    updateStatus();
+
+
+    /*
+        نطلب من الصفحة الأساسية
+        تحديد الهوية رسميًا.
+    */
+
+    sendToParent({
+
+        type:
+            "XO_REQUEST_PLAYER_ROLE"
+
+    });
+
+
+    console.log(
+        "XO READY:",
+        {
+            myPlayer,
+            currentPlayer,
+            round
+        }
+    );
+
+}
+
+
+/* =========================================================
+   بدء اللعبة
+========================================================= */
+
+initGame();
 
 </script>
-
 
 </body>
 
