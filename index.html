@@ -2,892 +2,895 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     >
+
+    <meta name="theme-color" content="#060a14">
 
     <title>بدر × شمس</title>
 
-    <link
-        rel="stylesheet"
-        href="css/theme.css"
-    >
-
+    <link rel="stylesheet" href="css/theme.css">
 </head>
+
 
 <body>
 
-<div class="app-shell">
+<!-- =====================================================
+     BOOT / LOGIN
+===================================================== -->
 
-<!-- =========================
-     LOGIN
-========================= -->
+<div id="loginScreen" class="login-screen">
 
-<section
-    id="login"
-    class="card login"
->
+    <div class="stars"></div>
 
-    <div class="brand">
+    <div class="login-orbit moon-orbit"></div>
+    <div class="login-orbit sun-orbit"></div>
 
-        <div class="symbols">
-            🌙 ✦ ☀️
+
+    <main class="login-card">
+
+        <!-- الشعار -->
+
+        <div class="brand-mark">
+
+            <div class="moon-symbol">
+                ☾
+            </div>
+
+            <div class="brand-x">
+                ×
+            </div>
+
+            <div class="sun-symbol">
+                ☀
+            </div>
+
         </div>
 
-        <h1>
-            بدر × شمس
-        </h1>
 
-        <p>
-            مساحة خاصة للعب،
-            التحديات،
-            الأسئلة والمنافسات ✨
-        </p>
+        <div class="brand-title">
+            بدر <span>×</span> شمس
+        </div>
 
-    </div>
+        <div class="brand-subtitle">
+            مساحة اللعب والتحديات
+        </div>
 
 
-    <div class="login-buttons">
+        <!-- اختيار اللاعب -->
 
-        <button
-            class="btn moon"
-            onclick="loginAs('hammam')"
+        <section id="playerSelection">
+
+            <div class="login-label">
+                من أنت؟
+            </div>
+
+
+            <div class="player-selection">
+
+                <button
+                    class="player-choice moon-choice"
+                    onclick="selectPlayer('hammam')"
+                >
+
+                    <div class="choice-icon">
+                        ☾
+                    </div>
+
+                    <div class="choice-info">
+
+                        <strong>
+                            بدر
+                        </strong>
+
+                        <span>
+                            همام
+                        </span>
+
+                    </div>
+
+                    <div class="choice-arrow">
+                        ←
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="player-choice sun-choice"
+                    onclick="selectPlayer('monia')"
+                >
+
+                    <div class="choice-icon">
+                        ☀
+                    </div>
+
+                    <div class="choice-info">
+
+                        <strong>
+                            شمس
+                        </strong>
+
+                        <span>
+                            منية
+                        </span>
+
+                    </div>
+
+                    <div class="choice-arrow">
+                        ←
+                    </div>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- كلمة السر -->
+
+        <section
+            id="passwordSection"
+            class="password-section hidden"
         >
 
-            🌙 دخول بدر
+            <button
+                class="back-login"
+                onclick="backToPlayers()"
+            >
+                → تغيير الشخص
+            </button>
 
-            <br>
-
-            <small>
-                همام
-            </small>
-
-        </button>
-
-
-        <button
-            class="btn sun"
-            onclick="loginAs('monia')"
-        >
-
-            ☀️ دخول شمس
-
-            <br>
-
-            <small>
-                منية
-            </small>
-
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     APP
-========================= -->
-
-<main
-    id="app"
-    class="hidden"
->
-
-
-<!-- =========================
-     HEADER
-========================= -->
-
-<section class="card">
-
-    <div class="topbar">
-
-
-        <div class="player">
 
             <div
-                class="name"
-                id="playerName"
+                id="selectedPlayer"
+                class="selected-player"
             ></div>
 
-            <small
-                id="playerRole"
-            ></small>
 
-        </div>
-
-
-        <div class="scores">
-
-            <div class="score">
-
-                🌙 بدر
-
-                <b id="bScore">
-                    0
-                </b>
-
-            </div>
+            <label>
+                كلمة الدخول
+            </label>
 
 
-            <div class="score sun-score">
+            <div class="password-box">
 
-                ☀️ شمس
+                <input
+                    id="passwordInput"
+                    type="password"
+                    inputmode="numeric"
+                    autocomplete="off"
+                    placeholder="••••"
+                    maxlength="20"
+                    onkeydown="if(event.key === 'Enter') enterSpace()"
+                >
 
-                <b id="sScore">
-                    0
-                </b>
+                <button
+                    type="button"
+                    onclick="togglePassword()"
+                    id="passwordEye"
+                >
+                    👁
+                </button>
 
             </div>
-
-        </div>
-
-
-        <div>
-
-            <button
-                class="btn"
-                onclick="goHome()"
-            >
-                🏠 الرئيسية
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <div
-        id="turn"
-        class="turn"
-    >
-        جارٍ الاتصال...
-    </div>
-
-
-    <div class="nav">
-
-        <button
-            class="btn moon"
-            onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})"
-        >
-            🎮 الألعاب
-        </button>
-
-
-        <button
-            class="btn sun"
-            onclick="document.getElementById('questions').scrollIntoView({behavior:'smooth'})"
-        >
-            ❓ الأسئلة
-        </button>
-
-
-        <button
-            class="btn"
-            onclick="document.getElementById('activities').scrollIntoView({behavior:'smooth'})"
-        >
-            🎯 الفعاليات
-        </button>
-
-
-        <button
-            class="btn"
-            onclick="document.getElementById('scores').scrollIntoView({behavior:'smooth'})"
-        >
-            🏆 النتائج
-        </button>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     HOME
-========================= -->
-
-<section
-    id="homePanel"
->
-
-
-<!-- HERO -->
-
-<div class="hero">
-
-
-    <div class="card hero-main">
-
-        <div style="font-size:45px">
-            🌙 ✦ ☀️
-        </div>
-
-
-        <h2>
-            أهلًا بك في مساحتكم
-        </h2>
-
-
-        <p>
-
-            هنا تبدأ المنافسة بين
-            <strong>البدر</strong>
-            و
-            <strong>الشمس</strong>.
-
-            العبوا،
-            اجمعوا النقاط،
-            واكتشفوا من يعرف الثاني أكثر.
-
-        </p>
-
-
-        <div>
-
-            <button
-                class="btn moon"
-                onclick="openGame('games/xo.html','إكس أو')"
-            >
-                🎮 ابدأ اللعب
-            </button>
-
-        </div>
-
-    </div>
-
-
-
-    <div class="card section">
-
-        <div class="section-title">
-
-            <h2>
-                ⚡ وصول سريع
-            </h2>
-
-        </div>
-
-
-        <div class="quick-grid">
 
 
             <div
-                class="quick"
-                onclick="openGame('games/xo.html','إكس أو')"
+                id="loginError"
+                class="login-error"
+            ></div>
+
+
+            <button
+                class="enter-button"
+                onclick="enterSpace()"
+            >
+
+                دخول المساحة
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+
+            <div class="login-note">
+                هذه المساحة مخصصة لبدر وشمس فقط ✦
+            </div>
+
+        </section>
+
+
+        <footer class="login-footer">
+            🌙 البدر &nbsp; • &nbsp; ☀️ الشمس
+        </footer>
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     APPLICATION
+===================================================== -->
+
+<div
+    id="app"
+    class="app hidden"
+>
+
+
+    <!-- HEADER -->
+
+    <header class="app-header">
+
+        <div class="header-player">
+
+            <div
+                id="headerPlayerIcon"
+                class="header-player-icon"
+            >
+                ☾
+            </div>
+
+            <div>
+
+                <small>
+                    أنت
+                </small>
+
+                <strong id="headerPlayerName">
+                    بدر
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-center">
+
+            <div class="mini-brand">
+                بدر <span>×</span> شمس
+            </div>
+
+            <div class="connection">
+                <i></i>
+                متصلان
+            </div>
+
+        </div>
+
+
+        <button
+            class="header-menu"
+            onclick="logout()"
+        >
+            ⋮
+        </button>
+
+    </header>
+
+
+
+    <!-- SCORE BAR -->
+
+    <section class="score-bar">
+
+        <div class="score-side moon-score">
+
+            <div class="score-avatar">
+                ☾
+            </div>
+
+            <div class="score-data">
+
+                <span>
+                    بدر
+                </span>
+
+                <strong id="baderScore">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="score-middle">
+
+            <span>
+                النقاط
+            </span>
+
+            <div>
+                VS
+            </div>
+
+        </div>
+
+
+        <div class="score-side sun-score">
+
+            <div class="score-data">
+
+                <span>
+                    شمس
+                </span>
+
+                <strong id="shamsScore">
+                    0
+                </strong>
+
+            </div>
+
+            <div class="score-avatar">
+                ☀
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- MAIN -->
+
+    <main class="home">
+
+        <!-- GREETING -->
+
+        <section class="welcome-card">
+
+            <div class="welcome-glow"></div>
+
+            <div class="welcome-content">
+
+                <span class="welcome-small">
+                    أهلاً بك ✦
+                </span>
+
+                <h1 id="welcomeTitle">
+                    جاهز للتحدي؟
+                </h1>
+
+                <p id="welcomeText">
+                    اليوم نبي نشوف من فيكم المتصدر.
+                </p>
+
+            </div>
+
+
+            <div class="welcome-symbol">
+
+                <div class="welcome-moon">
+                    ☾
+                </div>
+
+                <div class="welcome-sun">
+                    ☀
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- QUICK ACTION -->
+
+        <section class="quick-actions">
+
+            <button
+                class="quick-action main-action"
+                onclick="openGame('games/xo.html', 'إكس أو')"
             >
 
                 <div class="quick-icon">
-                    ❌⭕
+                    🎮
+                </div>
+
+                <div>
+
+                    <strong>
+                        ابدأ اللعب
+                    </strong>
+
+                    <span>
+                        تحدي مباشر
+                    </span>
+
                 </div>
 
                 <b>
-                    إكس أو
+                    ←
                 </b>
 
-                <span>
-                    تحدي مباشر
-                </span>
-
-            </div>
+            </button>
 
 
-            <div
-                class="quick"
-                onclick="document.getElementById('questions').scrollIntoView({behavior:'smooth'})"
+            <button
+                class="quick-action"
+                onclick="showComingSoon('الأسئلة')"
             >
 
                 <div class="quick-icon">
                     ❓
                 </div>
 
+                <div>
+
+                    <strong>
+                        سؤال اليوم
+                    </strong>
+
+                    <span>
+                        اختبروا بعض
+                    </span>
+
+                </div>
+
                 <b>
+                    ←
+                </b>
+
+            </button>
+
+        </section>
+
+
+
+        <!-- GAMES -->
+
+        <section class="home-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span>
+                        العبوا معًا
+                    </span>
+
+                    <h2>
+                        الألعاب
+                    </h2>
+
+                </div>
+
+                <button onclick="showComingSoon('كل الألعاب')">
+                    الكل ←
+                </button>
+
+            </div>
+
+
+            <div class="games-preview">
+
+
+                <article
+                    class="game-tile game-xo"
+                    onclick="openGame('games/xo.html', 'إكس أو')"
+                >
+
+                    <div class="game-tile-top">
+
+                        <span class="available">
+                            متاحة الآن
+                        </span>
+
+                        <span class="game-number">
+                            01
+                        </span>
+
+                    </div>
+
+
+                    <div class="game-art">
+                        ❌⭕
+                    </div>
+
+
+                    <h3>
+                        إكس أو
+                    </h3>
+
+                    <p>
+                        مواجهة مباشرة
+                    </p>
+
+
+                    <div class="game-start">
+                        العب الآن <span>←</span>
+                    </div>
+
+                </article>
+
+
+
+                <article
+                    class="game-tile game-reaction"
+                    onclick="showComingSoon('تحدي السرعة')"
+                >
+
+                    <div class="game-tile-top">
+
+                        <span class="coming">
+                            قريبًا
+                        </span>
+
+                        <span class="game-number">
+                            02
+                        </span>
+
+                    </div>
+
+
+                    <div class="game-art">
+                        ⚡
+                    </div>
+
+
+                    <h3>
+                        الأسرع يفوز
+                    </h3>
+
+                    <p>
+                        سرعة وردة فعل
+                    </p>
+
+
+                    <div class="game-start">
+                        قريبًا <span>◌</span>
+                    </div>
+
+                </article>
+
+
+
+                <article
+                    class="game-tile game-memory"
+                    onclick="showComingSoon('من يعرف الثاني؟')"
+                >
+
+                    <div class="game-tile-top">
+
+                        <span class="coming">
+                            قريبًا
+                        </span>
+
+                        <span class="game-number">
+                            03
+                        </span>
+
+                    </div>
+
+
+                    <div class="game-art">
+                        🧠
+                    </div>
+
+
+                    <h3>
+                        من يعرف الثاني؟
+                    </h3>
+
+                    <p>
+                        توقع الإجابة
+                    </p>
+
+
+                    <div class="game-start">
+                        قريبًا <span>◌</span>
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- TODAY -->
+
+        <section class="today-card">
+
+            <div class="today-icon">
+                ✦
+            </div>
+
+            <div class="today-content">
+
+                <span>
+                    فعالية اليوم
+                </span>
+
+                <strong>
+                    تحدي لم يبدأ بعد
+                </strong>
+
+                <p>
+                    خلي عينك على المساحة 👀
+                </p>
+
+            </div>
+
+            <button
+                onclick="showComingSoon('فعالية اليوم')"
+            >
+                فتح
+            </button>
+
+        </section>
+
+
+
+        <!-- BOTTOM NAV -->
+
+        <nav class="bottom-nav">
+
+            <button class="active">
+
+                <span>
+                    🏠
+                </span>
+
+                <small>
+                    الرئيسية
+                </small>
+
+            </button>
+
+
+            <button
+                onclick="openGame('games/xo.html', 'الألعاب')"
+            >
+
+                <span>
+                    🎮
+                </span>
+
+                <small>
+                    الألعاب
+                </small>
+
+            </button>
+
+
+            <button
+                onclick="showComingSoon('الأسئلة')"
+            >
+
+                <span>
+                    ❓
+                </span>
+
+                <small>
                     الأسئلة
-                </b>
+                </small>
 
-                <span>
-                    اختبروا معرفتكم
-                </span>
-
-            </div>
+            </button>
 
 
-            <div
-                class="quick"
-                onclick="document.getElementById('activities').scrollIntoView({behavior:'smooth'})"
+            <button
+                onclick="showComingSoon('النتائج')"
             >
 
-                <div class="quick-icon">
-                    🎯
-                </div>
-
-                <b>
-                    الفعاليات
-                </b>
-
                 <span>
-                    تحديات خاصة
-                </span>
-
-            </div>
-
-
-            <div
-                class="quick"
-                onclick="document.getElementById('scores').scrollIntoView({behavior:'smooth'})"
-            >
-
-                <div class="quick-icon">
                     🏆
-                </div>
-
-                <b>
-                    النتائج
-                </b>
-
-                <span>
-                    من المتصدر؟
                 </span>
 
-            </div>
+                <small>
+                    النتائج
+                </small>
 
-        </div>
+            </button>
 
-    </div>
+        </nav>
+
+    </main>
 
 </div>
 
 
 
-<!-- =========================
-     GAMES
-========================= -->
+<!-- =====================================================
+     GAME VIEW
+===================================================== -->
 
-<section
-    id="games"
-    class="card section"
+<div
+    id="gameView"
+    class="game-view hidden"
 >
 
-    <div class="section-title">
-
-        <div>
-
-            <h2>
-                🎮 الألعاب
-            </h2>
-
-            <span>
-                اختاروا لعبة وابدؤوا المنافسة
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <div class="games-grid">
-
-
-        <!-- XO -->
-
-        <div
-            class="game-card"
-            onclick="openGame('games/xo.html','إكس أو')"
-        >
-
-            <span class="game-tag">
-                متاحة الآن
-            </span>
-
-            <div class="game-icon">
-                ❌⭕
-            </div>
-
-            <h3>
-                إكس أو
-            </h3>
-
-            <p>
-                مباراة مباشرة بين بدر وشمس.
-                الفائز يحصل على نقاط.
-            </p>
-
-        </div>
-
-
-        <!-- GAME 2 -->
-
-        <div class="game-card sun-game">
-
-            <span class="game-tag">
-                قريبًا
-            </span>
-
-            <div class="game-icon">
-                ⚡
-            </div>
-
-            <h3>
-                الأسرع يفوز
-            </h3>
-
-            <p>
-                تحدي سرعة وردة فعل.
-            </p>
-
-        </div>
-
-
-        <!-- GAME 3 -->
-
-        <div class="game-card">
-
-            <span class="game-tag">
-                قريبًا
-            </span>
-
-            <div class="game-icon">
-                🧠
-            </div>
-
-            <h3>
-                من يعرف الثاني؟
-            </h3>
-
-            <p>
-                توقع إجابة الطرف الآخر
-                واحصل على النقاط.
-            </p>
-
-        </div>
-
-
-        <!-- GAME 4 -->
-
-        <div class="game-card sun-game">
-
-            <span class="game-tag">
-                قريبًا
-            </span>
-
-            <div class="game-icon">
-                🎲
-            </div>
-
-            <h3>
-                تحدي الحظ
-            </h3>
-
-            <p>
-                جولات عشوائية ومفاجآت.
-            </p>
-
-        </div>
-
-
-        <!-- GAME 5 -->
-
-        <div class="game-card">
-
-            <span class="game-tag">
-                قريبًا
-            </span>
-
-            <div class="game-icon">
-                🔥
-            </div>
-
-            <h3>
-                تحدي الدقيقة
-            </h3>
-
-            <p>
-                أنجز المهمة قبل انتهاء الوقت.
-            </p>
-
-        </div>
-
-
-        <!-- GAME 6 -->
-
-        <div class="game-card sun-game">
-
-            <span class="game-tag">
-                قريبًا
-            </span>
-
-            <div class="game-icon">
-                🏹
-            </div>
-
-            <h3>
-                الهدف
-            </h3>
-
-            <p>
-                حاول الوصول لأعلى نتيجة.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     QUESTIONS
-========================= -->
-
-<section
-    id="questions"
-    class="card section"
->
-
-    <div class="section-title">
-
-        <div>
-
-            <h2>
-                ❓ الأسئلة
-            </h2>
-
-            <span>
-                أسئلة خفيفة وممتعة
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <div class="questions-grid">
-
-
-        <div class="question-card">
-
-            <div class="question-number">
-                سؤال #01
-            </div>
-
-            <p>
-                من فينا أكثر واحد
-                يغير رأيه بسرعة؟
-            </p>
-
-        </div>
-
-
-        <div class="question-card">
-
-            <div class="question-number">
-                سؤال #02
-            </div>
-
-            <p>
-                ما أكثر شيء
-                يضحكك في الطرف الآخر؟
-            </p>
-
-        </div>
-
-
-        <div class="question-card">
-
-            <div class="question-number">
-                سؤال #03
-            </div>
-
-            <p>
-                لو عندنا يوم كامل
-                بدون أي التزامات،
-                ماذا نختار أن نفعل؟
-            </p>
-
-        </div>
-
-
-        <div class="question-card">
-
-            <div class="question-number">
-                سؤال #04
-            </div>
-
-            <p>
-                من فينا أفضل
-                في اتخاذ القرارات؟
-            </p>
-
-        </div>
-
-
-        <div class="question-card">
-
-            <div class="question-number">
-                سؤال #05
-            </div>
-
-            <p>
-                ما أكثر لعبة
-                تتوقع أن تفوز فيها؟
-            </p>
-
-        </div>
-
-
-        <div class="question-card">
-
-            <div class="question-number">
-                سؤال #06
-            </div>
-
-            <p>
-                ما الشيء البسيط
-                الذي دائمًا يحسن المزاج؟
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     ACTIVITIES
-========================= -->
-
-<section
-    id="activities"
-    class="card section"
->
-
-    <div class="section-title">
-
-        <div>
-
-            <h2>
-                🎯 الفعاليات
-            </h2>
-
-            <span>
-                فعاليات يومية وشبه يومية
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <div class="games-grid">
-
-
-        <div class="game-card">
-
-            <span class="game-tag">
-                قريبًا
-            </span>
-
-            <div class="game-icon">
-                📅
-            </div>
-
-            <h3>
-                فعالية اليوم
-            </h3>
-
-            <p>
-                مهمة جديدة كل يوم.
-            </p>
-
-        </div>
-
-
-        <div class="game-card sun-game">
-
-            <span class="game-tag">
-                قريبًا
-            </span>
-
-            <div class="game-icon">
-                🏆
-            </div>
-
-            <h3>
-                بطولة الأسبوع
-            </h3>
-
-            <p>
-                اجمعوا أكبر عدد من النقاط.
-            </p>
-
-        </div>
-
-
-        <div class="game-card">
-
-            <span class="game-tag">
-                قريبًا
-            </span>
-
-            <div class="game-icon">
-                🎁
-            </div>
-
-            <h3>
-                صندوق المفاجآت
-            </h3>
-
-            <p>
-                فعالية عشوائية ومفاجآت.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     SCORES
-========================= -->
-
-<section
-    id="scores"
-    class="card section"
->
-
-    <div class="section-title">
-
-        <div>
-
-            <h2>
-                🏆 لوحة المنافسة
-            </h2>
-
-            <span>
-                النتيجة الحالية
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <div class="scores">
-
-        <div class="score">
-
-            🌙 بدر
-
-            <b id="bScore2">
-                0
-            </b>
-
-        </div>
-
-
-        <div class="score sun-score">
-
-            ☀️ شمس
-
-            <b id="sScore2">
-                0
-            </b>
-
-        </div>
-
-    </div>
-
-</section>
-
-</section>
-
-
-
-<!-- =========================
-     GAME PANEL
-========================= -->
-
-<section
-    id="gamePanel"
-    class="card hidden"
-    style="margin-top:15px"
->
-
-    <div class="game-head">
+    <header class="game-view-header">
 
         <button
-            class="btn"
-            onclick="goHome()"
+            onclick="closeGame()"
+            class="game-back"
         >
-            ← رجوع
+            →
         </button>
 
-        <h2
-            id="gameTitle"
-            style="margin:0"
-        ></h2>
+        <div>
+            <span>
+                بدر × شمس
+            </span>
 
-    </div>
+            <h2 id="gameViewTitle">
+                اللعبة
+            </h2>
+        </div>
+
+        <div class="game-view-score">
+            🏆 <b id="gameViewScore">0</b>
+        </div>
+
+    </header>
 
 
     <iframe
         id="gameFrame"
-        title="بدر وشمس"
+        title="لعبة بدر وشمس"
     ></iframe>
-
-</section>
-
-
-</main>
 
 </div>
 
 
-<script type="module">
 
-import "./js/app.js";
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+    id="messageModal"
+    class="modal hidden"
+    onclick="closeModal(event)"
+>
+
+    <div
+        class="modal-card"
+        onclick="event.stopPropagation()"
+    >
+
+        <div id="modalIcon">
+            ✦
+        </div>
+
+        <h2 id="modalTitle">
+            قريبًا
+        </h2>
+
+        <p id="modalText">
+            هذا القسم قيد التطوير.
+        </p>
+
+        <button
+            onclick="hideModal()"
+            class="enter-button"
+        >
+            تمام
+        </button>
+
+    </div>
+
+</div>
 
 
-/*
-    مزامنة لوحة النتائج الإضافية
-*/
 
-setInterval(() => {
+<script>
 
-    const b =
-        document.getElementById("bScore");
-
-    const s =
-        document.getElementById("sScore");
-
-    const b2 =
-        document.getElementById("bScore2");
-
-    const s2 =
-        document.getElementById("sScore2");
+let selectedPlayer = null;
 
 
-    if (b && b2)
-        b2.textContent = b.textContent;
+/* ==============================================
+   اختيار اللاعب
+============================================== */
 
-    if (s && s2)
-        s2.textContent = s.textContent;
+function selectPlayer(player) {
 
-}, 500);
+    selectedPlayer = player;
 
-</script>
+    const selection =
+        document.getElementById("playerSelection");
 
-</body>
-  </html>
+    const password =
+        document.getElementById("passwordSection");
+
+    const selected =
+        document.getElementById("selectedPlayer");
+
+    selection.classList.add("hidden");
+
+    password.classList.remove("hidden");
+
+    if (player === "hammam") {
+
+        selected.innerHTML = `
+            <div class="selected-icon moon-selected">☾</div>
+            <div>
+                <strong>بدر</strong>
+                <span>همام</span>
+            </div>
+        `;
+
+    } else {
+
+        selected.innerHTML = `
+            <div class="selected-icon sun-selected">☀</div>
+            <div>
+                <strong>شمس</strong>
+                <span>منية</span>
+            </div>
+        `;
+
+    }
+
+    document
+        .getElementById("passwordInput")
+        .focus();
+}
+
+
+/* ==============================================
+   الرجوع
+============================================== */
+
+function backToPlayers() {
+
+    selectedPlayer = null;
+
+    document
+        .getElementById("passwordSection")
+        .classList.add("hidden");
+
+    document
+        .getElementById("playerSelection")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("loginError")
+        .textContent = "";
+
+}
+
+
+/* ==============================================
+   كلمة المرور
+==============================================
+
+   مؤقتًا:
+   بدر = 1234
+   شمس = 5678
+
+   سننقلها لاحقًا إلى نظام دخول Firebase
+   بدل وضعها داخل الصفحة.
+============================================== */
+
+function enterSpace() {
+
+    const password =
+        document.getElementById("passwordInput")
+        .value;
+
+    const error =
+        document.getElementById("loginError");
+
+
+    const correctPassword =
+        selectedPlayer === "hammam"
+            ? "1234"
+            : "5678";
+
+
+    if (
