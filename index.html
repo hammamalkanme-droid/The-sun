@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -9,19 +10,1146 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     >
 
-    <meta name="theme-color" content="#060a14">
+    <meta name="theme-color" content="#070b18">
 
     <title>بدر × شمس</title>
 
-    <link rel="stylesheet" href="css/theme.css">
+    <style>
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+            font-family:
+                "Segoe UI",
+                Tahoma,
+                Arial,
+                sans-serif;
+            background:
+                radial-gradient(
+                    circle at 50% -20%,
+                    #182b55 0%,
+                    #090f21 45%,
+                    #040711 100%
+                );
+            color: #fff;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+
+        /* =========================================
+           STARS
+        ========================================= */
+
+        .stars,
+        .stars::before,
+        .stars::after {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            content: "";
+        }
+
+        .stars {
+            opacity: .7;
+            background-image:
+                radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1px),
+                radial-gradient(circle, rgba(255,255,255,.45) 1px, transparent 1px);
+            background-size:
+                80px 80px,
+                130px 130px;
+            background-position:
+                0 0,
+                30px 40px;
+        }
+
+
+        /* =========================================
+           LOGIN
+        ========================================= */
+
+        .login-screen {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-orbit {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(1px);
+            pointer-events: none;
+        }
+
+        .moon-orbit {
+            width: 420px;
+            height: 420px;
+            border: 1px solid rgba(80,160,255,.12);
+            box-shadow:
+                0 0 100px rgba(35,110,255,.08);
+        }
+
+        .sun-orbit {
+            width: 600px;
+            height: 600px;
+            border: 1px solid rgba(255,145,45,.07);
+        }
+
+
+        .login-card {
+            width: min(470px, 100%);
+            padding: 34px 25px 22px;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 30px;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(20,31,62,.94),
+                    rgba(7,11,25,.96)
+                );
+            box-shadow:
+                0 35px 100px rgba(0,0,0,.5),
+                inset 0 1px 0 rgba(255,255,255,.05);
+            backdrop-filter: blur(18px);
+        }
+
+
+        /* LOGO */
+
+        .brand-mark {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 17px;
+        }
+
+        .moon-symbol,
+        .sun-symbol {
+            width: 66px;
+            height: 66px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 38px;
+        }
+
+        .moon-symbol {
+            color: #75baff;
+            background:
+                radial-gradient(
+                    circle at 35% 30%,
+                    rgba(100,180,255,.35),
+                    rgba(20,65,125,.15)
+                );
+            box-shadow:
+                0 0 35px rgba(55,145,255,.2);
+        }
+
+        .sun-symbol {
+            color: #ffab45;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,174,69,.28),
+                    rgba(140,55,10,.08)
+                );
+            box-shadow:
+                0 0 35px rgba(255,145,40,.16);
+        }
+
+        .brand-x {
+            font-size: 30px;
+            color: rgba(255,255,255,.55);
+        }
+
+        .brand-title {
+            text-align: center;
+            font-size: 34px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .brand-title span {
+            color: #8995ab;
+        }
+
+        .brand-subtitle {
+            text-align: center;
+            margin-top: 7px;
+            color: #8390a8;
+            font-size: 14px;
+        }
+
+
+        /* LOGIN */
+
+        .login-label {
+            text-align: center;
+            margin: 35px 0 15px;
+            color: #9ba7bc;
+            font-size: 14px;
+        }
+
+        .player-selection {
+            display: grid;
+            gap: 12px;
+        }
+
+        .player-choice {
+            width: 100%;
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 19px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: white;
+            text-align: right;
+            background: rgba(255,255,255,.035);
+            transition:
+                transform .2s,
+                border .2s,
+                background .2s,
+                box-shadow .2s;
+        }
+
+        .player-choice:hover {
+            transform: translateY(-2px);
+        }
+
+        .player-choice:active {
+            transform: scale(.98);
+        }
+
+        .moon-choice:hover {
+            border-color: rgba(90,170,255,.5);
+            background: rgba(40,110,210,.1);
+            box-shadow: 0 10px 40px rgba(30,110,255,.1);
+        }
+
+        .sun-choice:hover {
+            border-color: rgba(255,155,55,.5);
+            background: rgba(255,130,30,.08);
+            box-shadow: 0 10px 40px rgba(255,130,30,.1);
+        }
+
+        .choice-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
+            flex-shrink: 0;
+        }
+
+        .moon-choice .choice-icon {
+            color: #79bdff;
+            background: rgba(40,120,220,.15);
+        }
+
+        .sun-choice .choice-icon {
+            color: #ffad4d;
+            background: rgba(255,140,40,.13);
+        }
+
+        .choice-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .choice-info strong {
+            font-size: 17px;
+        }
+
+        .choice-info span {
+            font-size: 12px;
+            color: #7e8ba1;
+        }
+
+        .choice-arrow {
+            font-size: 21px;
+            color: #748198;
+        }
+
+
+        /* PASSWORD */
+
+        .password-section {
+            margin-top: 30px;
+        }
+
+        .back-login {
+            border: none;
+            background: none;
+            color: #8795ad;
+            margin-bottom: 22px;
+        }
+
+        .selected-player {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .selected-player > div:last-child {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+
+        .selected-player span {
+            font-size: 12px;
+            color: #8794a9;
+            margin-top: 3px;
+        }
+
+        .selected-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 31px;
+        }
+
+        .moon-selected {
+            color: #76baff;
+            background: rgba(55,140,255,.15);
+        }
+
+        .sun-selected {
+            color: #ffae4f;
+            background: rgba(255,140,40,.13);
+        }
+
+        .password-section label {
+            display: block;
+            color: #a0aabd;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .password-box {
+            display: flex;
+            border: 1px solid rgba(255,255,255,.09);
+            border-radius: 15px;
+            background: rgba(255,255,255,.04);
+            overflow: hidden;
+        }
+
+        .password-box input {
+            flex: 1;
+            min-width: 0;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: white;
+            padding: 15px;
+            direction: ltr;
+            font-size: 18px;
+        }
+
+        .password-box button {
+            width: 52px;
+            border: none;
+            background: transparent;
+            color: #8795ad;
+        }
+
+        .login-error {
+            min-height: 23px;
+            color: #ff6578;
+            text-align: center;
+            font-size: 13px;
+            margin: 8px 0;
+        }
+
+        .enter-button {
+            width: 100%;
+            border: none;
+            border-radius: 15px;
+            padding: 15px 18px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #1e67ba,
+                    #3286df
+                );
+            color: white;
+            font-weight: 800;
+            box-shadow:
+                0 12px 30px rgba(35,120,230,.18);
+            transition: .2s;
+        }
+
+        .enter-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .enter-button:active {
+            transform: scale(.98);
+        }
+
+        .enter-button span {
+            float: left;
+            font-size: 20px;
+        }
+
+        .login-note {
+            text-align: center;
+            color: #657289;
+            font-size: 11px;
+            margin-top: 15px;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 28px;
+            color: #59667d;
+            font-size: 11px;
+        }
+
+
+        /* =========================================
+           APP
+        ========================================= */
+
+        .app {
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        .app-header {
+            height: 76px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,.06);
+            background: rgba(5,9,20,.82);
+            backdrop-filter: blur(18px);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .header-player {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .header-player-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(80,150,255,.13);
+            color: #7cc0ff;
+            font-size: 23px;
+        }
+
+        .header-player small {
+            display: block;
+            color: #69768b;
+            font-size: 10px;
+        }
+
+        .header-player strong {
+            font-size: 14px;
+        }
+
+        .header-center {
+            text-align: center;
+        }
+
+        .mini-brand {
+            font-weight: 800;
+            font-size: 15px;
+        }
+
+        .mini-brand span {
+            color: #6f7c91;
+        }
+
+        .connection {
+            color: #657289;
+            font-size: 9px;
+            margin-top: 3px;
+        }
+
+        .connection i {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #55db83;
+            border-radius: 50%;
+            margin-left: 4px;
+        }
+
+        .header-menu {
+            border: none;
+            background: transparent;
+            color: #8995a9;
+            font-size: 27px;
+        }
+
+
+        /* SCORE */
+
+        .score-bar {
+            width: min(720px, calc(100% - 28px));
+            margin: 17px auto 0;
+            padding: 13px 17px;
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 19px;
+            background: rgba(255,255,255,.035);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .score-side {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .score-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .moon-score .score-avatar {
+            background: rgba(55,140,255,.12);
+            color: #72baff;
+        }
+
+        .sun-score .score-avatar {
+            background: rgba(255,140,40,.12);
+            color: #ffab4a;
+        }
+
+        .score-data span {
+            display: block;
+            font-size: 10px;
+            color: #69768b;
+        }
+
+        .score-data strong {
+            font-size: 19px;
+        }
+
+        .score-middle {
+            text-align: center;
+            color: #69768b;
+            font-size: 9px;
+        }
+
+        .score-middle div {
+            color: #a4aec0;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+
+        /* HOME */
+
+        .home {
+            width: min(720px, calc(100% - 28px));
+            margin: 17px auto;
+        }
+
+        .welcome-card {
+            min-height: 190px;
+            padding: 24px;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(20,54,100,.95),
+                    rgba(10,19,42,.95)
+                );
+            border: 1px solid rgba(90,165,255,.13);
+        }
+
+        .welcome-glow {
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            background: rgba(50,140,255,.13);
+            filter: blur(45px);
+            left: -80px;
+            top: -80px;
+        }
+
+        .welcome-content {
+            position: relative;
+            z-index: 2;
+            max-width: 65%;
+        }
+
+        .welcome-small {
+            color: #75b9ff;
+            font-size: 12px;
+        }
+
+        .welcome-content h1 {
+            margin: 10px 0 7px;
+            font-size: 29px;
+        }
+
+        .welcome-content p {
+            margin: 0;
+            color: #8d9ab0;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .welcome-symbol {
+            position: absolute;
+            left: 22px;
+            bottom: 20px;
+            width: 115px;
+            height: 115px;
+        }
+
+        .welcome-moon,
+        .welcome-sun {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .welcome-moon {
+            width: 90px;
+            height: 90px;
+            right: 0;
+            top: 0;
+            font-size: 58px;
+            color: #82c5ff;
+            background: rgba(65,140,255,.08);
+        }
+
+        .welcome-sun {
+            width: 45px;
+            height: 45px;
+            left: 0;
+            bottom: 0;
+            font-size: 26px;
+            color: #ffae4f;
+            background: rgba(255,140,40,.1);
+        }
+
+
+        /* QUICK */
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 10px;
+            margin-top: 13px;
+        }
+
+        .quick-action {
+            min-height: 77px;
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 18px;
+            background: rgba(255,255,255,.035);
+            color: white;
+            display: flex;
+            align-items: center;
+            text-align: right;
+            gap: 10px;
+            padding: 12px;
+        }
+
+        .quick-action:hover {
+            border-color: rgba(255,255,255,.15);
+        }
+
+        .quick-icon {
+            width: 43px;
+            height: 43px;
+            border-radius: 13px;
+            background: rgba(255,255,255,.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .quick-action > div:nth-child(2) {
+            flex: 1;
+        }
+
+        .quick-action strong,
+        .quick-action span {
+            display: block;
+        }
+
+        .quick-action strong {
+            font-size: 13px;
+        }
+
+        .quick-action span {
+            font-size: 10px;
+            color: #68758b;
+            margin-top: 4px;
+        }
+
+        .quick-action b {
+            color: #657289;
+        }
+
+        .main-action {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(31,103,190,.35),
+                    rgba(255,140,40,.07)
+                );
+        }
+
+
+        /* SECTION */
+
+        .home-section {
+            margin-top: 26px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .section-heading span {
+            color: #6f7d93;
+            font-size: 10px;
+        }
+
+        .section-heading h2 {
+            margin: 3px 0 0;
+            font-size: 22px;
+        }
+
+        .section-heading button {
+            border: none;
+            background: transparent;
+            color: #75b9ff;
+            font-size: 11px;
+        }
+
+
+        /* GAMES */
+
+        .games-preview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .game-tile {
+            min-height: 225px;
+            padding: 13px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,.06);
+            background: rgba(255,255,255,.035);
+            cursor: pointer;
+            transition: .2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-tile:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,.13);
+        }
+
+        .game-tile-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .available,
+        .coming {
+            font-size: 8px;
+            border-radius: 30px;
+            padding: 5px 7px;
+        }
+
+        .available {
+            background: rgba(70,220,130,.1);
+            color: #62dc91;
+        }
+
+        .coming {
+            background: rgba(255,255,255,.05);
+            color: #69768b;
+        }
+
+        .game-number {
+            color: #59667c;
+            font-size: 10px;
+        }
+
+        .game-art {
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 37px;
+            margin-top: 10px;
+        }
+
+        .game-tile h3 {
+            font-size: 15px;
+            margin: 6px 0 3px;
+        }
+
+        .game-tile p {
+            font-size: 10px;
+            color: #68758a;
+            margin: 0;
+        }
+
+        .game-start {
+            position: absolute;
+            bottom: 12px;
+            right: 13px;
+            left: 13px;
+            font-size: 10px;
+            color: #75b9ff;
+        }
+
+        .game-start span {
+            float: left;
+        }
+
+
+        /* TODAY */
+
+        .today-card {
+            margin-top: 18px;
+            padding: 16px;
+            border-radius: 19px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255,170,70,.1);
+            background: rgba(255,140,40,.045);
+        }
+
+        .today-icon {
+            width: 43px;
+            height: 43px;
+            flex-shrink: 0;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffac4d;
+            background: rgba(255,140,40,.1);
+        }
+
+        .today-content {
+            flex: 1;
+        }
+
+        .today-content span,
+        .today-content strong,
+        .today-content p {
+            display: block;
+        }
+
+        .today-content span {
+            font-size: 9px;
+            color: #ffae52;
+        }
+
+        .today-content strong {
+            font-size: 13px;
+            margin-top: 3px;
+        }
+
+        .today-content p {
+            font-size: 9px;
+            color: #6f7c91;
+            margin: 4px 0 0;
+        }
+
+        .today-card button {
+            border: none;
+            border-radius: 10px;
+            padding: 8px 11px;
+            background: rgba(255,140,40,.1);
+            color: #ffae52;
+            font-size: 10px;
+        }
+
+
+        /* NAV */
+
+        .bottom-nav {
+            position: fixed;
+            z-index: 30;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(600px, calc(100% - 24px));
+            padding: 7px;
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 20px;
+            background: rgba(7,12,25,.9);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 15px 50px rgba(0,0,0,.45);
+        }
+
+        .bottom-nav button {
+            border: none;
+            border-radius: 14px;
+            padding: 7px 4px;
+            color: #5e6b81;
+            background: transparent;
+        }
+
+        .bottom-nav button.active {
+            color: #79bbff;
+            background: rgba(60,140,255,.09);
+        }
+
+        .bottom-nav span,
+        .bottom-nav small {
+            display: block;
+        }
+
+        .bottom-nav span {
+            font-size: 17px;
+        }
+
+        .bottom-nav small {
+            font-size: 8px;
+            margin-top: 3px;
+        }
+
+
+        /* =========================================
+           GAME VIEW
+        ========================================= */
+
+        .game-view {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background:
+                #050916;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-view-header {
+            height: 68px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255,255,255,.07);
+            background: rgba(6,10,22,.94);
+        }
+
+        .game-back {
+            width: 43px;
+            height: 43px;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 13px;
+            background: rgba(255,255,255,.04);
+            color: white;
+            font-size: 20px;
+        }
+
+        .game-view-header > div:nth-child(2) {
+            flex: 1;
+        }
+
+        .game-view-header span {
+            color: #66738a;
+            font-size: 9px;
+        }
+
+        .game-view-header h2 {
+            margin: 2px 0 0;
+            font-size: 16px;
+        }
+
+        .game-view-score {
+            border-radius: 11px;
+            padding: 8px 11px;
+            background: rgba(255,255,255,.04);
+            font-size: 12px;
+        }
+
+        #gameFrame {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            background: #050916;
+        }
+
+
+        /* =========================================
+           MODAL
+        ========================================= */
+
+        .modal {
+            position: fixed;
+            z-index: 200;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0,0,0,.72);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-card {
+            width: min(380px,100%);
+            padding: 27px;
+            border-radius: 25px;
+            text-align: center;
+            background:
+                linear-gradient(
+                    145deg,
+                    #14203c,
+                    #080d1b
+                );
+            border: 1px solid rgba(255,255,255,.08);
+            box-shadow: 0 30px 90px rgba(0,0,0,.5);
+        }
+
+        .modal-card > div {
+            font-size: 38px;
+        }
+
+        .modal-card h2 {
+            margin: 10px 0;
+        }
+
+        .modal-card p {
+            color: #7e8ba0;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .login-card {
+                padding: 28px 18px 20px;
+                border-radius: 26px;
+            }
+
+            .brand-title {
+                font-size: 30px;
+            }
+
+            .games-preview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .game-tile:last-child {
+                grid-column: 1 / -1;
+            }
+
+        }
+
+        @media (max-width: 390px) {
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-content {
+                max-width: 70%;
+            }
+
+            .welcome-content h1 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 
 <body>
 
-<!-- =====================================================
-     BOOT / LOGIN
-===================================================== -->
+
+<!-- =========================================================
+     LOGIN
+========================================================= -->
 
 <div id="loginScreen" class="login-screen">
 
@@ -32,8 +1160,6 @@
 
 
     <main class="login-card">
-
-        <!-- الشعار -->
 
         <div class="brand-mark">
 
@@ -73,6 +1199,7 @@
             <div class="player-selection">
 
                 <button
+                    type="button"
                     class="player-choice moon-choice"
                     onclick="selectPlayer('hammam')"
                 >
@@ -101,6 +1228,7 @@
 
 
                 <button
+                    type="button"
                     class="player-choice sun-choice"
                     onclick="selectPlayer('monia')"
                 >
@@ -140,6 +1268,7 @@
         >
 
             <button
+                type="button"
                 class="back-login"
                 onclick="backToPlayers()"
             >
@@ -153,7 +1282,7 @@
             ></div>
 
 
-            <label>
+            <label for="passwordInput">
                 كلمة الدخول
             </label>
 
@@ -163,11 +1292,9 @@
                 <input
                     id="passwordInput"
                     type="password"
-                    inputmode="numeric"
                     autocomplete="off"
                     placeholder="••••"
                     maxlength="20"
-                    onkeydown="if(event.key === 'Enter') enterSpace()"
                 >
 
                 <button
@@ -188,6 +1315,7 @@
 
 
             <button
+                type="button"
                 class="enter-button"
                 onclick="enterSpace()"
             >
@@ -218,17 +1346,15 @@
 
 
 
-<!-- =====================================================
+<!-- =========================================================
      APPLICATION
-===================================================== -->
+========================================================= -->
 
 <div
     id="app"
     class="app hidden"
 >
 
-
-    <!-- HEADER -->
 
     <header class="app-header">
 
@@ -264,13 +1390,14 @@
 
             <div class="connection">
                 <i></i>
-                متصلان
+                المساحة جاهزة
             </div>
 
         </div>
 
 
         <button
+            type="button"
             class="header-menu"
             onclick="logout()"
         >
@@ -281,7 +1408,7 @@
 
 
 
-    <!-- SCORE BAR -->
+    <!-- SCORE -->
 
     <section class="score-bar">
 
@@ -343,11 +1470,10 @@
 
 
 
-    <!-- MAIN -->
+    <!-- HOME -->
 
     <main class="home">
 
-        <!-- GREETING -->
 
         <section class="welcome-card">
 
@@ -386,13 +1512,14 @@
 
 
 
-        <!-- QUICK ACTION -->
+        <!-- QUICK -->
 
         <section class="quick-actions">
 
             <button
+                type="button"
                 class="quick-action main-action"
-                onclick="openGame('games/xo.html', 'إكس أو')"
+                onclick="openGame('games/xo.html','إكس أو')"
             >
 
                 <div class="quick-icon">
@@ -419,6 +1546,7 @@
 
 
             <button
+                type="button"
                 class="quick-action"
                 onclick="showComingSoon('الأسئلة')"
             >
@@ -467,7 +1595,10 @@
 
                 </div>
 
-                <button onclick="showComingSoon('كل الألعاب')">
+                <button
+                    type="button"
+                    onclick="showComingSoon('كل الألعاب')"
+                >
                     الكل ←
                 </button>
 
@@ -479,7 +1610,7 @@
 
                 <article
                     class="game-tile game-xo"
-                    onclick="openGame('games/xo.html', 'إكس أو')"
+                    onclick="openGame('games/xo.html','إكس أو')"
                 >
 
                     <div class="game-tile-top">
@@ -626,6 +1757,7 @@
             </div>
 
             <button
+                type="button"
                 onclick="showComingSoon('فعالية اليوم')"
             >
                 فتح
@@ -635,11 +1767,14 @@
 
 
 
-        <!-- BOTTOM NAV -->
+        <!-- NAV -->
 
         <nav class="bottom-nav">
 
-            <button class="active">
+            <button
+                type="button"
+                class="active"
+            >
 
                 <span>
                     🏠
@@ -653,7 +1788,8 @@
 
 
             <button
-                onclick="openGame('games/xo.html', 'الألعاب')"
+                type="button"
+                onclick="openGame('games/xo.html','الألعاب')"
             >
 
                 <span>
@@ -668,6 +1804,7 @@
 
 
             <button
+                type="button"
                 onclick="showComingSoon('الأسئلة')"
             >
 
@@ -683,6 +1820,7 @@
 
 
             <button
+                type="button"
                 onclick="showComingSoon('النتائج')"
             >
 
@@ -704,9 +1842,9 @@
 
 
 
-<!-- =====================================================
+<!-- =========================================================
      GAME VIEW
-===================================================== -->
+========================================================= -->
 
 <div
     id="gameView"
@@ -716,6 +1854,7 @@
     <header class="game-view-header">
 
         <button
+            type="button"
             onclick="closeGame()"
             class="game-back"
         >
@@ -723,6 +1862,7 @@
         </button>
 
         <div>
+
             <span>
                 بدر × شمس
             </span>
@@ -730,6 +1870,7 @@
             <h2 id="gameViewTitle">
                 اللعبة
             </h2>
+
         </div>
 
         <div class="game-view-score">
@@ -742,15 +1883,16 @@
     <iframe
         id="gameFrame"
         title="لعبة بدر وشمس"
+        allow="fullscreen"
     ></iframe>
 
 </div>
 
 
 
-<!-- =====================================================
+<!-- =========================================================
      MODAL
-===================================================== -->
+========================================================= -->
 
 <div
     id="messageModal"
@@ -776,6 +1918,7 @@
         </p>
 
         <button
+            type="button"
             onclick="hideModal()"
             class="enter-button"
         >
@@ -790,107 +1933,746 @@
 
 <script>
 
-let selectedPlayer = null;
+"use strict";
 
 
-/* ==============================================
-   اختيار اللاعب
-============================================== */
+/* =========================================================
+   إعدادات النظام
+========================================================= */
 
-function selectPlayer(player) {
+const CONFIG = {
 
-    selectedPlayer = player;
+    passwords: {
 
-    const selection =
-        document.getElementById("playerSelection");
+        hammam: "1234",
 
-    const password =
-        document.getElementById("passwordSection");
+        monia: "5678"
 
-    const selected =
-        document.getElementById("selectedPlayer");
+    },
 
-    selection.classList.add("hidden");
+    players: {
 
-    password.classList.remove("hidden");
+        hammam: {
 
-    if (player === "hammam") {
+            name: "بدر",
 
-        selected.innerHTML = `
-            <div class="selected-icon moon-selected">☾</div>
-            <div>
-                <strong>بدر</strong>
-                <span>همام</span>
-            </div>
-        `;
+            realName: "همام",
 
-    } else {
+            icon: "☾"
 
-        selected.innerHTML = `
-            <div class="selected-icon sun-selected">☀</div>
-            <div>
-                <strong>شمس</strong>
-                <span>منية</span>
-            </div>
-        `;
+        },
+
+        monia: {
+
+            name: "شمس",
+
+            realName: "منية",
+
+            icon: "☀"
+
+        }
 
     }
 
-    document
-        .getElementById("passwordInput")
-        .focus();
+};
+
+
+/* =========================================================
+   حالة التطبيق
+========================================================= */
+
+let selectedPlayer = null;
+
+let currentPlayer = null;
+
+
+/* =========================================================
+   عناصر
+========================================================= */
+
+function $(id) {
+
+    return document.getElementById(id);
+
 }
 
 
-/* ==============================================
-   الرجوع
-============================================== */
+/* =========================================================
+   اختيار اللاعب
+========================================================= */
 
-function backToPlayers() {
+window.selectPlayer = function(player) {
+
+    if (
+        player !== "hammam" &&
+        player !== "monia"
+    ) {
+        return;
+    }
+
+
+    selectedPlayer = player;
+
+
+    $("playerSelection")
+        .classList
+        .add("hidden");
+
+
+    $("passwordSection")
+        .classList
+        .remove("hidden");
+
+
+    const info =
+        CONFIG.players[player];
+
+
+    $("selectedPlayer").innerHTML = `
+
+        <div class="selected-icon ${
+            player === "hammam"
+                ? "moon-selected"
+                : "sun-selected"
+        }">
+            ${info.icon}
+        </div>
+
+        <div>
+
+            <strong>
+                ${info.name}
+            </strong>
+
+            <span>
+                ${info.realName}
+            </span>
+
+        </div>
+
+    `;
+
+
+    $("loginError").textContent = "";
+
+    $("passwordInput").value = "";
+
+    setTimeout(() => {
+
+        $("passwordInput").focus();
+
+    }, 100);
+
+};
+
+
+/* =========================================================
+   العودة
+========================================================= */
+
+window.backToPlayers = function() {
 
     selectedPlayer = null;
 
-    document
-        .getElementById("passwordSection")
-        .classList.add("hidden");
+    $("passwordSection")
+        .classList
+        .add("hidden");
 
-    document
-        .getElementById("playerSelection")
-        .classList.remove("hidden");
 
-    document
-        .getElementById("loginError")
+    $("playerSelection")
+        .classList
+        .remove("hidden");
+
+
+    $("loginError")
         .textContent = "";
+
+    $("passwordInput")
+        .value = "";
+
+};
+
+
+/* =========================================================
+   إظهار/إخفاء كلمة السر
+========================================================= */
+
+window.togglePassword = function() {
+
+    const input = $("passwordInput");
+
+    const eye = $("passwordEye");
+
+
+    if (input.type === "password") {
+
+        input.type = "text";
+
+        eye.textContent = "🙈";
+
+    } else {
+
+        input.type = "password";
+
+        eye.textContent = "👁";
+
+    }
+
+};
+
+
+/* =========================================================
+   الدخول
+========================================================= */
+
+window.enterSpace = function() {
+
+    if (!selectedPlayer) {
+
+        $("loginError").textContent =
+            "اختر بدر أو شمس أولاً.";
+
+        return;
+
+    }
+
+
+    const password =
+        $("passwordInput").value.trim();
+
+
+    if (!password) {
+
+        $("loginError").textContent =
+            "اكتب كلمة الدخول.";
+
+        return;
+
+    }
+
+
+    const correctPassword =
+        CONFIG.passwords[selectedPlayer];
+
+
+    if (password !== correctPassword) {
+
+        $("loginError").textContent =
+            "كلمة الدخول غير صحيحة ❌";
+
+
+        $("passwordInput").value = "";
+
+        $("passwordInput").focus();
+
+        return;
+
+    }
+
+
+    currentPlayer = selectedPlayer;
+
+
+    sessionStorage.setItem(
+        "badrShamsPlayer",
+        currentPlayer
+    );
+
+
+    openApplication();
+
+};
+
+
+/* =========================================================
+   فتح التطبيق
+========================================================= */
+
+function openApplication() {
+
+    $("loginScreen")
+        .classList
+        .add("hidden");
+
+
+    $("app")
+        .classList
+        .remove("hidden");
+
+
+    updatePlayerUI();
+
+    updateScores();
 
 }
 
 
-/* ==============================================
-   كلمة المرور
-==============================================
+/* =========================================================
+   تحديث بيانات اللاعب
+========================================================= */
 
-   مؤقتًا:
-   بدر = 1234
-   شمس = 5678
+function updatePlayerUI() {
 
-   سننقلها لاحقًا إلى نظام دخول Firebase
-   بدل وضعها داخل الصفحة.
-============================================== */
-
-function enterSpace() {
-
-    const password =
-        document.getElementById("passwordInput")
-        .value;
-
-    const error =
-        document.getElementById("loginError");
+    if (!currentPlayer) {
+        return;
+    }
 
 
-    const correctPassword =
-        selectedPlayer === "hammam"
-            ? "1234"
-            : "5678";
+    const player =
+        CONFIG.players[currentPlayer];
+
+
+    $("headerPlayerIcon").textContent =
+        player.icon;
+
+
+    $("headerPlayerName").textContent =
+        player.name;
+
+
+    $("welcomeTitle").textContent =
+        currentPlayer === "hammam"
+            ? "يا هلا يا بدر 🌙"
+            : "يا هلا يا شمس ☀️";
+
+
+    $("welcomeText").textContent =
+        currentPlayer === "hammam"
+            ? "جاهز تشوف هل تقدر تتفوق على شمس اليوم؟"
+            : "جاهزة تشوفي هل تقدري تتفوقي على بدر اليوم؟";
+
+}
+
+
+/* =========================================================
+   النقاط
+========================================================= */
+
+function getScores() {
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                "badrShamsScores"
+            );
+
+
+        if (!saved) {
+
+            return {
+
+                hammam: 0,
+
+                monia: 0
+
+            };
+
+        }
+
+
+        const scores =
+            JSON.parse(saved);
+
+
+        return {
+
+            hammam:
+                Number(scores.hammam) || 0,
+
+            monia:
+                Number(scores.monia) || 0
+
+        };
+
+    } catch {
+
+        return {
+
+            hammam: 0,
+
+            monia: 0
+
+        };
+
+    }
+
+}
+
+
+function saveScores(scores) {
+
+    localStorage.setItem(
+
+        "badrShamsScores",
+
+        JSON.stringify(scores)
+
+    );
+
+}
+
+
+function updateScores() {
+
+    const scores = getScores();
+
+
+    $("baderScore").textContent =
+        scores.hammam;
+
+
+    $("shamsScore").textContent =
+        scores.monia;
+
+
+    $("gameViewScore").textContent =
+        scores[currentPlayer] || 0;
+
+}
+
+
+/* =========================================================
+   API بسيطة للألعاب
+========================================================= */
+
+window.addPoints = function(player, amount) {
+
+    if (
+        player !== "hammam" &&
+        player !== "monia"
+    ) {
+        return;
+    }
+
+
+    const scores = getScores();
+
+
+    scores[player] +=
+        Number(amount) || 0;
+
+
+    saveScores(scores);
+
+    updateScores();
+
+};
+
+
+/* =========================================================
+   فتح اللعبة داخل التطبيق
+========================================================= */
+
+window.openGame = function(
+    gameFile,
+    gameTitle = "اللعبة"
+) {
+
+    if (!gameFile) {
+
+        showComingSoon(gameTitle);
+
+        return;
+
+    }
+
+
+    const gameView =
+        $("gameView");
+
+
+    const frame =
+        $("gameFrame");
+
+
+    $("gameViewTitle")
+        .textContent =
+        gameTitle;
+
+
+    updateScores();
+
+
+    gameView
+        .classList
+        .remove("hidden");
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    frame.src = gameFile;
+
+
+    frame.onload = function() {
+
+        console.log(
+            "تم تحميل اللعبة:",
+            gameFile
+        );
+
+    };
+
+
+    frame.onerror = function() {
+
+        showGameError(gameFile);
+
+    };
+
+};
+
+
+/* =========================================================
+   إغلاق اللعبة
+========================================================= */
+
+window.closeGame = function() {
+
+    $("gameFrame").src =
+        "about:blank";
+
+
+    $("gameView")
+        .classList
+        .add("hidden");
+
+
+    document.body.style.overflow =
+        "";
+
+    updateScores();
+
+};
+
+
+/* =========================================================
+   خطأ اللعبة
+========================================================= */
+
+function showGameError(file) {
+
+    $("gameFrame").src =
+        "about:blank";
+
+
+    $("gameFrame").contentDocument
+        .body.innerHTML = `
+
+        <div style="
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:30px;
+            color:white;
+            background:#050916;
+            font-family:Arial;
+            text-align:center;
+            direction:rtl;
+        ">
+
+            <div>
+
+                <div style="
+                    font-size:55px;
+                    margin-bottom:15px;
+                ">
+                    ⚠️
+                </div>
+
+                <h2>
+                    تعذر فتح اللعبة
+                </h2>
+
+                <p style="
+                    color:#8995a9;
+                    line-height:1.8;
+                ">
+                    تأكد أن الملف موجود في:
+                </p>
+
+                <code style="
+                    display:block;
+                    padding:12px;
+                    background:#111a2e;
+                    border-radius:10px;
+                    direction:ltr;
+                ">
+                    ${file}
+                </code>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   رسائل مؤقتة
+========================================================= */
+
+window.showComingSoon = function(title) {
+
+    $("modalIcon").textContent = "✦";
+
+    $("modalTitle").textContent =
+        title;
+
+
+    $("modalText").textContent =
+        "هذا القسم موجود في الخطة القادمة. بنفتحه داخل التطبيق مثل الألعاب بالضبط.";
+
+
+    $("messageModal")
+        .classList
+        .remove("hidden");
+
+};
+
+
+window.hideModal = function() {
+
+    $("messageModal")
+        .classList
+        .add("hidden");
+
+};
+
+
+window.closeModal = function(event) {
+
+    if (
+        event.target ===
+        $("messageModal")
+    ) {
+
+        hideModal();
+
+    }
+
+};
+
+
+/* =========================================================
+   تسجيل الخروج
+========================================================= */
+
+window.logout = function() {
+
+    const yes =
+        confirm(
+            "هل تريد تسجيل الخروج من مساحة بدر × شمس؟"
+        );
+
+
+    if (!yes) {
+        return;
+    }
+
+
+    sessionStorage.removeItem(
+        "badrShamsPlayer"
+    );
+
+
+    currentPlayer = null;
+
+    selectedPlayer = null;
+
+
+    $("app")
+        .classList
+        .add("hidden");
+
+
+    $("gameView")
+        .classList
+        .add("hidden");
+
+
+    $("loginScreen")
+        .classList
+        .remove("hidden");
+
+
+    $("passwordSection")
+        .classList
+        .add("hidden");
+
+
+    $("playerSelection")
+        .classList
+        .remove("hidden");
+
+
+    $("passwordInput").value = "";
+
+};
+
+
+/* =========================================================
+   Enter في كلمة السر
+========================================================= */
+
+$("passwordInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                enterSpace();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   استعادة الجلسة
+========================================================= */
+
+(function restoreSession() {
+
+    const saved =
+        sessionStorage.getItem(
+            "badrShamsPlayer"
+        );
 
 
     if (
+        saved === "hammam" ||
+        saved === "monia"
+    ) {
+
+        currentPlayer = saved;
+
+        openApplication();
+
+    }
+
+})();
+
+
+/* =========================================================
+   رسالة تشغيل
+========================================================= */
+
+console.log(
+    "🌙☀️ بدر × شمس — النظام جاهز"
+);
+
+</script>
+
+
+</body>
+    </html>
