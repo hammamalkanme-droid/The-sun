@@ -1,108 +1,445 @@
-<!doctype html><html lang="ar" dir="rtl"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>مساحة بدر وشمس 🌌 — Ultimate V3</title>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مساحة بدر وشمس</title>
 <style>
-*{box-sizing:border-box}body{margin:0;padding:14px;font-family:system-ui,"Segoe UI",sans-serif;background:linear-gradient(135deg,#080b16,#171a35);color:#fff}
-.wrap{max-width:950px;margin:auto}.hide{display:none!important}.card{background:#12182b;border:1px solid #293454;border-radius:18px;padding:16px;margin:10px 0;box-shadow:0 10px 30px #0004}
-h1{color:#ff6680}.btn{border:0;border-radius:12px;padding:11px 15px;margin:5px;font-weight:800;color:#fff;background:#38425e;cursor:pointer}.btn:hover{filter:brightness(1.15)}.b{background:#0f4b82}.s{background:#a92848}.g{background:#16834a}.y{background:#a87500}
-.scores,.players{display:grid;grid-template-columns:1fr 1fr;gap:10px}.score,.player{padding:12px;border-radius:14px;background:#0f3460;text-align:center}.score:last-child{background:#5d1933}.score b{display:block;font-size:28px}.turn{text-align:center;padding:10px;border-radius:12px;background:#ffffff0b;margin:10px 0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.tile{background:#18213a;border:1px solid #303b5d;border-radius:15px;padding:15px;min-height:90px;cursor:pointer}.tile b{display:block;margin-bottom:6px}.muted{color:#aab3c9}.choice{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.input,textarea{width:100%;background:#0a0e1c;color:#fff;border:1px solid #35405f;border-radius:11px;padding:11px;font-size:16px}.board{display:grid;grid-template-columns:repeat(3,82px);gap:6px;justify-content:center}.cell{height:82px;border-radius:10px;background:#1b2742;display:flex;align-items:center;justify-content:center;font-size:38px;cursor:pointer}.big{text-align:center;font-size:30px;font-weight:900;margin:18px}.badge{display:inline-block;padding:7px 10px;border-radius:999px;background:#ffffff0a;margin:4px}.notice{border:1px dashed #465273;border-radius:12px;padding:10px;color:#aab3c9}.toolbar{text-align:center}
-@media(max-width:650px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:460px){.grid{grid-template-columns:1fr}.scores,.players{grid-template-columns:1fr}.board{grid-template-columns:repeat(3,70px)}.cell{height:70px}}
-</style></head><body><div class="wrap">
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:#090d19;color:#fff}
+button,input,textarea{font:inherit}button{cursor:pointer}.wrap{max-width:1000px;margin:auto;padding:14px}
+.card{background:#131a2b;border:1px solid #293653;border-radius:18px;padding:18px;margin:12px 0;box-shadow:0 8px 25px #0005}
+h1,h2,h3{margin-top:0}.pink{color:#ff6480}.muted{color:#aeb8cc}
+.hidden{display:none!important}.btn{border:0;border-radius:11px;padding:11px 15px;margin:4px;background:#35415d;color:#fff;font-weight:bold}
+.b{background:#12548d}.s{background:#a92b4d}.g{background:#16814b}.y{background:#9a6b08}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.tile{padding:16px;border-radius:15px;background:#1a2540;border:1px solid #344363;min-height:95px;cursor:pointer}
+.tile:hover{border-color:#ff6480;transform:translateY(-2px)}.scores{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.score{text-align:center;padding:12px;border-radius:14px;background:#0d4678}.score.sun{background:#641d34}.score b{display:block;font-size:30px}
+.turn{text-align:center;padding:10px;border-radius:12px;background:#ffffff0a;margin:10px 0}
+.toolbar{text-align:center}.input,textarea{width:100%;background:#090d19;color:#fff;border:1px solid #35425f;border-radius:10px;padding:11px;margin:7px 0}
+.board{display:grid;grid-template-columns:repeat(3,82px);gap:6px;justify-content:center}.cell{height:82px;background:#202b47;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:40px;cursor:pointer}
+.big{text-align:center;font-size:30px;font-weight:bold;margin:18px}.choices{display:flex;justify-content:center;flex-wrap:wrap;gap:8px}.pill{display:inline-block;background:#ffffff0d;padding:8px 11px;border-radius:999px;margin:4px}
+@media(max-width:700px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:450px){.grid{grid-template-columns:1fr}.scores{grid-template-columns:1fr}.board{grid-template-columns:repeat(3,70px)}.cell{height:70px}}
+</style>
+</head>
+<body>
+<div class="wrap">
 
-<section id="login" class="card" style="max-width:430px;margin:8vh auto;text-align:center">
-<h1>🌌 مساحة بدر وشمس</h1><p>Ultimate V3 — الألعاب والفعاليات والمسابقات والأسئلة في مكان واحد.</p>
-<div class="notice">اختَر هويتك للدخول. البيانات المشتركة تحفظ عبر Firebase.</div>
-<button class="btn b" onclick="login('hammam')">🌙 بدر · همام</button>
-<button class="btn s" onclick="login('monia')">☀️ شمس · منية</button>
+<section id="login" class="card" style="max-width:440px;margin:8vh auto;text-align:center">
+<h1 class="pink">🌌 مساحة بدر وشمس</h1>
+<p>نسخة V4 — ألعاب وفعاليات ومسابقات تفاعلية.</p>
+<button class="btn b" onclick="choose('hammam')">🌙 بدر · همام</button>
+<button class="btn s" onclick="choose('monia')">☀️ شمس · منية</button>
+<p class="muted">ملاحظة: هذه النسخة لا تضع كلمات السر داخل الكود؛ يمكن إضافة Firebase Authentication لاحقًا بشكل آمن.</p>
 </section>
 
-<main id="app" class="hide">
+<main id="app" class="hidden">
 <section class="card">
-<h1 style="text-align:center">🌌 بدر × شمس</h1>
-<div class="scores"><div class="score">🌙 بدر<small> · همام</small><b id="sb">0</b></div><div class="score">☀️ شمس<small> · منية</small><b id="ss">0</b></div></div>
+<h1 class="pink" style="text-align:center">🌌 بدر × شمس</h1>
+<div class="scores">
+<div class="score">🌙 بدر <small>(همام)</small><b id="bScore">0</b></div>
+<div class="score sun">☀️ شمس <small>(منية)</small><b id="sScore">0</b></div>
+</div>
 <div id="turn" class="turn"></div>
-<div class="toolbar"><button class="btn g" onclick="home()">🏠</button><button class="btn b" onclick="section('games')">🎮 ألعاب</button><button class="btn y" onclick="section('acts')">🎯 فعاليات</button><button class="btn s" onclick="section('qs')">❓ أسئلة</button><button class="btn" onclick="section('settings')">⚙️</button></div>
+<div class="toolbar">
+<button class="btn g" onclick="home()">🏠 الرئيسية</button>
+<button class="btn b" onclick="showGames()">🎮 الألعاب</button>
+<button class="btn y" onclick="showActs()">🎯 الفعاليات</button>
+<button class="btn s" onclick="showQuestions()">❓ الأسئلة</button>
+<button class="btn" onclick="showSettings()">⚙️</button>
+</div>
 </section>
 
-<section id="home" class="card"><h2>🚀 مركز اللعب</h2><div class="grid">
-<div class="tile" onclick="section('games')"><b>🎮 50 لعبة</b><small class="muted">كلها داخل الموقع</small></div>
-<div class="tile" onclick="section('acts')"><b>🎯 90 فعالية</b><small class="muted">نفذ وسجل النقاط</small></div>
-<div class="tile" onclick="section('qs')"><b>❓ 300 سؤال</b><small class="muted">إجابة داخلية أو مشاركة</small></div>
-<div class="tile" onclick="champ()"><b>🏆 البطولة</b><small class="muted">أفضل من 5 جولات</small></div>
-<div class="tile" onclick="daily()"><b>🔥 تحدي اليوم</b><small class="muted">مهمة يومية</small></div>
-<div class="tile" onclick="achievements()"><b>🏅 الإنجازات</b><small class="muted">تقدم مشترك</small></div>
-</div></section>
-<section id="view" class="card hide"></section>
-</main></div>
+<section id="home" class="card">
+<h2>🚀 مركز المساحة</h2>
+<div class="grid">
+<div class="tile" onclick="showGames()"><b>🎮 50 لعبة</b><br><span class="muted">كلها تفتح داخل الموقع</span></div>
+<div class="tile" onclick="showActs()"><b>🎯 90 فعالية</b><br><span class="muted">تنفيذ + تسجيل نقاط</span></div>
+<div class="tile" onclick="showQuestions()"><b>❓ 300 سؤال</b><br><span class="muted">سؤال عشوائي + مشاركة</span></div>
+<div class="tile" onclick="daily()"><b>🔥 تحدي اليوم</b><br><span class="muted">فعالية يومية</span></div>
+<div class="tile" onclick="achievements()"><b>🏅 الإنجازات</b><br><span class="muted">تتبع التقدم</span></div>
+<div class="tile" onclick="championship()"><b>🏆 البطولة</b><br><span class="muted">أفضل من 5 جولات</span></div>
+</div>
+</section>
+
+<section id="content" class="card hidden"></section>
+</main>
+</div>
 
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import{getDatabase,ref,set,onValue,update,push}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-const firebaseConfig={apiKey:"AIzaSyBCh5eqP5A6c0K_-KtlwNAPR_vYFXYHxm4",authDomain:"space-4e22f.firebaseapp.com",projectId:"space-4e22f",storageBucket:"space-4e22f.firebasestorage.app",messagingSenderId:"804457119217",appId:"1:804457119217:web:99a62f5ef4ebfed8afd850",measurementId:"G-R2YRH0EX9L"};
-const db=getDatabase(initializeApp(firebaseConfig)),room=ref(db,"spaceData");let me="",D=null;
+import{getDatabase,ref,onValue,set,update,push}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-const acts=[
-"ارسموا شيئًا في 60 ثانية","تحدي عدم الضحك 30 ثانية","اذكروا 5 أشياء بحرف معين","قلدوا صوتًا والآخر يخمن","اكتبوا قصة من 3 جمل","خمنوا الشيء من 3 تلميحات","رتبوا 5 أشياء","تحدي الذاكرة","تحدي الحروف","تحدي السرعة","تحدي التركيز","اختيار مستحيل","خمنوا الحيوان","خمنوا الطعام","خمنوا المكان","تحدي التمثيل الصامت","دندنوا أغنية","تحدي الرسم","تحدي 10 ثواني","ممنوع كلمة معينة","خمنوا الإيموجي","قصة كلمة بكلمة","تحدي الحساب","تحدي معلومات عامة","من يعرف الثاني أكثر؟","اكتبوا شعارًا للمساحة","اختروا أفضل 3 ألعاب","صمموا لعبة جديدة","اكتبوا 5 أماكن","اكتبوا 5 أكلات","تحدي الذاكرة البصرية","أكملوا جملة","خمنوا الرقم","تحدي النرد","مباراة كلمات","تحدي الصمت","تحدي التصنيف","أغرب إجابة","رسالة تشجيع","مهمة مشتركة","تحدي الألوان","تحدي الكتابة السريعة","خمنوا الشخصية","خمنوا الشيء المخفي","رتبوا ألعابكم المفضلة","خمس فئات","تحدي من يقول أولًا","تحدي العد العكسي","اختيار عشوائي","الجولة الذهبية"
-];
-while(acts.length<90)acts.push("فعالية إضافية رقم "+(acts.length+1));
+const firebaseConfig={
+apiKey:"AIzaSyBCh5eqP5A6c0K_-KtlwNAPR_vYFXYHxm4",
+authDomain:"space-4e22f.firebaseapp.com",
+projectId:"space-4e22f",
+storageBucket:"space-4e22f.firebasestorage.app",
+messagingSenderId:"804457119217",
+appId:"1:804457119217:web:99a62f5ef4ebfed8afd850",
+measurementId:"G-R2YRH0EX9L"
+};
 
-const qs=[
-"شن أكثر شيء تحبه في وقت الفراغ؟","شن لعبة ممكن تلعبها لساعات؟","شن أكثر شيء يضحكك؟","شن مكان تتمنى تزوره؟","شن أفضل أكلة عندك؟","شن مهارة تتمنى تتعلمها؟","شن أكثر موقف غريب صار لك؟","شن فيلم تقدر تعيده؟","شن لعبة طفولة تتذكرها؟","شن أكثر شيء يرفع مزاجك؟","لو عندك يوم كامل فاضي شن تدير؟","شن أفضل اختراع؟","شن أكثر شيء تحب تكتشفه؟","شن شخصية خيالية تعجبك؟","شن لعبة تنصح بها؟","شن أكثر تحدي يناسبك؟","شن شيء تقدر تتكلم عنه كثير؟","لو تقدر تخترع تطبيق شن فكرته؟","لو تسافر الآن وين تمشي؟","شن أفضل نصيحة سمعتها؟","شن مهارة عندك؟","شن أكثر شيء يجعلك تضحك؟","شن أكثر نوع ألغاز يعجبك؟","شن لعبة تتمنى نصممها؟","شن شيء تتمنى نضيفه للموقع؟","شن أكثر فعالية مضحكة؟","شن أكثر فعالية تحتاج تعاون؟","شن أكثر لعبة تحتاج تركيز؟","شن أكثر تحدي يحتاج ذكاء؟","شن أكثر تحدي يحتاج إبداع؟"
+const db=getDatabase(initializeApp(firebaseConfig));
+const room=ref(db,"spaceData");
+let me="";
+let data=null;
+let unsubscribe=null;
+
+const activities=[
+"ارسم شيئًا خلال 60 ثانية","تحدي عدم الضحك","اذكر 5 أشياء بحرف معين","قلد صوتًا والآخر يخمن",
+"اكتب قصة من 3 جمل","خمن الشيء من 3 تلميحات","رتب 5 أشياء","تحدي الذاكرة","تحدي الحروف","تحدي السرعة",
+"تحدي التركيز","اختيار مستحيل","خمن الحيوان","خمن الطعام","خمن المكان","تمثيل صامت","دندن أغنية",
+"تحدي الرسم","تحدي 10 ثواني","الكلمة الممنوعة","خمن الإيموجي","قصة كلمة بكلمة","تحدي الحساب",
+"معلومات عامة","من يعرف الثاني أكثر؟","صمموا شعارًا","اختاروا أفضل 3 ألعاب","صمموا لعبة جديدة",
+"اكتبوا 5 أماكن","اكتبوا 5 أكلات","ذاكرة بصرية","أكمل الجملة","خمن الرقم","تحدي النرد",
+"مباراة كلمات","تحدي الصمت","التصنيف","أغرب إجابة","رسالة تشجيع","مهمة مشتركة","تحدي الألوان",
+"الكتابة السريعة","خمن الشخصية","خمن الشيء المخفي","رتب الألعاب","خمس فئات","من يقول أولًا",
+"العد العكسي","اختيار عشوائي","الجولة الذهبية"
 ];
-while(qs.length<300)qs.push(qs[qs.length%30]+" ✨");
+while(activities.length<90)activities.push("فعالية إضافية رقم "+(activities.length+1));
+
+const questions=[
+"شن أكثر شيء تحبه في وقت الفراغ؟","شن لعبة ممكن تلعبها لساعات؟","شن أكثر شيء يضحكك؟",
+"شن مكان تتمنى تزوره؟","شن أفضل أكلة عندك؟","شن مهارة تتمنى تتعلمها؟","شن أكثر موقف غريب صار لك؟",
+"شن فيلم تقدر تعيده؟","شن لعبة طفولة تتذكرها؟","شن أكثر شيء يرفع مزاجك؟","لو عندك يوم كامل فاضي شن تدير؟",
+"شن أفضل اختراع؟","شن أكثر شيء تحب تكتشفه؟","شن شخصية خيالية تعجبك؟","شن لعبة تنصح بها؟",
+"شن أكثر تحدي يناسبك؟","شن شيء تقدر تتكلم عنه كثير؟","لو تخترع تطبيق شن فكرته؟","لو تسافر الآن وين تمشي؟",
+"شن أفضل نصيحة سمعتها؟","شن مهارة عندك؟","شن أكثر نوع ألغاز يعجبك؟","شن لعبة تتمنى نصممها؟",
+"شن شيء تتمنى نضيفه للموقع؟","شن أكثر فعالية مضحكة؟","شن أكثر لعبة تحتاج تعاون؟",
+"شن تحدي يحتاج ذكاء؟","شن تحدي يحتاج إبداع؟","شن لعبة تريد تجربتها؟","شن سؤال تحب نسألوه؟"
+];
+while(questions.length<300)questions.push(questions[questions.length%30]+" ✨");
 
 const games=[
-["xo","❌⭕ إكس أو"],["rps","🪨📄✂️ حجر ورق مقص"],["guess","🔢 خمن الرقم"],["high","⬆️⬇️ أعلى أو أقل"],["dice","🎲 النرد"],["even","🔢 زوجي أو فردي"],["coin","🪙 عملة الحظ"],["math","➕ سرعة الحساب"],["tf","✅❌ صح أو خطأ"],["word","🔤 خمن الكلمة"],
-["emoji","😄 خمن الإيموجي"],["pattern","🧩 أكمل النمط"],["missing","🔢 الرقم المفقود"],["category","📚 التصنيف السريع"],["letter","🔠 حرف وكلمة"],["chain","🔗 سلسلة الكلمات"],["story","📖 قصة مشتركة"],["who","🕵️ من أنا؟"],["object","🔎 خمن الشيء"],["animal","🐾 خمن الحيوان"],
-["food","🍕 خمن الطعام"],["place","📍 خمن المكان"],["focus","🎯 تحدي التركيز"],["ten","⏱️ تحدي 10 ثواني"],["forbidden","🚫 الكلمة الممنوعة"],["draw","🎨 تحدي الرسم"],["sound","🔊 تحدي الأصوات"],["song","🎵 خمن الأغنية"],["acting","🎭 تمثيل صامت"],["about","🧠 من يعرف الثاني أكثر؟"],
-["five","5️⃣ خمس فئات"],["maze","🌀 المتاهة"],["war","⚔️ حرب الكلمات"],["closest","📏 أقرب جواب"],["impossible","🤯 الاختيار المستحيل"],["random","🎰 اختيار عشوائي"],["rapid","⚡ أسئلة سرعة"],["logic","🧠 منطق سريع"],["numbers","🔢 تسلسل أرقام"],["quiz","🏆 اختبار عام"],
-["memory","🧠 ذاكرة الرموز"],["choice","🔀 ثلاثة خيارات"],["weird","😂 أغرب إجابة"],["final","👑 الجولة الذهبية"],["custom","🛠️ جولة منكم"],["speed","⚡ رد سريع"],["challenge","🔥 تحدي النقطة"],["question","❓ سؤال منافسة"],["duel","⚔️ مواجهة"],["mix","🎮 جولة مختلطة"]
+["xo","❌⭕ إكس أو"],["rps","🪨📄✂️ حجر ورق مقص"],["guess","🔢 خمن الرقم"],["higher","⬆️⬇️ أعلى أو أقل"],
+["dice","🎲 النرد"],["even","🔢 زوجي أو فردي"],["coin","🪙 وجه أو كتابة"],["math","➕ سرعة الحساب"],
+["tf","✅❌ صح أو خطأ"],["word","🔤 خمن الكلمة"],["emoji","😄 خمن الإيموجي"],["pattern","🧩 أكمل النمط"],
+["missing","🔢 الرقم المفقود"],["category","📚 التصنيف السريع"],["letter","🔠 حرف وكلمة"],["chain","🔗 سلسلة الكلمات"],
+["story","📖 قصة مشتركة"],["who","🕵️ من أنا؟"],["object","🔎 خمن الشيء"],["animal","🐾 خمن الحيوان"],
+["food","🍕 خمن الطعام"],["place","📍 خمن المكان"],["focus","🎯 تحدي التركيز"],["ten","⏱️ 10 ثواني"],
+["forbidden","🚫 الكلمة الممنوعة"],["draw","🎨 تحدي الرسم"],["sound","🔊 الأصوات"],["song","🎵 خمن الأغنية"],
+["acting","🎭 تمثيل صامت"],["know","🧠 من يعرف الثاني أكثر؟"],["five","5️⃣ خمس فئات"],["maze","🌀 المتاهة"],
+["words","⚔️ حرب الكلمات"],["closest","📏 أقرب جواب"],["impossible","🤯 الاختيار المستحيل"],
+["random","🎰 عشوائي"],["rapid","⚡ أسئلة سرعة"],["logic","🧠 منطق سريع"],["numbers","🔢 تسلسل أرقام"],
+["quiz","🏆 اختبار عام"],["memory","🧠 ذاكرة الرموز"],["choice","🔀 ثلاثة خيارات"],["weird","😂 أغرب إجابة"],
+["gold","👑 الجولة الذهبية"],["custom","🛠️ جولة مخصصة"],["speed","⚡ رد سريع"],["point","🔥 تحدي النقطة"],
+["duel","⚔️ مواجهة"],["mix","🎮 جولة مختلطة"]
 ];
 
-function base(){return{turn:"hammam",scores:{hammam:0,monia:0},wins:{hammam:0,monia:0},games:{hammam:0,monia:0},xo:["","","","","","","","",""],q:0,customs:{},champ:{round:1,hammam:0,monia:0}}}
-function login(u){me=u;document.getElementById("login").classList.add("hide");document.getElementById("app").classList.remove("hide");onValue(room,s=>{D=s.val()||base();if(!s.exists())set(room,D);render()});}
-function render(){if(!D)return;sb.textContent=D.scores.hammam;ss.textContent=D.scores.monia;turn.textContent=D.turn===me?"🎯 دورك الآن!":"⏳ الدور الآن لـ"+(D.turn==="hammam"?" بدر":" شمس")}
-function next(){return D.turn==="hammam"?"monia":"hammam"}
-function pts(u,n=1){let o={};o["scores/"+u]=(D.scores[u]||0)+n;o["wins/"+u]=(D.wins[u]||0)+1;o.turn=next();o["games/"+u]=(D.games[u]||0)+1;update(room,o)}
-function home(){home.classList.remove("hide");view.classList.add("hide")}
-function section(x){home.classList.add("hide");view.classList.remove("hide");if(x==="games")gamesPage();if(x==="acts")actsPage();if(x==="qs")qsPage();if(x==="settings")settingsPage()}
-function head(t){return`<button class="btn" onclick="home()">⬅️</button><h2>${t}</h2>`}
-function gamesPage(){view.innerHTML=head("🎮 50 لعبة")+"<div class='grid'>"+games.map((g,i)=>`<div class='tile' onclick="play('${g[0]}')"><b>${i+1}. ${g[1]}</b><small class='muted'>تفتح داخل الموقع</small></div>`).join("")+"</div>"}
-function actsPage(){view.innerHTML=head("🎯 90 فعالية")+"<div>"+acts.map((a,i)=>`<button class='btn' onclick="act(${i})">${i+1}. ${a}</button>`).join("")+"</div>"}
-function act(i){view.innerHTML=head("🎯 فعالية")+`<div class='big'>${acts[i]}</div><p class='muted'>نفذوا الفعالية ثم سجلوا صاحب الفوز.</p><button class='btn b' onclick="pts('hammam',2)">🌙 بدر +2</button><button class='btn s' onclick="pts('monia',2)">☀️ شمس +2</button>`}
-function qsPage(){view.innerHTML=head("❓ 300 سؤال")+`<div class='card'><div class='big' id='q'>${qs[D.q%300]}</div><button class='btn b' onclick="nextQ()">🔀 التالي</button><button class='btn g' onclick="answerQ()">✅ تمت الإجابة +1</button><button class='btn s' onclick="shareQ()">📤 مشاركة</button><p class='muted'>الأسئلة العادية يمكن الإجابة عليها هنا؛ وإذا احتاجت محادثة فعلية شاركوها في تطبيق التواصل.</p></div>`}
-function nextQ(){update(room,{q:(D.q+1)%300})}
-function answerQ(){pts(me,1)}
-async function shareQ(){let x=qs[D.q%300];if(navigator.share){try{await navigator.share({title:"سؤال بدر وشمس",text:x})}catch(e){}}else{await navigator.clipboard?.writeText(x);alert("تم نسخ السؤال")}}
-function shell(t,b){view.innerHTML=head("🎮 "+t)+`<div class='card'>${b}</div>`}
-function play(t){if(t==="xo")return xo();if(t==="rps")return rps();if(t==="guess")return guess();if(t==="high")return high();if(t==="dice")return dice();if(t==="even")return even();if(t==="coin")return coin();if(t==="math")return math();if(t==="tf")return tf();if(t==="word")return word();if(t==="emoji")return emoji();if(t==="pattern")return pattern();if(t==="missing")return missing();generic(t)}
-function xo(){shell("إكس أو",`<div class='board'>${D.xo.map((x,i)=>`<div class='cell' onclick="moveXO(${i})">${x==="hammam"?"X":x==="monia"?"O":""}</div>`).join("")}</div><button class='btn' onclick="resetXO()">🔄 إعادة</button>`)}
-function moveXO(i){if(D.turn!==me||D.xo[i])return;let b=[...D.xo];b[i]=me;let w=win(b);if(w){let o={xo:b};o["scores/"+me]=D.scores[me]+3;o["wins/"+me]=D.wins[me]+1;o["games/"+me]=D.games[me]+1;update(room,o);setTimeout(resetXO,900);alert("🏆 فوز +3");}else update(room,{xo:b,turn:next()})}
-function win(b){return[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]].find(a=>b[a[0]]&&a.every(i=>b[i]===b[a[0]]))}
-function resetXO(){update(room,{xo:["","","","","","","","",""],turn:"hammam"})}
-function rps(){shell("حجر ورق مقص",`<div class='choice'><button class='btn b' onclick="rpsR('🪨')">🪨</button><button class='btn b' onclick="rpsR('📄')">📄</button><button class='btn b' onclick="rpsR('✂️')">✂️</button></div>`)}
-function rpsR(c){let a=["🪨","📄","✂️"][Math.floor(Math.random()*3)],w=c===a?null:((c==="🪨"&&a==="✂️")||(c==="📄"&&a==="🪨")||(c==="✂️"&&a==="📄"))?me:next();shell("حجر ورق مقص",`<div class='big'>${c} ضد ${a}</div><button class='btn g' onclick="${w?`pts('${w}',2)`:`play('rps')`}">${w?"تسجيل النتيجة":"تعادل — جولة أخرى"}</button>`)}
-function guess(){let n=1+Math.floor(Math.random()*20);shell("خمن الرقم",`<p>رقم من 1 إلى 20</p><input id='a' class='input' type='number'><button class='btn g' onclick="check(${n})">تحقق</button>`)}
-function check(n){let x=+a.value;x===n?pts(me,3):alert(x<n?"أكبر ⬆️":"أصغر ⬇️")}
-function high(){let n=1+Math.floor(Math.random()*90),x=1+Math.floor(Math.random()*90);shell("أعلى أو أقل",`<div class='big'>${n}</div><button class='btn b' onclick="hl(${x},${n},1)">⬆️ أعلى</button><button class='btn s' onclick="hl(${x},${n},0)">⬇️ أقل</button>`)}
-function hl(x,n,u){((u&&x>n)||(!u&&x<n))?pts(me,2):pts(next(),2);alert("الرقم التالي كان "+x)}
-function dice(){let a=1+Math.floor(Math.random()*6),b=1+Math.floor(Math.random()*6),w=a===b?null:a>b?"hammam":"monia";shell("النرد",`<div class='big'>🌙 ${a} · ☀️ ${b}</div><button class='btn g' onclick="${w?`pts('${w}',2)`:`play('dice')`}">${w?"تسجيل":"تعادل"}</button>`)}
-function even(){let n=1+Math.floor(Math.random()*100);shell("زوجي أو فردي",`<div class='big'>${n}</div><button class='btn b' onclick="eo(${n},1)">زوجي</button><button class='btn s' onclick="eo(${n},0)">فردي</button>`)}
-function eo(n,x){n%2===0===!!x?pts(me,2):pts(next(),2)}
-function coin(){shell("عملة الحظ",`<div class='big'>${Math.random()<.5?"🪙 وجه":"🔄 كتابة"}</div><button class='btn g' onclick="pts(me,1)">النقطة لصاحب الدور</button>`)}
-function math(){let a=5+Math.floor(Math.random()*20),b=5+Math.floor(Math.random()*20);shell("سرعة الحساب",`<div class='big'>${a}+${b} = ؟</div><input id='a' class='input' type='number'><button class='btn g' onclick="(+a.value===${a+b})?pts(me,3):pts(next(),2)">تحقق</button>`)}
-function tf(){let q=[["الشمس نجم؟",1],["القمر كوكب؟",0],["الأخطبوط له ثلاثة قلوب؟",1]][Math.floor(Math.random()*3)];shell("صح أو خطأ",`<div class='big'>${q[0]}</div><button class='btn g' onclick="tfR(1,${q[1]})">صح</button><button class='btn s' onclick="tfR(0,${q[1]})">خطأ</button>`)}
-function tfR(a,b){a===b?pts(me,2):pts(next(),2)}
-function word(){let w=["قمر","كتاب","بحر","شمس","مفتاح"][Math.floor(Math.random()*5)];shell("خمن الكلمة",`<div class='big'>${w[0]}${"_".repeat(w.length-1)}</div><input id='a' class='input'><button class='btn g' onclick="a.value.trim()==='${w}'?pts(me,3):alert('جرب مرة ثانية')">تحقق</button>`)}
-function emoji(){let z=[["🌧️☂️","مطر"],["🚀🌙","فضاء"],["🍕🔥","بيتزا"]][Math.floor(Math.random()*3)];shell("خمن الإيموجي",`<div class='big'>${z[0]}</div><input id='a' class='input'><button class='btn g' onclick="a.value.includes('${z[1]}')?pts(me,3):alert('جرب')">تحقق</button>`)}
-function pattern(){let n=2+Math.floor(Math.random()*8);shell("أكمل النمط",`<div class='big'>${n} · ${n+2} · ${n+4} · ?</div><button class='btn g' onclick="pts(me,2)">الإجابة صحيحة</button>`)}
-function missing(){let n=1+Math.floor(Math.random()*9),a=[1,2,3,4,5,6,7,8,9].filter(x=>x!==n);shell("الرقم المفقود",`<div class='big'>${a.join(" · ")}</div><input id='a' class='input' type='number'><button class='btn g' onclick="+a.value===${n}?pts(me,2):alert('خطأ')">تحقق</button>`)}
-function generic(t){let g=games.find(x=>x[0]===t);shell(g?g[1]:"لعبة",`<div class='big'>${g?g[1]:"جولة"}</div><p>الجولة تعمل بالكامل داخل الموقع. نفذوا المطلوب ثم سجلوا صاحب الفوز.</p><button class='btn b' onclick="pts(me,2)">🌙 صاحب الدور +2</button><button class='btn s' onclick="pts(next(),2)">☀️ الطرف الآخر +2</button>`)}
-function champ(){shell("🏆 البطولة",`<div class='big'>أفضل من 5 جولات</div><p>🌙 ${D.champ.hammam} — ☀️ ${D.champ.monia}</p><button class='btn b' onclick="cw('hammam')">بدر يفوز بالجولة</button><button class='btn s' onclick="cw('monia')">شمس تفوز بالجولة</button>`)}
-function cw(u){let c={...D.champ};c[u]++;c.round++;if(c[u]>=3){pts(u,5);alert("👑 بطل البطولة!");c={round:1,hammam:0,monia:0}}update(room,{champ:c});champ()}
-function daily(){act(new Date().getDate()%90)}
-function achievements(){let total=D.scores.hammam+D.scores.monia,w=D.wins.hammam+D.wins.monia,g=D.games.hammam+D.games.monia;shell("🏅 الإنجازات",`<span class='badge' style='opacity:${total>=1?1:.3}'>🥇 أول نقطة</span><span class='badge' style='opacity:${g>=10?1:.3}'>🎮 10 ألعاب</span><span class='badge' style='opacity:${total>=25?1:.3}'>🏆 25 نقطة</span><span class='badge' style='opacity:${w>=5?1:.3}'>⚔️ 5 انتصارات</span><span class='badge' style='opacity:${total>=50?1:.3}'>👑 50 نقطة</span>`)}
-function settingsPage(){view.innerHTML=head("⚙️ الإعدادات")+`<textarea id='custom' placeholder='أضف سؤالًا أو فعالية أو تحديًا...'></textarea><button class='btn g' onclick="addCustom()">➕ إضافة مشتركة</button><div class='notice'>المحتوى المضاف يظهر للطرفين. لا تضعوا كلمات سر أو معلومات حساسة هنا.</div>`}
-function addCustom(){let x=custom.value.trim();if(x)push(ref(db,"spaceData/customs"),x);custom.value=""}
-window.login=login;window.home=home;window.section=section;window.play=play;window.act=act;window.nextQ=nextQ;window.answerQ=answerQ;window.shareQ=shareQ;window.moveXO=moveXO;window.resetXO=resetXO;window.rpsR=rpsR;window.check=check;window.hl=hl;window.eo=eo;window.tfR=tfR;window.champ=champ;window.cw=cw;window.daily=daily;window.achievements=achievements;window.addCustom=addCustom;
-</script></body></html>
+function initial(){
+return{
+turn:"hammam",
+scores:{hammam:0,monia:0},
+wins:{hammam:0,monia:0},
+games:{hammam:0,monia:0},
+xo:["","","","","","","","",""],
+question:0,
+champ:{round:1,hammam:0,monia:0},
+customs:{}
+};
+}
+
+window.choose=function(player){
+me=player;
+document.getElementById("login").classList.add("hidden");
+document.getElementById("app").classList.remove("hidden");
+
+if(unsubscribe)unsubscribe();
+unsubscribe=onValue(room,snap=>{
+if(!snap.exists()){
+data=initial();
+set(room,data);
+}else data=snap.val();
+render();
+});
+};
+
+function render(){
+if(!data)return;
+document.getElementById("bScore").textContent=data.scores?.hammam||0;
+document.getElementById("sScore").textContent=data.scores?.monia||0;
+const myTurn=data.turn===me;
+document.getElementById("turn").textContent=myTurn?"🎯 دورك الآن!":`⏳ الدور الآن لـ ${data.turn==="hammam"?"بدر":"شمس"}`;
+}
+
+function back(){
+document.getElementById("content").classList.add("hidden");
+document.getElementById("home").classList.remove("hidden");
+}
+window.home=back;
+
+function page(title,body){
+document.getElementById("home").classList.add("hidden");
+const c=document.getElementById("content");
+c.classList.remove("hidden");
+c.innerHTML=`<button class="btn" onclick="home()">⬅️ رجوع</button><h2>${title}</h2>${body}`;
+}
+
+function other(){return me==="hammam"?"monia":"hammam"}
+
+function score(player,n=1,changeTurn=true){
+const u={};
+u["scores/"+player]=(data.scores?.[player]||0)+n;
+u["wins/"+player]=(data.wins?.[player]||0)+1;
+u["games/"+player]=(data.games?.[player]||0)+1;
+if(changeTurn)u.turn=other();
+update(room,u);
+}
+
+window.showGames=function(){
+page("🎮 50 لعبة",`<div class="grid">${games.map((g,i)=>
+`<div class="tile" onclick="playGame('${g[0]}')"><b>${i+1}. ${g[1]}</b><span class="muted">اضغط للعب داخل الموقع</span></div>`).join("")}</div>`);
+};
+
+window.showActs=function(){
+page("🎯 90 فعالية",activities.map((a,i)=>
+`<button class="btn" onclick="activity(${i})">${i+1}. ${a}</button>`).join(""));
+};
+
+window.activity=function(i){
+page("🎯 الفعالية",`<div class="big">${activities[i]}</div>
+<p class="muted">نفذوا الفعالية ثم اختاروا الفائز. الفائز يأخذ نقطتين.</p>
+<button class="btn b" onclick="winFor('hammam',2)">🌙 بدر +2</button>
+<button class="btn s" onclick="winFor('monia',2)">☀️ شمس +2</button>`);
+};
+
+window.winFor=function(player,n){
+score(player,n);
+alert(`تم تسجيل ${n} نقطة لـ ${player==="hammam"?"بدر":"شمس"}!`);
+};
+
+window.showQuestions=function(){
+page("❓ 300 سؤال",`<div class="card"><div id="questionText" class="big">${questions[(data.question||0)%300]}</div>
+<button class="btn b" onclick="nextQuestion()">🔀 سؤال جديد</button>
+<button class="btn g" onclick="questionPoint()">✅ إجابة +1</button>
+<button class="btn s" onclick="shareQuestion()">📤 مشاركة</button>
+<p class="muted">لو السؤال يحتاج محادثة، شاركوه في تطبيق التواصل ثم سجلوا النقطة هنا.</p></div>`);
+};
+
+window.nextQuestion=function(){
+update(room,{question:((data.question||0)+1)%300});
+};
+
+window.questionPoint=function(){score(me,1);};
+
+window.shareQuestion=async function(){
+const text=questions[(data.question||0)%300];
+if(navigator.share){
+try{await navigator.share({title:"سؤال بدر وشمس",text});}catch(e){}
+}else{
+try{await navigator.clipboard.writeText(text);alert("تم نسخ السؤال");}
+catch(e){alert(text);}
+}
+};
+
+window.playGame=function(type){
+if(type==="xo")return xo();
+if(type==="rps")return rps();
+if(type==="guess")return guess();
+if(type==="higher")return higher();
+if(type==="dice")return dice();
+if(type==="even")return even();
+if(type==="coin")return coin();
+if(type==="math")return math();
+if(type==="tf")return truthFalse();
+if(type==="word")return word();
+if(type==="emoji")return emoji();
+if(type==="pattern")return pattern();
+if(type==="missing")return missing();
+genericGame(type);
+};
+
+function gameShell(title,body){page("🎮 "+title,`<div class="card">${body}</div>`);}
+
+function xo(){
+const board=data.xo||["","","","","","","","",""];
+gameShell("إكس أو",`<p class="muted">X = بدر، O = شمس. الدور يتزامن بين الجهازين.</p>
+<div class="board">${board.map((v,i)=>`<div class="cell" onclick="xoMove(${i})">${v==="hammam"?"X":v==="monia"?"O":""}</div>`).join("")}</div>
+<button class="btn" onclick="resetXO()">🔄 إعادة الجولة</button>`);
+}
+
+window.xoMove=function(i){
+if(data.turn!==me)return alert("ليس دورك الآن");
+const board=[...(data.xo||["","","","","","","","",""])];
+if(board[i])return;
+board[i]=me;
+const winner=checkWinner(board);
+if(winner){
+const u={xo:board};
+u["scores/"+me]=(data.scores[me]||0)+3;
+u["wins/"+me]=(data.wins[me]||0)+1;
+u["games/"+me]=(data.games[me]||0)+1;
+u.turn=other();
+update(room,u);
+setTimeout(()=>resetXO(),800);
+alert("🏆 فوز! +3 نقاط");
+}else if(board.every(Boolean)){
+update(room,{xo:board});
+setTimeout(()=>resetXO(),800);
+alert("تعادل!");
+}else update(room,{xo:board,turn:other()});
+};
+
+function checkWinner(b){
+const lines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+for(const l of lines)if(b[l[0]]&&l.every(i=>b[i]===b[l[0]]))return b[l[0]];
+return null;
+}
+window.resetXO=function(){update(room,{xo:["","","","","","","","",""],turn:"hammam"});};
+
+function rps(){gameShell("حجر ورق مقص",`<p class="big">اختار:</p><div class="choices">
+<button class="btn b" onclick="rpsResult('🪨')">🪨 حجر</button>
+<button class="btn b" onclick="rpsResult('📄')">📄 ورق</button>
+<button class="btn b" onclick="rpsResult('✂️')">✂️ مقص</button></div>`);}
+window.rpsResult=function(choice){
+const bot=["🪨","📄","✂️"][Math.floor(Math.random()*3)];
+let win=choice===bot?null:((choice==="🪨"&&bot==="✂️")||(choice==="📄"&&bot==="🪨")||(choice==="✂️"&&bot==="📄"))?me:other();
+gameShell("حجر ورق مقص",`<div class="big">${choice} ضد ${bot}</div>
+<button class="btn g" onclick="${win?`winFor('${win}',2)`:`playGame('rps')`}">${win?"تسجيل الفوز +2":"تعادل — جولة جديدة"}</button>`);
+};
+
+function guess(){
+const n=1+Math.floor(Math.random()*20);
+gameShell("خمن الرقم",`<p>خمن رقمًا من 1 إلى 20.</p><input id="answer" class="input" type="number">
+<button class="btn g" onclick="guessCheck(${n})">تحقق</button>`);
+}
+window.guessCheck=function(n){
+const v=Number(document.getElementById("answer").value);
+if(v===n){score(me,3);alert("🎯 صحيح! +3");}else alert(v<n?"الرقم أكبر ⬆️":"الرقم أصغر ⬇️");
+};
+
+function higher(){
+const n=1+Math.floor(Math.random()*90);
+gameShell("أعلى أو أقل",`<div class="big">${n}</div>
+<button class="btn b" onclick="higherResult(${n},true)">⬆️ الرقم التالي أعلى</button>
+<button class="btn s" onclick="higherResult(${n},false)">⬇️ الرقم التالي أقل</button>`);
+}
+window.higherResult=function(n,up){
+const nextN=1+Math.floor(Math.random()*90);
+const correct=up?nextN>n:nextN<n;
+if(correct)score(me,2);else score(other(),2);
+alert(`الرقم التالي: ${nextN}`);
+};
+
+function dice(){
+const a=1+Math.floor(Math.random()*6),b=1+Math.floor(Math.random()*6);
+const winner=a===b?null:(a>b?"hammam":"monia");
+gameShell("النرد",`<div class="big">🌙 ${a} — ☀️ ${b}</div>
+<button class="btn g" onclick="${winner?`winFor('${winner}',2)`:`playGame('dice')`}">${winner?"تسجيل الفائز":"تعادل — مرة أخرى"}</button>`);
+}
+function even(){
+const n=1+Math.floor(Math.random()*100);
+gameShell("زوجي أو فردي",`<div class="big">${n}</div>
+<button class="btn b" onclick="evenResult(${n},true)">زوجي</button>
+<button class="btn s" onclick="evenResult(${n},false)">فردي</button>`);
+}
+window.evenResult=function(n,evenChoice){
+const correct=(n%2===0)===evenChoice;
+correct?score(me,2):score(other(),2);
+};
+function coin(){
+const result=Math.random()<.5?"وجه 🪙":"كتابة 🔄";
+gameShell("عملة الحظ",`<div class="big">${result}</div><button class="btn g" onclick="winFor(me,1)">صاحب الدور +1</button>`);
+}
+function math(){
+const a=5+Math.floor(Math.random()*20),b=5+Math.floor(Math.random()*20);
+gameShell("سرعة الحساب",`<div class="big">${a} + ${b} = ؟</div><input id="answer" class="input" type="number">
+<button class="btn g" onclick="mathCheck(${a+b})">تحقق</button>`);
+}
+window.mathCheck=function(correct){
+const v=Number(document.getElementById("answer").value);
+v===correct?score(me,3):score(other(),2);
+};
+function truthFalse(){
+const q=[["الشمس نجم؟",true],["القمر كوكب؟",false],["للأخطبوط ثلاثة قلوب؟",true]][Math.floor(Math.random()*3)];
+gameShell("صح أو خطأ",`<div class="big">${q[0]}</div><button class="btn g" onclick="tfResult(true,${q[1]})">صح</button><button class="btn s" onclick="tfResult(false,${q[1]})">خطأ</button>`);
+}
+window.tfResult=function(a,b){a===b?score(me,2):score(other(),2);};
+function word(){
+const w=["قمر","كتاب","بحر","شمس","مفتاح"][Math.floor(Math.random()*5)];
+gameShell("خمن الكلمة",`<div class="big">${w[0]}${"_".repeat(w.length-1)}</div><input id="answer" class="input">
+<button class="btn g" onclick="wordCheck('${w}')">تحقق</button>`);
+}
+window.wordCheck=function(w){
+document.getElementById("answer").value.trim()===w?score(me,3):alert("ليست هي، حاول مرة أخرى.");
+};
+function emoji(){
+const x=[["🌧️☂️","مطر"],["🚀🌙","فضاء"],["🍕🔥","بيتزا"]][Math.floor(Math.random()*3)];
+gameShell("خمن الإيموجي",`<div class="big">${x[0]}</div><input id="answer" class="input"><button class="btn g" onclick="emojiCheck('${x[1]}')">تحقق</button>`);
+}
+window.emojiCheck=function(x){document.getElementById("answer").value.includes(x)?score(me,3):alert("جرب مرة أخرى");};
+function pattern(){
+const n=2+Math.floor(Math.random()*8);
+gameShell("أكمل النمط",`<div class="big">${n} · ${n+2} · ${n+4} · ؟</div><input id="answer" class="input" type="number"><button class="btn g" onclick="patternCheck(${n+6})">تحقق</button>`);
+}
+window.patternCheck=function(x){Number(document.getElementById("answer").value)===x?score(me,2):score(other(),2);};
+function missing(){
+const missingN=1+Math.floor(Math.random()*9);
+const nums=[1,2,3,4,5,6,7,8,9].filter(x=>x!==missingN);
+gameShell("الرقم المفقود",`<div class="big">${nums.join(" · ")}</div><input id="answer" class="input" type="number"><button class="btn g" onclick="missingCheck(${missingN})">تحقق</button>`);
+}
+window.missingCheck=function(x){Number(document.getElementById("answer").value)===x?score(me,2):score(other(),2);};
+
+function genericGame(type){
+const item=games.find(g=>g[0]===type);
+gameShell(item?item[1]:"لعبة",`<div class="big">${item?item[1]:"🎮"}</div>
+<p>هذه الجولة مصممة لتكون داخل الموقع. نفذوا التحدي المكتوب، ثم سجلوا الفائز.</p>
+<div class="choices"><button class="btn b" onclick="winFor('hammam',2)">🌙 بدر +2</button><button class="btn s" onclick="winFor('monia',2)">☀️ شمس +2</button></div>`);
+}
+
+window.daily=function(){
+const i=new Date().getDate()%90;
+activity(i);
+};
+
+window.achievements=function(){
+const total=(data.scores?.hammam||0)+(data.scores?.monia||0);
+const gamesTotal=(data.games?.hammam||0)+(data.games?.monia||0);
+const winsTotal=(data.wins?.hammam||0)+(data.wins?.monia||0);
+page("🏅 الإنجازات",`
+<span class="pill" style="opacity:${total>=1?1:.3}">🥇 أول نقطة</span>
+<span class="pill" style="opacity:${gamesTotal>=10?1:.3}">🎮 10 ألعاب</span>
+<span class="pill" style="opacity:${total>=25?1:.3}">🏆 25 نقطة</span>
+<span class="pill" style="opacity:${winsTotal>=5?1:.3}">⚔️ 5 انتصارات</span>
+<span class="pill" style="opacity:${total>=50?1:.3}">👑 50 نقطة</span>`);
+};
+
+window.championship=function(){
+const c=data.champ||{round:1,hammam:0,monia:0};
+page("🏆 البطولة",`<div class="big">أفضل من 5 جولات</div>
+<p>الجولة: ${c.round} — 🌙 ${c.hammam} : ${c.monia} ☀️</p>
+<button class="btn b" onclick="champWin('hammam')">بدر يفوز بالجولة</button>
+<button class="btn s" onclick="champWin('monia')">شمس تفوز بالجولة</button>`);
+};
+
+window.champWin=function(player){
+const c={...(data.champ||{round:1,hammam:0,monia:0})};
+c[player]++;
+c.round++;
+if(c[player]>=3){
+score(player,5);
+alert("👑 انتهت البطولة! الفائز أخذ +5 نقاط.");
+c={round:1,hammam:0,monia:0};
+}
+update(room,{champ:c});
+setTimeout(championship,150);
+};
+
+window.showSettings=function(){
+page("⚙️ المحتوى المخصص",`<textarea id="customText" placeholder="أضف سؤالًا أو فعالية أو تحديًا..."></textarea>
+<button class="btn g" onclick="addCustom()">➕ إضافة مشتركة</button>
+<div class="muted">المحتوى يُحفظ في Firebase ويظهر للطرفين.</div>`);
+};
+
+window.addCustom=function(){
+const el=document.getElementById("customText");
+const value=el.value.trim();
+if(!value)return;
+push(ref(db,"spaceData/customs"),{text:value,by:me,at:Date.now()});
+el.value="";
+alert("تمت الإضافة.");
+};
+
+</script>
+</body>
+</html>
