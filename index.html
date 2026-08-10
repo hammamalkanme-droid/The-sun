@@ -1722,8 +1722,6 @@
         </div>
 
 
-        <!-- PLAYER SELECTION -->
-
         <section id="playerSelection">
 
             <div class="login-label">
@@ -1794,8 +1792,6 @@
 
         </section>
 
-
-        <!-- PASSWORD -->
 
         <section
             id="passwordSection"
@@ -1891,8 +1887,6 @@
 >
 
 
-    <!-- HEADER -->
-
     <header class="app-header">
 
         <div class="header-player">
@@ -1944,8 +1938,6 @@
     </header>
 
 
-
-    <!-- SCORE -->
 
     <section class="score-bar">
 
@@ -2007,12 +1999,8 @@
 
 
 
-    <!-- HOME -->
-
     <main class="home">
 
-
-        <!-- WELCOME -->
 
         <section class="welcome-card">
 
@@ -2050,8 +2038,6 @@
         </section>
 
 
-
-        <!-- QUICK ACTIONS -->
 
         <section class="quick-actions">
 
@@ -2116,8 +2102,6 @@
 
 
 
-        <!-- GAMES -->
-
         <section class="home-section">
 
             <div class="section-heading">
@@ -2146,8 +2130,6 @@
 
             <div class="games-preview">
 
-
-                <!-- XO -->
 
                 <article
                     class="game-tile game-xo"
@@ -2189,8 +2171,6 @@
 
 
 
-                <!-- REACTION -->
-
                 <article
                     class="game-tile game-reaction"
                     onclick="showComingSoon('تحدي السرعة')"
@@ -2230,8 +2210,6 @@
                 </article>
 
 
-
-                <!-- MEMORY -->
 
                 <article
                     class="game-tile game-memory"
@@ -2277,8 +2255,6 @@
 
 
 
-        <!-- TODAY -->
-
         <section class="today-card">
 
             <div class="today-icon">
@@ -2311,8 +2287,6 @@
         </section>
 
 
-
-        <!-- BOTTOM NAV -->
 
         <nav class="bottom-nav">
 
@@ -2431,8 +2405,6 @@
     </header>
 
 
-    <!-- LOADING -->
-
     <div
         id="gameLoading"
         class="game-loading"
@@ -2456,8 +2428,6 @@
 
     </div>
 
-
-    <!-- GAME -->
 
     <iframe
         id="gameFrame"
@@ -2570,6 +2540,14 @@ let currentPlayer = null;
 let currentGame = null;
 
 
+/*
+    رقم فريد لكل جلسة لعب.
+    يتغير عند تسجيل الدخول أو بدء لعبة جديدة.
+*/
+
+let currentSessionId = null;
+
+
 /* =========================================================
    DOM HELPER
 ========================================================= */
@@ -2577,6 +2555,24 @@ let currentGame = null;
 function $(id) {
 
     return document.getElementById(id);
+
+}
+
+
+/* =========================================================
+   SESSION ID
+========================================================= */
+
+function createSessionId() {
+
+    return (
+        "bs_" +
+        Date.now() +
+        "_" +
+        Math.random()
+            .toString(36)
+            .slice(2, 10)
+    );
 
 }
 
@@ -2766,13 +2762,31 @@ window.enterSpace = function() {
     }
 
 
+    /*
+        تثبيت اللاعب الحقيقي.
+    */
+
     currentPlayer =
         selectedPlayer;
+
+
+    /*
+        إنشاء جلسة جديدة.
+    */
+
+    currentSessionId =
+        createSessionId();
 
 
     sessionStorage.setItem(
         "badrShamsPlayer",
         currentPlayer
+    );
+
+
+    sessionStorage.setItem(
+        "badrShamsSessionId",
+        currentSessionId
     );
 
 
@@ -2956,35 +2970,36 @@ function updateScores() {
    ADD POINTS
 ========================================================= */
 
-/*
-    يمكن لملف اللعبة استعمال:
-
-    parent.postMessage({
-        type: "ADD_POINTS",
-        player: "hammam",
-        amount: 10
-    }, "*");
-
-    أو:
-
-    parent.postMessage({
-        type: "ADD_POINTS",
-        amount: 10
-    }, "*");
-
-    وفي الحالة الثانية تضاف النقاط
-    للاعب الذي سجل الدخول حاليًا.
-*/
-
 window.addPoints = function(
     player,
     amount
 ) {
 
+    /*
+        حماية إضافية:
+        لا نسمح بإضافة النقاط لأي شخص
+        غير اللاعب المسجل حاليًا.
+    */
+
     if (
-        player !== "hammam" &&
-        player !== "monia"
+        !currentPlayer
     ) {
+        return false;
+    }
+
+
+    /*
+        إذا حاولت اللعبة تحديد لاعب مختلف
+        عن صاحب الجلسة، نرفض العملية.
+    */
+
+    if (
+        player !== currentPlayer
+    ) {
+        console.warn(
+            "تم رفض إضافة نقاط للاعب مختلف عن الجلسة."
+        );
+
         return false;
     }
 
@@ -2997,622 +3012,4 @@ window.addPoints = function(
         !Number.isFinite(points) ||
         points === 0
     ) {
-        return false;
-    }
-
-
-    const scores =
-        getScores();
-
-
-    scores[player] += points;
-
-
-    saveScores(scores);
-
-    updateScores();
-
-
-    return true;
-
-};
-
-
-/* =========================================================
-   GAME MESSAGE SYSTEM
-========================================================= */
-
-window.addEventListener(
-    "message",
-    function(event) {
-
-        const data =
-            event.data;
-
-
-        if (
-            !data ||
-            typeof data !== "object"
-        ) {
-            return;
-        }
-
-
-        /* اللعبة تطلب معلومات اللاعب */
-
-        if (
-            data.type ===
-            "GET_PLAYER"
-        ) {
-
-            sendPlayerToGame();
-
-            return;
-
-        }
-
-
-        /* اللعبة تطلب النقاط */
-
-        if (
-            data.type ===
-            "GET_SCORES"
-        ) {
-
-            sendScoresToGame();
-
-            return;
-
-        }
-
-
-        /* اللعبة تضيف نقاط */
-
-        if (
-            data.type ===
-            "ADD_POINTS"
-        ) {
-
-            const player =
-                data.player ||
-                currentPlayer;
-
-
-            const amount =
-                Number(data.amount);
-
-
-            if (
-                player === "hammam" ||
-                player === "monia"
-            ) {
-
-                addPoints(
-                    player,
-                    amount
-                );
-
-                sendScoresToGame();
-
-            }
-
-            return;
-
-        }
-
-
-        /* اللعبة تعلن نهاية الجولة */
-
-        if (
-            data.type ===
-            "GAME_RESULT"
-        ) {
-
-            handleGameResult(data);
-
-            return;
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   SEND PLAYER TO GAME
-========================================================= */
-
-function sendPlayerToGame() {
-
-    const frame =
-        $("gameFrame");
-
-
-    if (
-        !frame.contentWindow ||
-        !currentPlayer
-    ) {
-        return;
-    }
-
-
-    frame.contentWindow.postMessage(
-
-        {
-
-            type:
-                "PLAYER_INFO",
-
-            player:
-                currentPlayer,
-
-            playerName:
-                CONFIG.players[
-                    currentPlayer
-                ].name,
-
-            realName:
-                CONFIG.players[
-                    currentPlayer
-                ].realName,
-
-            icon:
-                CONFIG.players[
-                    currentPlayer
-                ].icon
-
-        },
-
-        "*"
-
-    );
-
-}
-
-
-/* =========================================================
-   SEND SCORES
-========================================================= */
-
-function sendScoresToGame() {
-
-    const frame =
-        $("gameFrame");
-
-
-    if (
-        !frame.contentWindow
-    ) {
-        return;
-    }
-
-
-    const scores =
-        getScores();
-
-
-    frame.contentWindow.postMessage(
-
-        {
-
-            type:
-                "SCORES",
-
-            scores: {
-
-                hammam:
-                    scores.hammam,
-
-                monia:
-                    scores.monia
-
-            },
-
-            currentPlayer:
-                currentPlayer
-
-        },
-
-        "*"
-
-    );
-
-}
-
-
-/* =========================================================
-   GAME RESULT
-========================================================= */
-
-function handleGameResult(data) {
-
-    if (
-        !data ||
-        !data.result
-    ) {
-        return;
-    }
-
-
-    console.log(
-        "نتيجة اللعبة:",
-        data.result
-    );
-
-}
-
-
-/* =========================================================
-   OPEN GAME
-========================================================= */
-
-window.openGame = function(
-    gameFile,
-    gameTitle = "اللعبة"
-) {
-
-    if (!currentPlayer) {
-
-        showComingSoon(
-            "يجب تسجيل الدخول أولاً"
-        );
-
-        return;
-
-    }
-
-
-    if (!gameFile) {
-
-        showComingSoon(
-            gameTitle
-        );
-
-        return;
-
-    }
-
-
-    currentGame = {
-
-        file:
-            gameFile,
-
-        title:
-            gameTitle
-
-    };
-
-
-    const gameView =
-        $("gameView");
-
-
-    const frame =
-        $("gameFrame");
-
-
-    const loading =
-        $("gameLoading");
-
-
-    $("gameViewTitle")
-        .textContent =
-        gameTitle;
-
-
-    updateScores();
-
-
-    loading
-        .classList
-        .remove("hidden");
-
-
-    gameView
-        .classList
-        .remove("hidden");
-
-
-    document.body.style.overflow =
-        "hidden";
-
-
-    /*
-        نستخدم timestamp حتى إذا
-        فتحت نفس اللعبة مرة أخرى
-        يتم تحميل نسخة جديدة.
-    */
-
-    frame.src =
-        gameFile +
-        (
-            gameFile.includes("?")
-                ? "&"
-                : "?"
-        ) +
-        "player=" +
-        encodeURIComponent(
-            currentPlayer
-        ) +
-        "&v=" +
-        Date.now();
-
-
-    /*
-        إذا كان الملف محملًا
-        نرسل البيانات مباشرة.
-    */
-
-    frame.onload = function() {
-
-        loading
-            .classList
-            .add("hidden");
-
-
-        setTimeout(
-            () => {
-
-                sendPlayerToGame();
-
-                sendScoresToGame();
-
-            },
-            50
-        );
-
-    };
-
-
-};
-
-
-/* =========================================================
-   CLOSE GAME
-========================================================= */
-
-window.closeGame = function() {
-
-    const frame =
-        $("gameFrame");
-
-
-    frame.src =
-        "about:blank";
-
-
-    $("gameView")
-        .classList
-        .add("hidden");
-
-
-    $("gameLoading")
-        .classList
-        .remove("hidden");
-
-
-    document.body.style.overflow =
-        "";
-
-
-    currentGame = null;
-
-
-    updateScores();
-
-};
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-window.showComingSoon = function(
-    title
-) {
-
-    $("modalIcon")
-        .textContent =
-        "✦";
-
-
-    $("modalTitle")
-        .textContent =
-        title;
-
-
-    $("modalText")
-        .textContent =
-        "هذا القسم موجود في الخطة القادمة. بنفتحه داخل التطبيق مثل الألعاب بالضبط.";
-
-
-    $("messageModal")
-        .classList
-        .remove("hidden");
-
-};
-
-
-window.hideModal = function() {
-
-    $("messageModal")
-        .classList
-        .add("hidden");
-
-};
-
-
-window.closeModal = function(
-    event
-) {
-
-    if (
-        event.target ===
-        $("messageModal")
-    ) {
-
-        hideModal();
-
-    }
-
-};
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-window.logout = function() {
-
-    const yes =
-        confirm(
-            "هل تريد تسجيل الخروج من مساحة بدر × شمس؟"
-        );
-
-
-    if (!yes) {
-        return;
-    }
-
-
-    closeGame();
-
-
-    sessionStorage.removeItem(
-        "badrShamsPlayer"
-    );
-
-
-    currentPlayer = null;
-
-    selectedPlayer = null;
-
-
-    $("app")
-        .classList
-        .add("hidden");
-
-
-    $("loginScreen")
-        .classList
-        .remove("hidden");
-
-
-    $("passwordSection")
-        .classList
-        .add("hidden");
-
-
-    $("playerSelection")
-        .classList
-        .remove("hidden");
-
-
-    $("passwordInput")
-        .value = "";
-
-
-    $("loginError")
-        .textContent = "";
-
-};
-
-
-/* =========================================================
-   ENTER KEY
-========================================================= */
-
-$("passwordInput")
-    .addEventListener(
-        "keydown",
-        function(event) {
-
-            if (
-                event.key ===
-                "Enter"
-            ) {
-
-                enterSpace();
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-   ESCAPE
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key ===
-            "Escape" &&
-            !$("gameView")
-                .classList
-                .contains("hidden")
-        ) {
-
-            closeGame();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   RESTORE SESSION
-========================================================= */
-
-(function restoreSession() {
-
-    const saved =
-        sessionStorage.getItem(
-            "badrShamsPlayer"
-        );
-
-
-    if (
-        saved === "hammam" ||
-        saved === "monia"
-    ) {
-
-        currentPlayer =
-            saved;
-
-
-        openApplication();
-
-    }
-
-})();
-
-
-/* =========================================================
-   SYSTEM READY
-========================================================= */
-
-console.log(
-    "🌙☀️ بدر × شمس — النظام جاهز"
-);
-
-console.log(
-    "🎮 نظام الألعاب الداخلي جاهز"
-);
-
-console.log(
-    "👤 اللاعب الحالي:",
-    currentPlayer
-);
-
-</script>
-
-
-</body>
-
-                    </html>
+       
