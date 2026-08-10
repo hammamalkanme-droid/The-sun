@@ -1,78 +1,893 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>بدر × شمس | المساحة</title>
-<link rel="stylesheet" href="css/theme.css">
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>بدر × شمس</title>
+
+    <link
+        rel="stylesheet"
+        href="css/theme.css"
+    >
+
 </head>
+
 <body>
+
 <div class="app-shell">
 
-<section id="login" class="card login">
-  <div class="brand">
-    <div class="symbols">🌙 ✦ ☀️</div>
-    <h1>بدر × شمس</h1>
-    <p>مساحة اللعب والتحديات والذكريات المشتركة</p>
-  </div>
-  <div class="login-buttons">
-    <button class="btn moon" onclick="loginAs('hammam')">🌙 دخول بدر<br><small>همام</small></button>
-    <button class="btn sun" onclick="loginAs('monia')">☀️ دخول شمس<br><small>منية</small></button>
-  </div>
+<!-- =========================
+     LOGIN
+========================= -->
+
+<section
+    id="login"
+    class="card login"
+>
+
+    <div class="brand">
+
+        <div class="symbols">
+            🌙 ✦ ☀️
+        </div>
+
+        <h1>
+            بدر × شمس
+        </h1>
+
+        <p>
+            مساحة خاصة للعب،
+            التحديات،
+            الأسئلة والمنافسات ✨
+        </p>
+
+    </div>
+
+
+    <div class="login-buttons">
+
+        <button
+            class="btn moon"
+            onclick="loginAs('hammam')"
+        >
+
+            🌙 دخول بدر
+
+            <br>
+
+            <small>
+                همام
+            </small>
+
+        </button>
+
+
+        <button
+            class="btn sun"
+            onclick="loginAs('monia')"
+        >
+
+            ☀️ دخول شمس
+
+            <br>
+
+            <small>
+                منية
+            </small>
+
+        </button>
+
+    </div>
+
 </section>
 
-<main id="app" class="hidden">
-  <section class="card">
+
+<!-- =========================
+     APP
+========================= -->
+
+<main
+    id="app"
+    class="hidden"
+>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<section class="card">
+
     <div class="topbar">
-      <div class="player">
-        <div class="name"><span id="playerName"></span></div>
-        <small id="playerRole"></small>
-      </div>
-      <div class="scores">
-        <div class="score">🌙 بدر<b id="bScore">0</b></div>
-        <div class="score sun-score">☀️ شمس<b id="sScore">0</b></div>
-      </div>
-      <div style="text-align:left"><button class="btn" onclick="goHome()">الرئيسية</button></div>
+
+
+        <div class="player">
+
+            <div
+                class="name"
+                id="playerName"
+            ></div>
+
+            <small
+                id="playerRole"
+            ></small>
+
+        </div>
+
+
+        <div class="scores">
+
+            <div class="score">
+
+                🌙 بدر
+
+                <b id="bScore">
+                    0
+                </b>
+
+            </div>
+
+
+            <div class="score sun-score">
+
+                ☀️ شمس
+
+                <b id="sScore">
+                    0
+                </b>
+
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <button
+                class="btn"
+                onclick="goHome()"
+            >
+                🏠 الرئيسية
+            </button>
+
+        </div>
+
     </div>
-    <div id="turn" class="turn">جارٍ الاتصال...</div>
+
+
+    <div
+        id="turn"
+        class="turn"
+    >
+        جارٍ الاتصال...
+    </div>
+
+
     <div class="nav">
-      <button class="btn moon" onclick="openGame('games/xo.html','إكس أو')">❌⭕ إكس أو</button>
-      <button class="btn" onclick="alert('القائمة الكاملة للألعاب ستضاف هنا ككتالوج مستقل.')">🎮 الألعاب</button>
-      <button class="btn" onclick="alert('الفعاليات ستضاف هنا ككتالوج مستقل.')">🎯 الفعاليات</button>
-      <button class="btn" onclick="alert('الأسئلة ستضاف هنا في وحدة مستقلة.')">❓ الأسئلة</button>
-    </div>
-  </section>
 
-  <section id="homePanel" class="hero">
+        <button
+            class="btn moon"
+            onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})"
+        >
+            🎮 الألعاب
+        </button>
+
+
+        <button
+            class="btn sun"
+            onclick="document.getElementById('questions').scrollIntoView({behavior:'smooth'})"
+        >
+            ❓ الأسئلة
+        </button>
+
+
+        <button
+            class="btn"
+            onclick="document.getElementById('activities').scrollIntoView({behavior:'smooth'})"
+        >
+            🎯 الفعاليات
+        </button>
+
+
+        <button
+            class="btn"
+            onclick="document.getElementById('scores').scrollIntoView({behavior:'smooth'})"
+        >
+            🏆 النتائج
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<section
+    id="homePanel"
+>
+
+
+<!-- HERO -->
+
+<div class="hero">
+
+
     <div class="card hero-main">
-      <div style="font-size:42px">🌙 ✦ ☀️</div>
-      <h2>مساحتكم الخاصة</h2>
-      <p>
-        هذا هو القلب الرئيسي للمشروع. من هنا سنضيف الألعاب والفعاليات
-        كملفات مستقلة، بحيث تقدر تضيف لعبة جديدة بدون لمس نظام الموقع الأساسي.
-      </p>
-      <button class="btn moon" onclick="openGame('games/xo.html','إكس أو')">ابدأ أول لعبة →</button>
-    </div>
-    <div class="card">
-      <h3>مركز سريع</h3>
-      <div class="quick-grid">
-        <div class="quick" onclick="openGame('games/xo.html','إكس أو')">❌⭕<br><b>إكس أو</b></div>
-        <div class="quick">🎯<br><b>فعاليات</b></div>
-        <div class="quick">❓<br><b>أسئلة</b></div>
-        <div class="quick">🏆<br><b>النتائج</b></div>
-      </div>
-    </div>
-  </section>
 
-  <section id="gamePanel" class="card hidden" style="margin-top:14px">
-    <div class="game-head">
-      <button class="btn" onclick="goHome()">← رجوع</button>
-      <h2 id="gameTitle" style="margin:0"></h2>
+        <div style="font-size:45px">
+            🌙 ✦ ☀️
+        </div>
+
+
+        <h2>
+            أهلًا بك في مساحتكم
+        </h2>
+
+
+        <p>
+
+            هنا تبدأ المنافسة بين
+            <strong>البدر</strong>
+            و
+            <strong>الشمس</strong>.
+
+            العبوا،
+            اجمعوا النقاط،
+            واكتشفوا من يعرف الثاني أكثر.
+
+        </p>
+
+
+        <div>
+
+            <button
+                class="btn moon"
+                onclick="openGame('games/xo.html','إكس أو')"
+            >
+                🎮 ابدأ اللعب
+            </button>
+
+        </div>
+
     </div>
-    <iframe id="gameFrame" title="محتوى بدر وشمس"></iframe>
-  </section>
-</main>
+
+
+
+    <div class="card section">
+
+        <div class="section-title">
+
+            <h2>
+                ⚡ وصول سريع
+            </h2>
+
+        </div>
+
+
+        <div class="quick-grid">
+
+
+            <div
+                class="quick"
+                onclick="openGame('games/xo.html','إكس أو')"
+            >
+
+                <div class="quick-icon">
+                    ❌⭕
+                </div>
+
+                <b>
+                    إكس أو
+                </b>
+
+                <span>
+                    تحدي مباشر
+                </span>
+
+            </div>
+
+
+            <div
+                class="quick"
+                onclick="document.getElementById('questions').scrollIntoView({behavior:'smooth'})"
+            >
+
+                <div class="quick-icon">
+                    ❓
+                </div>
+
+                <b>
+                    الأسئلة
+                </b>
+
+                <span>
+                    اختبروا معرفتكم
+                </span>
+
+            </div>
+
+
+            <div
+                class="quick"
+                onclick="document.getElementById('activities').scrollIntoView({behavior:'smooth'})"
+            >
+
+                <div class="quick-icon">
+                    🎯
+                </div>
+
+                <b>
+                    الفعاليات
+                </b>
+
+                <span>
+                    تحديات خاصة
+                </span>
+
+            </div>
+
+
+            <div
+                class="quick"
+                onclick="document.getElementById('scores').scrollIntoView({behavior:'smooth'})"
+            >
+
+                <div class="quick-icon">
+                    🏆
+                </div>
+
+                <b>
+                    النتائج
+                </b>
+
+                <span>
+                    من المتصدر؟
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
-<script type="module" src="js/app.js"></script>
+
+
+
+<!-- =========================
+     GAMES
+========================= -->
+
+<section
+    id="games"
+    class="card section"
+>
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                🎮 الألعاب
+            </h2>
+
+            <span>
+                اختاروا لعبة وابدؤوا المنافسة
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="games-grid">
+
+
+        <!-- XO -->
+
+        <div
+            class="game-card"
+            onclick="openGame('games/xo.html','إكس أو')"
+        >
+
+            <span class="game-tag">
+                متاحة الآن
+            </span>
+
+            <div class="game-icon">
+                ❌⭕
+            </div>
+
+            <h3>
+                إكس أو
+            </h3>
+
+            <p>
+                مباراة مباشرة بين بدر وشمس.
+                الفائز يحصل على نقاط.
+            </p>
+
+        </div>
+
+
+        <!-- GAME 2 -->
+
+        <div class="game-card sun-game">
+
+            <span class="game-tag">
+                قريبًا
+            </span>
+
+            <div class="game-icon">
+                ⚡
+            </div>
+
+            <h3>
+                الأسرع يفوز
+            </h3>
+
+            <p>
+                تحدي سرعة وردة فعل.
+            </p>
+
+        </div>
+
+
+        <!-- GAME 3 -->
+
+        <div class="game-card">
+
+            <span class="game-tag">
+                قريبًا
+            </span>
+
+            <div class="game-icon">
+                🧠
+            </div>
+
+            <h3>
+                من يعرف الثاني؟
+            </h3>
+
+            <p>
+                توقع إجابة الطرف الآخر
+                واحصل على النقاط.
+            </p>
+
+        </div>
+
+
+        <!-- GAME 4 -->
+
+        <div class="game-card sun-game">
+
+            <span class="game-tag">
+                قريبًا
+            </span>
+
+            <div class="game-icon">
+                🎲
+            </div>
+
+            <h3>
+                تحدي الحظ
+            </h3>
+
+            <p>
+                جولات عشوائية ومفاجآت.
+            </p>
+
+        </div>
+
+
+        <!-- GAME 5 -->
+
+        <div class="game-card">
+
+            <span class="game-tag">
+                قريبًا
+            </span>
+
+            <div class="game-icon">
+                🔥
+            </div>
+
+            <h3>
+                تحدي الدقيقة
+            </h3>
+
+            <p>
+                أنجز المهمة قبل انتهاء الوقت.
+            </p>
+
+        </div>
+
+
+        <!-- GAME 6 -->
+
+        <div class="game-card sun-game">
+
+            <span class="game-tag">
+                قريبًا
+            </span>
+
+            <div class="game-icon">
+                🏹
+            </div>
+
+            <h3>
+                الهدف
+            </h3>
+
+            <p>
+                حاول الوصول لأعلى نتيجة.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     QUESTIONS
+========================= -->
+
+<section
+    id="questions"
+    class="card section"
+>
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                ❓ الأسئلة
+            </h2>
+
+            <span>
+                أسئلة خفيفة وممتعة
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="questions-grid">
+
+
+        <div class="question-card">
+
+            <div class="question-number">
+                سؤال #01
+            </div>
+
+            <p>
+                من فينا أكثر واحد
+                يغير رأيه بسرعة؟
+            </p>
+
+        </div>
+
+
+        <div class="question-card">
+
+            <div class="question-number">
+                سؤال #02
+            </div>
+
+            <p>
+                ما أكثر شيء
+                يضحكك في الطرف الآخر؟
+            </p>
+
+        </div>
+
+
+        <div class="question-card">
+
+            <div class="question-number">
+                سؤال #03
+            </div>
+
+            <p>
+                لو عندنا يوم كامل
+                بدون أي التزامات،
+                ماذا نختار أن نفعل؟
+            </p>
+
+        </div>
+
+
+        <div class="question-card">
+
+            <div class="question-number">
+                سؤال #04
+            </div>
+
+            <p>
+                من فينا أفضل
+                في اتخاذ القرارات؟
+            </p>
+
+        </div>
+
+
+        <div class="question-card">
+
+            <div class="question-number">
+                سؤال #05
+            </div>
+
+            <p>
+                ما أكثر لعبة
+                تتوقع أن تفوز فيها؟
+            </p>
+
+        </div>
+
+
+        <div class="question-card">
+
+            <div class="question-number">
+                سؤال #06
+            </div>
+
+            <p>
+                ما الشيء البسيط
+                الذي دائمًا يحسن المزاج؟
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     ACTIVITIES
+========================= -->
+
+<section
+    id="activities"
+    class="card section"
+>
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                🎯 الفعاليات
+            </h2>
+
+            <span>
+                فعاليات يومية وشبه يومية
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="games-grid">
+
+
+        <div class="game-card">
+
+            <span class="game-tag">
+                قريبًا
+            </span>
+
+            <div class="game-icon">
+                📅
+            </div>
+
+            <h3>
+                فعالية اليوم
+            </h3>
+
+            <p>
+                مهمة جديدة كل يوم.
+            </p>
+
+        </div>
+
+
+        <div class="game-card sun-game">
+
+            <span class="game-tag">
+                قريبًا
+            </span>
+
+            <div class="game-icon">
+                🏆
+            </div>
+
+            <h3>
+                بطولة الأسبوع
+            </h3>
+
+            <p>
+                اجمعوا أكبر عدد من النقاط.
+            </p>
+
+        </div>
+
+
+        <div class="game-card">
+
+            <span class="game-tag">
+                قريبًا
+            </span>
+
+            <div class="game-icon">
+                🎁
+            </div>
+
+            <h3>
+                صندوق المفاجآت
+            </h3>
+
+            <p>
+                فعالية عشوائية ومفاجآت.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     SCORES
+========================= -->
+
+<section
+    id="scores"
+    class="card section"
+>
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                🏆 لوحة المنافسة
+            </h2>
+
+            <span>
+                النتيجة الحالية
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="scores">
+
+        <div class="score">
+
+            🌙 بدر
+
+            <b id="bScore2">
+                0
+            </b>
+
+        </div>
+
+
+        <div class="score sun-score">
+
+            ☀️ شمس
+
+            <b id="sScore2">
+                0
+            </b>
+
+        </div>
+
+    </div>
+
+</section>
+
+</section>
+
+
+
+<!-- =========================
+     GAME PANEL
+========================= -->
+
+<section
+    id="gamePanel"
+    class="card hidden"
+    style="margin-top:15px"
+>
+
+    <div class="game-head">
+
+        <button
+            class="btn"
+            onclick="goHome()"
+        >
+            ← رجوع
+        </button>
+
+        <h2
+            id="gameTitle"
+            style="margin:0"
+        ></h2>
+
+    </div>
+
+
+    <iframe
+        id="gameFrame"
+        title="بدر وشمس"
+    ></iframe>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<script type="module">
+
+import "./js/app.js";
+
+
+/*
+    مزامنة لوحة النتائج الإضافية
+*/
+
+setInterval(() => {
+
+    const b =
+        document.getElementById("bScore");
+
+    const s =
+        document.getElementById("sScore");
+
+    const b2 =
+        document.getElementById("bScore2");
+
+    const s2 =
+        document.getElementById("sScore2");
+
+
+    if (b && b2)
+        b2.textContent = b.textContent;
+
+    if (s && s2)
+        s2.textContent = s.textContent;
+
+}, 500);
+
+</script>
+
 </body>
-</html>
+  </html>
