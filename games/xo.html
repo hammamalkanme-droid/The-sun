@@ -1,89 +1,1676 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>إكس أو | بدر × شمس</title>
-<style>
-body{margin:0;background:radial-gradient(circle at 50% 0,#142747,#07101d 65%);color:#fff;font-family:Arial,Tahoma,sans-serif;text-align:center}
-.wrap{max-width:650px;margin:auto;padding:22px}
-.card{background:#101d31;border:1px solid #2b4165;border-radius:22px;padding:20px}
-.status{padding:12px;border-radius:12px;background:#ffffff09;margin:12px 0}
-.board{display:grid;grid-template-columns:repeat(3,minmax(70px,110px));gap:8px;justify-content:center;margin:22px auto}
-.cell{aspect-ratio:1;background:#172944;border:1px solid #31486c;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:46px;cursor:pointer}
-.cell:hover{background:#203657}.x{color:#7ec8ff}.o{color:#ffd66b}
-button{border:0;border-radius:12px;padding:11px 16px;background:#28446b;color:#fff;font-weight:bold;cursor:pointer}
-</style>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <meta name="theme-color" content="#070b18">
+
+    <title>إكس أو — بدر × شمس</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            font-family:
+                "Segoe UI",
+                Tahoma,
+                Arial,
+                sans-serif;
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(55, 130, 255, .13),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(255, 145, 40, .13),
+                    transparent 28%
+                ),
+                #060a14;
+            color: #fff;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* =========================================
+           BACKGROUND
+        ========================================= */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orb {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: .18;
+        }
+
+        .orb-blue {
+            background: #2677ff;
+            top: -120px;
+            right: -100px;
+        }
+
+        .orb-orange {
+            background: #ff8b22;
+            bottom: -140px;
+            left: -100px;
+        }
+
+        .stars {
+            position: absolute;
+            inset: 0;
+            opacity: .35;
+            background-image:
+                radial-gradient(circle, #fff 1px, transparent 1px),
+                radial-gradient(circle, #fff 1px, transparent 1px);
+            background-size: 90px 90px, 130px 130px;
+            background-position: 10px 20px, 50px 70px;
+        }
+
+        /* =========================================
+           APP
+        ========================================= */
+
+        .app {
+            position: relative;
+            z-index: 2;
+            width: min(100%, 650px);
+            min-height: 100vh;
+            margin: auto;
+            padding: 16px 16px 35px;
+        }
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .back-btn {
+            width: 45px;
+            height: 45px;
+            border: 1px solid rgba(255,255,255,.09);
+            border-radius: 15px;
+            background: rgba(16,23,40,.8);
+            color: #fff;
+            cursor: pointer;
+            font-size: 21px;
+        }
+
+        .back-btn:active {
+            transform: scale(.94);
+        }
+
+        .brand {
+            text-align: center;
+            flex: 1;
+        }
+
+        .brand-small {
+            font-size: 12px;
+            color: #8995ad;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .brand-title {
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .brand-title .moon {
+            color: #5d9dff;
+        }
+
+        .brand-title .sun {
+            color: #ff9b3d;
+        }
+
+        .round-badge {
+            min-width: 45px;
+            height: 45px;
+            padding: 0 10px;
+            border-radius: 15px;
+            background: rgba(16,23,40,.8);
+            border: 1px solid rgba(255,255,255,.09);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        /* =========================================
+           SCORE
+        ========================================= */
+
+        .score-card {
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 10px;
+            padding: 16px;
+            border-radius: 24px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(21,39,72,.85),
+                    rgba(25,20,35,.85)
+                );
+            border: 1px solid rgba(255,255,255,.08);
+            box-shadow: 0 18px 50px rgba(0,0,0,.22);
+        }
+
+        .score-player {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .score-player.sun {
+            justify-content: flex-end;
+            text-align: right;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            flex: 0 0 45px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            font-size: 23px;
+            font-weight: 900;
+        }
+
+        .avatar.moon {
+            background: rgba(53,128,255,.14);
+            color: #63a1ff;
+            border: 1px solid rgba(83,151,255,.25);
+        }
+
+        .avatar.sun {
+            background: rgba(255,140,40,.14);
+            color: #ff9b3d;
+            border: 1px solid rgba(255,145,55,.25);
+        }
+
+        .score-name {
+            font-size: 12px;
+            color: #8793aa;
+        }
+
+        .score-number {
+            display: block;
+            font-size: 23px;
+            font-weight: 950;
+            line-height: 1.1;
+        }
+
+        .score-player.moon .score-number {
+            color: #62a1ff;
+        }
+
+        .score-player.sun .score-number {
+            color: #ff9b3d;
+        }
+
+        .vs {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #0b1120;
+            border: 1px solid rgba(255,255,255,.08);
+            color: #66738c;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        /* =========================================
+           TURN
+        ========================================= */
+
+        .turn-card {
+            margin-top: 15px;
+            padding: 15px 18px;
+            border-radius: 18px;
+            background: rgba(11,17,30,.78);
+            border: 1px solid rgba(255,255,255,.07);
+            text-align: center;
+        }
+
+        .turn-icon {
+            font-size: 23px;
+            margin-bottom: 4px;
+        }
+
+        .turn-title {
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .turn-subtitle {
+            color: #78859d;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .your-turn {
+            animation: pulseTurn 1.5s infinite;
+        }
+
+        @keyframes pulseTurn {
+            0%,100% {
+                box-shadow: 0 0 0 0 rgba(93,157,255,0);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(93,157,255,.05);
+            }
+        }
+
+        /* =========================================
+           BOARD
+        ========================================= */
+
+        .game-area {
+            margin-top: 20px;
+        }
+
+        .board {
+            width: min(92vw, 390px);
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .cell {
+            aspect-ratio: 1;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 23px;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(22,31,51,.95),
+                    rgba(12,18,31,.98)
+                );
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.03),
+                0 10px 25px rgba(0,0,0,.2);
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition:
+                transform .18s ease,
+                border-color .18s ease,
+                background .18s ease;
+        }
+
+        .cell:not(.filled):hover {
+            transform: translateY(-2px);
+            border-color: rgba(255,255,255,.16);
+        }
+
+        .cell:active {
+            transform: scale(.96);
+        }
+
+        .cell.filled {
+            cursor: default;
+        }
+
+        .cell .mark {
+            font-size: clamp(52px, 15vw, 76px);
+            line-height: 1;
+            font-weight: 1000;
+            animation: markIn .3s cubic-bezier(.2,.9,.3,1.4);
+        }
+
+        @keyframes markIn {
+            from {
+                opacity: 0;
+                transform: scale(.2) rotate(-20deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0);
+            }
+        }
+
+        .mark-x {
+            color: #62a1ff;
+            text-shadow:
+                0 0 22px rgba(75,143,255,.3);
+        }
+
+        .mark-o {
+            color: #ff9b3d;
+            text-shadow:
+                0 0 22px rgba(255,145,55,.3);
+        }
+
+        .cell.winner {
+            animation: winnerCell .65s infinite alternate;
+        }
+
+        @keyframes winnerCell {
+            from {
+                transform: scale(1);
+                box-shadow:
+                    0 0 0 rgba(255,255,255,0);
+            }
+            to {
+                transform: scale(1.035);
+                box-shadow:
+                    0 0 28px rgba(255,255,255,.13);
+            }
+        }
+
+        /* =========================================
+           STATUS
+        ========================================= */
+
+        .status-line {
+            text-align: center;
+            margin-top: 17px;
+            color: #8b97ae;
+            font-size: 13px;
+        }
+
+        /* =========================================
+           BUTTONS
+        ========================================= */
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .control-btn {
+            flex: 1;
+            min-height: 52px;
+            border: 0;
+            border-radius: 17px;
+            cursor: pointer;
+            color: #fff;
+            font-weight: 900;
+            transition: transform .15s ease;
+        }
+
+        .control-btn:active {
+            transform: scale(.96);
+        }
+
+        .restart-btn {
+            background:
+                linear-gradient(
+                    135deg,
+                    #377ff5,
+                    #2255b9
+                );
+            box-shadow: 0 10px 25px rgba(43,108,235,.2);
+        }
+
+        .exit-btn {
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+        /* =========================================
+           RESULT OVERLAY
+        ========================================= */
+
+        .result-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 20;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: rgba(3,6,13,.76);
+            backdrop-filter: blur(14px);
+        }
+
+        .result-card {
+            width: min(100%, 420px);
+            padding: 32px 24px 25px;
+            text-align: center;
+            border-radius: 30px;
+            background:
+                linear-gradient(
+                    145deg,
+                    #111b30,
+                    #0b101c
+                );
+            border: 1px solid rgba(255,255,255,.09);
+            box-shadow: 0 30px 100px rgba(0,0,0,.45);
+            animation: resultIn .45s cubic-bezier(.2,.9,.3,1.2);
+        }
+
+        @keyframes resultIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .result-symbol {
+            font-size: 65px;
+            margin-bottom: 10px;
+        }
+
+        .result-card h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .result-card p {
+            margin: 10px 0 22px;
+            color: #8995ac;
+        }
+
+        .result-card .restart-btn {
+            width: 100%;
+            min-height: 55px;
+            border: 0;
+            border-radius: 17px;
+            color: #fff;
+            font-weight: 900;
+            cursor: pointer;
+        }
+
+        /* =========================================
+           WAITING
+        ========================================= */
+
+        .waiting {
+            text-align: center;
+            padding: 35px 20px;
+            color: #8490a7;
+        }
+
+        .waiting-icon {
+            font-size: 50px;
+            animation: floating 1.8s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%,100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .waiting strong {
+            display: block;
+            color: #fff;
+            font-size: 18px;
+            margin-top: 12px;
+        }
+
+        /* =========================================
+           PARTICLES
+        ========================================= */
+
+        .celebration {
+            position: fixed;
+            inset: 0;
+            z-index: 30;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            top: -20px;
+            font-size: 22px;
+            animation: fall 1.7s linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform:
+                    translateY(110vh)
+                    rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 420px) {
+
+            .app {
+                padding: 12px 11px 25px;
+            }
+
+            .score-card {
+                padding: 13px 10px;
+            }
+
+            .avatar {
+                width: 40px;
+                height: 40px;
+                flex-basis: 40px;
+            }
+
+            .board {
+                gap: 8px;
+            }
+
+            .cell {
+                border-radius: 19px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<div class="wrap"><div class="card">
-<h1>❌⭕ إكس أو</h1>
-<div id="status" class="status">جاري التحميل...</div>
-<div id="board" class="board"></div>
-<button onclick="reset()">🔄 إعادة الجولة</button>
-</div></div>
-<script>
-let board=["","","","","","","","",""];
-let localPlayer=null;
-let state=null;
 
-function api(){return window.parent.Space}
+<div class="background">
+    <div class="stars"></div>
+    <div class="orb orb-blue"></div>
+    <div class="orb orb-orange"></div>
+</div>
 
-function receive(){
-  try{
-    state=api().getState();
-    localPlayer=api().getPlayer();
-    board=state?.gamesData?.xo?.board || board;
+
+<div class="app">
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+
+        <button
+            class="back-btn"
+            onclick="goBack()"
+            aria-label="رجوع"
+        >
+            →
+        </button>
+
+        <div class="brand">
+
+            <span class="brand-small">
+                لعبة خاصة
+            </span>
+
+            <div class="brand-title">
+                <span class="moon">بدر</span>
+                ×
+                <span class="sun">شمس</span>
+            </div>
+
+        </div>
+
+        <div class="round-badge">
+            <span id="roundNumber">#1</span>
+        </div>
+
+    </header>
+
+
+    <!-- SCORE -->
+
+    <section class="score-card">
+
+        <div class="score-player moon">
+
+            <div class="avatar moon">
+                ☾
+            </div>
+
+            <div>
+                <span class="score-name">
+                    بدر
+                </span>
+
+                <strong
+                    class="score-number"
+                    id="baderScore"
+                >
+                    0
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="vs">
+            VS
+        </div>
+
+
+        <div class="score-player sun">
+
+            <div>
+
+                <span class="score-name">
+                    شمس
+                </span>
+
+                <strong
+                    class="score-number"
+                    id="shamsScore"
+                >
+                    0
+                </strong>
+
+            </div>
+
+            <div class="avatar sun">
+                ☀
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TURN -->
+
+    <section
+        id="turnCard"
+        class="turn-card"
+    >
+
+        <div
+            id="turnIcon"
+            class="turn-icon"
+        >
+            ⏳
+        </div>
+
+        <div
+            id="turnTitle"
+            class="turn-title"
+        >
+            جاري تجهيز المباراة...
+        </div>
+
+        <div
+            id="turnSubtitle"
+            class="turn-subtitle"
+        >
+            لحظة واحدة
+        </div>
+
+    </section>
+
+
+    <!-- BOARD -->
+
+    <main class="game-area">
+
+        <div
+            id="board"
+            class="board"
+        ></div>
+
+        <div
+            id="statusLine"
+            class="status-line"
+        >
+            ...
+        </div>
+
+        <div class="controls">
+
+            <button
+                class="control-btn restart-btn"
+                onclick="requestRestart()"
+            >
+                🔄 مباراة جديدة
+            </button>
+
+            <button
+                class="control-btn exit-btn"
+                onclick="goBack()"
+            >
+                خروج
+            </button>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- RESULT -->
+
+<div
+    id="resultOverlay"
+    class="result-overlay hidden"
+>
+
+    <div class="result-card">
+
+        <div
+            id="resultSymbol"
+            class="result-symbol"
+        >
+            🏆
+        </div>
+
+        <h1 id="resultTitle">
+            انتهت المباراة
+        </h1>
+
+        <p id="resultText">
+            ...
+        </p>
+
+        <button
+            class="restart-btn"
+            onclick="requestRestart()"
+        >
+            🔥 العبوا مرة ثانية
+        </button>
+
+    </div>
+
+</div>
+
+
+<div
+    id="celebration"
+    class="celebration"
+></div>
+
+
+<script type="module">
+
+/* =====================================================
+   FIREBASE
+===================================================== */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    onValue,
+    update,
+    runTransaction
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBCh5eqP5A6c0K_-KtlwNAPR_vYFXYHm4",
+    authDomain: "space-4e22f.firebaseapp.com",
+    projectId: "space-4e22f",
+    storageBucket: "space-4e22f.firebasestorage.app",
+    messagingSenderId: "804457119217",
+    appId: "1:804457119217:web:99a62f5ef4ebfed8afd850",
+    measurementId: "G-R2YRH0EX9L"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+
+/* =====================================================
+   PLAYER
+===================================================== */
+
+/*
+    نحاول قراءة اللاعب من أكثر من مكان
+    حتى نضمن توافق اللعبة مع النسخة الأساسية.
+*/
+
+let player =
+    localStorage.getItem("baderShamsPlayer") ||
+    localStorage.getItem("currentPlayer") ||
+    sessionStorage.getItem("currentPlayer");
+
+
+/*
+    إذا كانت الصفحة داخل iframe
+    يمكن للـ index إرسال الهوية عبر URL.
+*/
+
+const params = new URLSearchParams(location.search);
+
+if (params.get("player")) {
+    player = params.get("player");
+}
+
+
+/*
+    توافق مع أسماء النظام القديم
+*/
+
+if (player === "bader") {
+    player = "hammam";
+}
+
+if (player === "shams") {
+    player = "monia";
+}
+
+
+/*
+    في حالة عدم وجود هوية:
+    نعرض بدر مؤقتًا بدل انهيار اللعبة.
+*/
+
+if (!player) {
+    player = "hammam";
+}
+
+
+const isBader = player === "hammam";
+
+
+/* =====================================================
+   GAME STATE
+===================================================== */
+
+let gameData = null;
+let busy = false;
+
+const gameRef = ref(db, "spaceData/xoGame");
+
+
+/* =====================================================
+   DEFAULT GAME
+===================================================== */
+
+const defaultGame = {
+
+    board: [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ],
+
+    turn: "hammam",
+
+    status: "playing",
+
+    winner: "",
+
+    winningCells: [],
+
+    round: 1,
+
+    restartRequest: "",
+
+    restartAccepted: false
+
+};
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+onValue(gameRef, snapshot => {
+
+    const data = snapshot.val();
+
+    if (!data) {
+
+        update(ref(db, "spaceData"), {
+            xoGame: defaultGame
+        });
+
+        return;
+    }
+
+    gameData = data;
+
     render();
-  }catch(e){document.getElementById("status").textContent="تعذر الاتصال بالنظام الأساسي."}
-}
-function render(){
-  const turn=state?.turn;
-  document.getElementById("status").textContent=
-    turn===localPlayer?"🎯 دورك الآن":"⏳ انتظر دور الطرف الآخر";
-  document.getElementById("board").innerHTML=board.map((v,i)=>{
-    const mark=v==="hammam"?"X":v==="monia"?"O":"";
-    return `<div class="cell ${mark.toLowerCase()}" onclick="move(${i})">${mark}</div>`;
-  }).join("");
-}
-function winner(b){
- const lines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
- for(const [a,c,d] of lines)if(b[a]&&b[a]===b[c]&&b[a]===b[d])return b[a];
- return null;
-}
-async function move(i){
- if(!state||state.turn!==localPlayer||board[i])return;
- board[i]=localPlayer;
- const w=winner(board);
- const u={"gamesData/xo/board":board};
- if(w){
-   u["scores/"+localPlayer]=(state.scores?.[localPlayer]||0)+3;
-   u["stats/games"]=(state.stats?.games||0)+1;
-   u["stats/wins/"+localPlayer]=(state.stats?.wins?.[localPlayer]||0)+1;
-   u.turn=localPlayer==="hammam"?"monia":"hammam";
-   await api().update(u);
-   alert("🏆 فوز! +3 نقاط");
-   return;
- }
- if(board.every(Boolean)){
-   u.turn=localPlayer==="hammam"?"monia":"hammam";
-   await api().update(u);
-   alert("تعادل!");
-   return;
- }
- u.turn=localPlayer==="hammam"?"monia":"hammam";
- await api().update(u);
-}
-async function reset(){
- board=["","","","","","","","",""];
- await api().update({"gamesData/xo/board":board,turn:"hammam"});
-}
-window.addEventListener("load",()=>{
-  const timer=setInterval(()=>{
-    if(window.parent.Space){clearInterval(timer);receive();}
-  },100);
+
 });
-setInterval(receive,500);
+
+
+/* =====================================================
+   SCORES
+===================================================== */
+
+const scoresRef = ref(db, "spaceData/scores");
+
+onValue(scoresRef, snapshot => {
+
+    const scores = snapshot.val() || {};
+
+    document.getElementById("baderScore").textContent =
+        scores.hammam || 0;
+
+    document.getElementById("shamsScore").textContent =
+        scores.monia || 0;
+
+});
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function render() {
+
+    if (!gameData) return;
+
+    renderBoard();
+    renderTurn();
+
+    document.getElementById("roundNumber").textContent =
+        "#" + (gameData.round || 1);
+
+
+    if (gameData.status === "finished") {
+
+        showResult();
+
+    } else {
+
+        document
+            .getElementById("resultOverlay")
+            .classList.add("hidden");
+
+    }
+
+}
+
+
+/* =====================================================
+   BOARD
+===================================================== */
+
+function renderBoard() {
+
+    const board = document.getElementById("board");
+
+    board.innerHTML = "";
+
+    const cells = gameData.board || defaultGame.board;
+
+
+    cells.forEach((value, index) => {
+
+        const cell = document.createElement("button");
+
+        cell.className = "cell";
+
+        if (value) {
+
+            cell.classList.add("filled");
+
+            const mark =
+                document.createElement("span");
+
+            mark.className = "mark";
+
+            if (value === "hammam") {
+
+                mark.textContent = "×";
+                mark.classList.add("mark-x");
+
+            } else {
+
+                mark.textContent = "○";
+                mark.classList.add("mark-o");
+
+            }
+
+            cell.appendChild(mark);
+
+        }
+
+
+        if (
+            gameData.winningCells &&
+            gameData.winningCells.includes(index)
+        ) {
+
+            cell.classList.add("winner");
+
+        }
+
+
+        cell.addEventListener(
+            "click",
+            () => play(index)
+        );
+
+
+        board.appendChild(cell);
+
+    });
+
+}
+
+
+/* =====================================================
+   TURN UI
+===================================================== */
+
+function renderTurn() {
+
+    const icon =
+        document.getElementById("turnIcon");
+
+    const title =
+        document.getElementById("turnTitle");
+
+    const subtitle =
+        document.getElementById("turnSubtitle");
+
+    const card =
+        document.getElementById("turnCard");
+
+    card.classList.remove("your-turn");
+
+
+    if (gameData.status === "finished") {
+
+        icon.textContent = "🏆";
+
+        title.textContent =
+            "انتهت الجولة";
+
+        subtitle.textContent =
+            "شوفوا النتيجة تحت 👇";
+
+        return;
+
+    }
+
+
+    const myTurn =
+        gameData.turn === player;
+
+
+    if (myTurn) {
+
+        card.classList.add("your-turn");
+
+        if (isBader) {
+
+            icon.textContent = "☾";
+
+            title.textContent =
+                "دور البدر — عليك الحركة";
+
+        } else {
+
+            icon.textContent = "☀";
+
+            title.textContent =
+                "دور الشمس — عليك الحركة";
+
+        }
+
+        subtitle.textContent =
+            "اختار خانتك 👆";
+
+    } else {
+
+        if (gameData.turn === "hammam") {
+
+            icon.textContent = "☾";
+
+            title.textContent =
+                "دور البدر";
+
+        } else {
+
+            icon.textContent = "☀";
+
+            title.textContent =
+                "دور الشمس";
+
+        }
+
+        subtitle.textContent =
+            "انتظر حركة الطرف الثاني ⏳";
+
+    }
+
+
+    document.getElementById("statusLine").textContent =
+        myTurn
+            ? "✨ دورك الآن"
+            : "⏳ الطرف الثاني يلعب...";
+}
+
+
+/* =====================================================
+   PLAY
+===================================================== */
+
+async function play(index) {
+
+    if (busy) return;
+
+    if (!gameData) return;
+
+    if (gameData.status !== "playing") return;
+
+    if (gameData.turn !== player) return;
+
+    if (gameData.board[index]) return;
+
+
+    busy = true;
+
+
+    try {
+
+        const result =
+            await runTransaction(
+                gameRef,
+                current => {
+
+                    if (!current) {
+
+                        current = {
+                            ...defaultGame
+                        };
+
+                    }
+
+
+                    if (current.status !== "playing") {
+                        return;
+                    }
+
+
+                    if (current.turn !== player) {
+                        return;
+                    }
+
+
+                    if (
+                        current.board[index]
+                    ) {
+                        return;
+                    }
+
+
+                    const board =
+                        [...current.board];
+
+
+                    board[index] = player;
+
+
+                    const win =
+                        checkWinner(board);
+
+
+                    if (win) {
+
+                        return {
+
+                            ...current,
+
+                            board,
+
+                            status: "finished",
+
+                            winner: player,
+
+                            winningCells:
+                                win.cells
+
+                        };
+
+                    }
+
+
+                    if (
+                        board.every(Boolean)
+                    ) {
+
+                        return {
+
+                            ...current,
+
+                            board,
+
+                            status: "finished",
+
+                            winner: "draw",
+
+                            winningCells: []
+
+                        };
+
+                    }
+
+
+                    return {
+
+                        ...current,
+
+                        board,
+
+                        turn:
+                            player === "hammam"
+                                ? "monia"
+                                : "hammam"
+
+                    };
+
+                }
+            );
+
+
+        if (
+            result.committed &&
+            result.snapshot.exists()
+        ) {
+
+            const final =
+                result.snapshot.val();
+
+            if (
+                final.status === "finished" &&
+                final.winner === player
+            ) {
+
+                await awardPoint();
+
+            }
+
+        }
+
+    } finally {
+
+        busy = false;
+
+    }
+
+}
+
+
+/* =====================================================
+   WIN CHECK
+===================================================== */
+
+function checkWinner(board) {
+
+    const lines = [
+
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+
+        [0,4,8],
+        [2,4,6]
+
+    ];
+
+
+    for (const cells of lines) {
+
+        const [a,b,c] = cells;
+
+        if (
+            board[a] &&
+            board[a] === board[b] &&
+            board[a] === board[c]
+        ) {
+
+            return {
+                player: board[a],
+                cells
+            };
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================================
+   AWARD POINT
+===================================================== */
+
+let awardedRound = null;
+
+
+async function awardPoint() {
+
+    if (!gameData) return;
+
+    if (gameData.winner !== player) return;
+
+
+    const roundKey =
+        String(gameData.round || 1);
+
+
+    if (awardedRound === roundKey) {
+        return;
+    }
+
+
+    awardedRound = roundKey;
+
+
+    const scoreRef =
+        ref(
+            db,
+            `spaceData/scores/${player}`
+        );
+
+
+    await runTransaction(
+        scoreRef,
+        score => (score || 0) + 1
+    );
+
+}
+
+
+/* =====================================================
+   RESULT
+===================================================== */
+
+function showResult() {
+
+    const overlay =
+        document.getElementById("resultOverlay");
+
+    const symbol =
+        document.getElementById("resultSymbol");
+
+    const title =
+        document.getElementById("resultTitle");
+
+    const text =
+        document.getElementById("resultText");
+
+
+    overlay.classList.remove("hidden");
+
+
+    if (gameData.winner === "draw") {
+
+        symbol.textContent = "🤝";
+
+        title.textContent =
+            "تعادل!";
+
+        text.textContent =
+            "لا بدر قدر يحسمها ولا شمس 😏";
+
+        return;
+
+    }
+
+
+    if (gameData.winner === "hammam") {
+
+        symbol.textContent = "🌙";
+
+        if (player === "hammam") {
+
+            title.textContent =
+                "البدر فاز! 🔥";
+
+            text.textContent =
+                "يا سلام يا بدر... نقطة جديدة لك!";
+
+            celebrate("moon");
+
+        } else {
+
+            title.textContent =
+                "البدر خطف الجولة!";
+
+            text.textContent =
+                "شمس، الجولة الجاية لك ☀️";
+
+        }
+
+    } else {
+
+        symbol.textContent = "☀";
+
+        if (player === "monia") {
+
+            title.textContent =
+                "الشمس فازت! 🔥";
+
+            text.textContent =
+                "شمس ولّعت الملعب! نقطة جديدة لك.";
+
+            celebrate("sun");
+
+        } else {
+
+            title.textContent =
+                "الشمس خطفت الجولة!";
+
+            text.textContent =
+                "بدر، لا تخليها تفوز مرة ثانية 😏";
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   RESTART
+===================================================== */
+
+async function requestRestart() {
+
+    if (!gameData) return;
+
+
+    /*
+       إذا المباراة انتهت:
+       أي واحد يضغط إعادة يبدأ الجولة مباشرة.
+    */
+
+    const nextRound =
+        (gameData.round || 1) + 1;
+
+
+    await update(
+        gameRef,
+        {
+
+            board: [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+
+            turn:
+                nextRound % 2 === 0
+                    ? "monia"
+                    : "hammam",
+
+            status: "playing",
+
+            winner: "",
+
+            winningCells: [],
+
+            round: nextRound,
+
+            restartRequest: "",
+
+            restartAccepted: false
+
+        }
+    );
+
+
+    document
+        .getElementById("resultOverlay")
+        .classList.add("hidden");
+
+}
+
+
+/* =====================================================
+   CELEBRATION
+===================================================== */
+
+function celebrate(type) {
+
+    const container =
+        document.getElementById("celebration");
+
+    container.innerHTML = "";
+
+
+    const icons =
+        type === "moon"
+            ? ["🌙","✨","💙","⭐","☾"]
+            : ["☀","✨","🧡","⭐","☀️"];
+
+
+    for (let i = 0; i < 32; i++) {
+
+        const particle =
+            document.createElement("div");
+
+        particle.className = "particle";
+
+        particle.textContent =
+            icons[
+                Math.floor(
+                    Math.random() * icons.length
+                )
+            ];
+
+        particle.style.left =
+            Math.random() * 100 + "%";
+
+        particle.style.animationDelay =
+            Math.random() * .7 + "s";
+
+        particle.style.fontSize =
+            (16 + Math.random() * 18) + "px";
+
+        container.appendChild(particle);
+
+    }
+
+
+    setTimeout(() => {
+
+        container.innerHTML = "";
+
+    }, 2500);
+
+}
+
+
+/* =====================================================
+   GO BACK
+===================================================== */
+
+window.goBack = function() {
+
+    /*
+       يعمل داخل iframe
+       ويرجع للصفحة الرئيسية.
+    */
+
+    if (window.parent !== window) {
+
+        window.parent.postMessage(
+            {
+                type: "closeGame"
+            },
+            "*"
+        );
+
+        return;
+
+    }
+
+
+    history.back();
+
+};
+
+
 </script>
+
 </body>
-</html>
+  </html>
