@@ -2,7 +2,6 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -31,6 +30,7 @@
                 Tahoma,
                 Arial,
                 sans-serif;
+
             background:
                 radial-gradient(
                     circle at 50% -20%,
@@ -38,6 +38,7 @@
                     #090f21 45%,
                     #040711 100%
                 );
+
             color: #fff;
         }
 
@@ -60,9 +61,9 @@
         }
 
 
-        /* =========================================
+        /* =====================================================
            STARS
-        ========================================= */
+        ===================================================== */
 
         .stars,
         .stars::before,
@@ -75,43 +76,62 @@
 
         .stars {
             opacity: .7;
+
             background-image:
-                radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1px),
-                radial-gradient(circle, rgba(255,255,255,.45) 1px, transparent 1px);
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,.8) 1px,
+                    transparent 1px
+                ),
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,.45) 1px,
+                    transparent 1px
+                );
+
             background-size:
                 80px 80px,
                 130px 130px;
+
             background-position:
                 0 0,
                 30px 40px;
         }
 
 
-        /* =========================================
+        /* =====================================================
            LOGIN
-        ========================================= */
+        ===================================================== */
 
         .login-screen {
             min-height: 100vh;
+
             display: flex;
             justify-content: center;
             align-items: center;
+
             padding: 25px;
+
             position: relative;
             overflow: hidden;
         }
 
         .login-orbit {
             position: absolute;
+
             border-radius: 50%;
+
             filter: blur(1px);
+
             pointer-events: none;
         }
 
         .moon-orbit {
             width: 420px;
             height: 420px;
+
             border: 1px solid rgba(80,160,255,.12);
+
             box-shadow:
                 0 0 100px rgba(35,110,255,.08);
         }
@@ -119,37 +139,51 @@
         .sun-orbit {
             width: 600px;
             height: 600px;
+
             border: 1px solid rgba(255,145,45,.07);
         }
 
 
         .login-card {
             width: min(470px, 100%);
+
             padding: 34px 25px 22px;
+
             position: relative;
             z-index: 2;
-            border: 1px solid rgba(255,255,255,.08);
+
+            border:
+                1px solid rgba(255,255,255,.08);
+
             border-radius: 30px;
+
             background:
                 linear-gradient(
                     145deg,
                     rgba(20,31,62,.94),
                     rgba(7,11,25,.96)
                 );
+
             box-shadow:
                 0 35px 100px rgba(0,0,0,.5),
                 inset 0 1px 0 rgba(255,255,255,.05);
+
             backdrop-filter: blur(18px);
         }
 
 
-        /* LOGO */
+        /* =====================================================
+           BRAND
+        ===================================================== */
 
         .brand-mark {
             display: flex;
+
             justify-content: center;
             align-items: center;
+
             gap: 15px;
+
             margin-bottom: 17px;
         }
 
@@ -157,33 +191,41 @@
         .sun-symbol {
             width: 66px;
             height: 66px;
+
             display: flex;
+
             align-items: center;
             justify-content: center;
+
             border-radius: 50%;
+
             font-size: 38px;
         }
 
         .moon-symbol {
             color: #75baff;
+
             background:
                 radial-gradient(
                     circle at 35% 30%,
                     rgba(100,180,255,.35),
                     rgba(20,65,125,.15)
                 );
+
             box-shadow:
                 0 0 35px rgba(55,145,255,.2);
         }
 
         .sun-symbol {
             color: #ffab45;
+
             background:
                 radial-gradient(
                     circle,
                     rgba(255,174,69,.28),
                     rgba(140,55,10,.08)
                 );
+
             box-shadow:
                 0 0 35px rgba(255,145,40,.16);
         }
@@ -195,8 +237,10 @@
 
         .brand-title {
             text-align: center;
+
             font-size: 34px;
             font-weight: 900;
+
             letter-spacing: -1px;
         }
 
@@ -206,18 +250,26 @@
 
         .brand-subtitle {
             text-align: center;
+
             margin-top: 7px;
+
             color: #8390a8;
+
             font-size: 14px;
         }
 
 
-        /* LOGIN */
+        /* =====================================================
+           PLAYER SELECTION
+        ===================================================== */
 
         .login-label {
             text-align: center;
+
             margin: 35px 0 15px;
+
             color: #9ba7bc;
+
             font-size: 14px;
         }
 
@@ -228,15 +280,27 @@
 
         .player-choice {
             width: 100%;
-            border: 1px solid rgba(255,255,255,.07);
+
+            border:
+                1px solid rgba(255,255,255,.07);
+
             border-radius: 19px;
+
             padding: 16px;
+
             display: flex;
+
             align-items: center;
+
             gap: 14px;
+
             color: white;
+
             text-align: right;
-            background: rgba(255,255,255,.035);
+
+            background:
+                rgba(255,255,255,.035);
+
             transition:
                 transform .2s,
                 border .2s,
@@ -253,25 +317,40 @@
         }
 
         .moon-choice:hover {
-            border-color: rgba(90,170,255,.5);
-            background: rgba(40,110,210,.1);
-            box-shadow: 0 10px 40px rgba(30,110,255,.1);
+            border-color:
+                rgba(90,170,255,.5);
+
+            background:
+                rgba(40,110,210,.1);
+
+            box-shadow:
+                0 10px 40px rgba(30,110,255,.1);
         }
 
         .sun-choice:hover {
-            border-color: rgba(255,155,55,.5);
-            background: rgba(255,130,30,.08);
-            box-shadow: 0 10px 40px rgba(255,130,30,.1);
+            border-color:
+                rgba(255,155,55,.5);
+
+            background:
+                rgba(255,130,30,.08);
+
+            box-shadow:
+                0 10px 40px rgba(255,130,30,.1);
         }
 
         .choice-icon {
             width: 48px;
             height: 48px;
+
             border-radius: 15px;
+
             display: flex;
+
             align-items: center;
             justify-content: center;
+
             font-size: 27px;
+
             flex-shrink: 0;
         }
 
@@ -287,8 +366,10 @@
 
         .choice-info {
             flex: 1;
+
             display: flex;
             flex-direction: column;
+
             gap: 3px;
         }
 
@@ -307,7 +388,9 @@
         }
 
 
-        /* PASSWORD */
+        /* =====================================================
+           PASSWORD
+        ===================================================== */
 
         .password-section {
             margin-top: 30px;
@@ -315,38 +398,52 @@
 
         .back-login {
             border: none;
+
             background: none;
+
             color: #8795ad;
+
             margin-bottom: 22px;
         }
 
         .selected-player {
             display: flex;
+
             align-items: center;
             justify-content: center;
+
             gap: 12px;
+
             margin-bottom: 25px;
         }
 
         .selected-player > div:last-child {
             display: flex;
+
             flex-direction: column;
+
             text-align: right;
         }
 
         .selected-player span {
             font-size: 12px;
+
             color: #8794a9;
+
             margin-top: 3px;
         }
 
         .selected-icon {
             width: 58px;
             height: 58px;
+
             border-radius: 17px;
+
             display: flex;
+
             align-items: center;
             justify-content: center;
+
             font-size: 31px;
         }
 
@@ -362,61 +459,93 @@
 
         .password-section label {
             display: block;
+
             color: #a0aabd;
+
             font-size: 13px;
+
             margin-bottom: 8px;
         }
 
         .password-box {
             display: flex;
-            border: 1px solid rgba(255,255,255,.09);
+
+            border:
+                1px solid rgba(255,255,255,.09);
+
             border-radius: 15px;
-            background: rgba(255,255,255,.04);
+
+            background:
+                rgba(255,255,255,.04);
+
             overflow: hidden;
         }
 
         .password-box input {
             flex: 1;
+
             min-width: 0;
+
             border: none;
+
             outline: none;
+
             background: transparent;
+
             color: white;
+
             padding: 15px;
+
             direction: ltr;
+
             font-size: 18px;
         }
 
         .password-box button {
             width: 52px;
+
             border: none;
+
             background: transparent;
+
             color: #8795ad;
         }
 
         .login-error {
             min-height: 23px;
+
             color: #ff6578;
+
             text-align: center;
+
             font-size: 13px;
+
             margin: 8px 0;
         }
 
         .enter-button {
             width: 100%;
+
             border: none;
+
             border-radius: 15px;
+
             padding: 15px 18px;
+
             background:
                 linear-gradient(
                     135deg,
                     #1e67ba,
                     #3286df
                 );
+
             color: white;
+
             font-weight: 800;
+
             box-shadow:
                 0 12px 30px rgba(35,120,230,.18);
+
             transition: .2s;
         }
 
@@ -430,68 +559,98 @@
 
         .enter-button span {
             float: left;
+
             font-size: 20px;
         }
 
         .login-note {
             text-align: center;
+
             color: #657289;
+
             font-size: 11px;
+
             margin-top: 15px;
         }
 
         .login-footer {
             text-align: center;
+
             margin-top: 28px;
+
             color: #59667d;
+
             font-size: 11px;
         }
 
 
-        /* =========================================
+        /* =====================================================
            APP
-        ========================================= */
+        ===================================================== */
 
         .app {
             min-height: 100vh;
+
             padding-bottom: 90px;
         }
 
         .app-header {
             height: 76px;
+
             padding: 12px 18px;
+
             display: flex;
+
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid rgba(255,255,255,.06);
-            background: rgba(5,9,20,.82);
+
+            border-bottom:
+                1px solid rgba(255,255,255,.06);
+
+            background:
+                rgba(5,9,20,.82);
+
             backdrop-filter: blur(18px);
+
             position: sticky;
+
             top: 0;
+
             z-index: 20;
         }
 
         .header-player {
             display: flex;
+
             align-items: center;
+
             gap: 9px;
         }
 
         .header-player-icon {
             width: 42px;
             height: 42px;
+
             border-radius: 13px;
+
             display: flex;
+
             align-items: center;
             justify-content: center;
-            background: rgba(80,150,255,.13);
+
+            background:
+                rgba(80,150,255,.13);
+
             color: #7cc0ff;
+
             font-size: 23px;
         }
 
         .header-player small {
             display: block;
+
             color: #69768b;
+
             font-size: 10px;
         }
 
@@ -514,54 +673,82 @@
 
         .connection {
             color: #657289;
+
             font-size: 9px;
+
             margin-top: 3px;
         }
 
         .connection i {
             display: inline-block;
+
             width: 6px;
             height: 6px;
+
             background: #55db83;
+
             border-radius: 50%;
+
             margin-left: 4px;
         }
 
         .header-menu {
             border: none;
+
             background: transparent;
+
             color: #8995a9;
+
             font-size: 27px;
         }
 
 
-        /* SCORE */
+        /* =====================================================
+           SCORE
+        ===================================================== */
 
         .score-bar {
-            width: min(720px, calc(100% - 28px));
+            width:
+                min(720px, calc(100% - 28px));
+
             margin: 17px auto 0;
+
             padding: 13px 17px;
-            border: 1px solid rgba(255,255,255,.06);
+
+            border:
+                1px solid rgba(255,255,255,.06);
+
             border-radius: 19px;
-            background: rgba(255,255,255,.035);
+
+            background:
+                rgba(255,255,255,.035);
+
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
         }
 
         .score-side {
             display: flex;
+
             align-items: center;
+
             gap: 9px;
         }
 
         .score-avatar {
             width: 38px;
             height: 38px;
+
             border-radius: 12px;
+
             display: flex;
+
             justify-content: center;
             align-items: center;
+
             font-size: 20px;
         }
 
@@ -577,7 +764,9 @@
 
         .score-data span {
             display: block;
+
             font-size: 10px;
+
             color: #69768b;
         }
 
@@ -587,77 +776,107 @@
 
         .score-middle {
             text-align: center;
+
             color: #69768b;
+
             font-size: 9px;
         }
 
         .score-middle div {
             color: #a4aec0;
+
             font-size: 11px;
+
             margin-top: 2px;
         }
 
 
-        /* HOME */
+        /* =====================================================
+           HOME
+        ===================================================== */
 
         .home {
-            width: min(720px, calc(100% - 28px));
+            width:
+                min(720px, calc(100% - 28px));
+
             margin: 17px auto;
         }
 
         .welcome-card {
             min-height: 190px;
+
             padding: 24px;
+
             border-radius: 25px;
+
             position: relative;
+
             overflow: hidden;
+
             background:
                 linear-gradient(
                     135deg,
                     rgba(20,54,100,.95),
                     rgba(10,19,42,.95)
                 );
-            border: 1px solid rgba(90,165,255,.13);
+
+            border:
+                1px solid rgba(90,165,255,.13);
         }
 
         .welcome-glow {
             position: absolute;
+
             width: 230px;
             height: 230px;
+
             border-radius: 50%;
-            background: rgba(50,140,255,.13);
+
+            background:
+                rgba(50,140,255,.13);
+
             filter: blur(45px);
+
             left: -80px;
             top: -80px;
         }
 
         .welcome-content {
             position: relative;
+
             z-index: 2;
+
             max-width: 65%;
         }
 
         .welcome-small {
             color: #75b9ff;
+
             font-size: 12px;
         }
 
         .welcome-content h1 {
             margin: 10px 0 7px;
+
             font-size: 29px;
         }
 
         .welcome-content p {
             margin: 0;
+
             color: #8d9ab0;
+
             font-size: 13px;
+
             line-height: 1.7;
         }
 
         .welcome-symbol {
             position: absolute;
+
             left: 22px;
             bottom: 20px;
+
             width: 115px;
             height: 115px;
         }
@@ -665,8 +884,11 @@
         .welcome-moon,
         .welcome-sun {
             position: absolute;
+
             border-radius: 50%;
+
             display: flex;
+
             align-items: center;
             justify-content: center;
         }
@@ -674,58 +896,100 @@
         .welcome-moon {
             width: 90px;
             height: 90px;
+
             right: 0;
             top: 0;
+
             font-size: 58px;
+
             color: #82c5ff;
-            background: rgba(65,140,255,.08);
+
+            background:
+                rgba(65,140,255,.08);
         }
 
         .welcome-sun {
             width: 45px;
             height: 45px;
+
             left: 0;
             bottom: 0;
+
             font-size: 26px;
+
             color: #ffae4f;
-            background: rgba(255,140,40,.1);
+
+            background:
+                rgba(255,140,40,.1);
         }
 
 
-        /* QUICK */
+        /* =====================================================
+           QUICK ACTIONS
+        ===================================================== */
 
         .quick-actions {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
+
+            grid-template-columns:
+                1.2fr 1fr;
+
             gap: 10px;
+
             margin-top: 13px;
         }
 
         .quick-action {
             min-height: 77px;
-            border: 1px solid rgba(255,255,255,.06);
+
+            border:
+                1px solid rgba(255,255,255,.06);
+
             border-radius: 18px;
-            background: rgba(255,255,255,.035);
+
+            background:
+                rgba(255,255,255,.035);
+
             color: white;
+
             display: flex;
+
             align-items: center;
+
             text-align: right;
+
             gap: 10px;
+
             padding: 12px;
+
+            transition: .2s;
         }
 
         .quick-action:hover {
-            border-color: rgba(255,255,255,.15);
+            border-color:
+                rgba(255,255,255,.15);
+
+            transform: translateY(-2px);
+        }
+
+        .quick-action:active {
+            transform: scale(.98);
         }
 
         .quick-icon {
             width: 43px;
             height: 43px;
+
             border-radius: 13px;
-            background: rgba(255,255,255,.05);
+
+            background:
+                rgba(255,255,255,.05);
+
             display: flex;
+
             align-items: center;
             justify-content: center;
+
             font-size: 20px;
         }
 
@@ -744,7 +1008,9 @@
 
         .quick-action span {
             font-size: 10px;
+
             color: #68758b;
+
             margin-top: 4px;
         }
 
@@ -762,7 +1028,9 @@
         }
 
 
-        /* SECTION */
+        /* =====================================================
+           SECTION
+        ===================================================== */
 
         .home-section {
             margin-top: 26px;
@@ -770,108 +1038,157 @@
 
         .section-heading {
             display: flex;
+
             align-items: end;
+
             justify-content: space-between;
+
             margin-bottom: 12px;
         }
 
         .section-heading span {
             color: #6f7d93;
+
             font-size: 10px;
         }
 
         .section-heading h2 {
             margin: 3px 0 0;
+
             font-size: 22px;
         }
 
         .section-heading button {
             border: none;
+
             background: transparent;
+
             color: #75b9ff;
+
             font-size: 11px;
         }
 
 
-        /* GAMES */
+        /* =====================================================
+           GAMES
+        ===================================================== */
 
         .games-preview {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 10px;
         }
 
         .game-tile {
             min-height: 225px;
+
             padding: 13px;
+
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,.06);
-            background: rgba(255,255,255,.035);
+
+            border:
+                1px solid rgba(255,255,255,.06);
+
+            background:
+                rgba(255,255,255,.035);
+
             cursor: pointer;
+
             transition: .2s;
+
             position: relative;
+
             overflow: hidden;
         }
 
         .game-tile:hover {
             transform: translateY(-3px);
-            border-color: rgba(255,255,255,.13);
+
+            border-color:
+                rgba(255,255,255,.13);
+        }
+
+        .game-tile:active {
+            transform: scale(.98);
         }
 
         .game-tile-top {
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
         }
 
         .available,
         .coming {
             font-size: 8px;
+
             border-radius: 30px;
+
             padding: 5px 7px;
         }
 
         .available {
-            background: rgba(70,220,130,.1);
+            background:
+                rgba(70,220,130,.1);
+
             color: #62dc91;
         }
 
         .coming {
-            background: rgba(255,255,255,.05);
+            background:
+                rgba(255,255,255,.05);
+
             color: #69768b;
         }
 
         .game-number {
             color: #59667c;
+
             font-size: 10px;
         }
 
         .game-art {
             height: 75px;
+
             display: flex;
+
             align-items: center;
             justify-content: center;
+
             font-size: 37px;
+
             margin-top: 10px;
         }
 
         .game-tile h3 {
             font-size: 15px;
+
             margin: 6px 0 3px;
         }
 
         .game-tile p {
             font-size: 10px;
+
             color: #68758a;
+
             margin: 0;
         }
 
         .game-start {
             position: absolute;
+
             bottom: 12px;
+
             right: 13px;
             left: 13px;
+
             font-size: 10px;
+
             color: #75b9ff;
         }
 
@@ -880,29 +1197,47 @@
         }
 
 
-        /* TODAY */
+        /* =====================================================
+           TODAY
+        ===================================================== */
 
         .today-card {
             margin-top: 18px;
+
             padding: 16px;
+
             border-radius: 19px;
+
             display: flex;
+
             align-items: center;
+
             gap: 12px;
-            border: 1px solid rgba(255,170,70,.1);
-            background: rgba(255,140,40,.045);
+
+            border:
+                1px solid rgba(255,170,70,.1);
+
+            background:
+                rgba(255,140,40,.045);
         }
 
         .today-icon {
             width: 43px;
             height: 43px;
+
             flex-shrink: 0;
+
             border-radius: 13px;
+
             display: flex;
+
             align-items: center;
             justify-content: center;
+
             color: #ffac4d;
-            background: rgba(255,140,40,.1);
+
+            background:
+                rgba(255,140,40,.1);
         }
 
         .today-content {
@@ -917,60 +1252,98 @@
 
         .today-content span {
             font-size: 9px;
+
             color: #ffae52;
         }
 
         .today-content strong {
             font-size: 13px;
+
             margin-top: 3px;
         }
 
         .today-content p {
             font-size: 9px;
+
             color: #6f7c91;
+
             margin: 4px 0 0;
         }
 
         .today-card button {
             border: none;
+
             border-radius: 10px;
+
             padding: 8px 11px;
-            background: rgba(255,140,40,.1);
+
+            background:
+                rgba(255,140,40,.1);
+
             color: #ffae52;
+
             font-size: 10px;
         }
 
 
-        /* NAV */
+        /* =====================================================
+           NAV
+        ===================================================== */
 
         .bottom-nav {
             position: fixed;
+
             z-index: 30;
+
             bottom: 10px;
+
             left: 50%;
+
             transform: translateX(-50%);
-            width: min(600px, calc(100% - 24px));
+
+            width:
+                min(600px, calc(100% - 24px));
+
             padding: 7px;
+
             display: grid;
-            grid-template-columns: repeat(4,1fr);
-            border: 1px solid rgba(255,255,255,.08);
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            border:
+                1px solid rgba(255,255,255,.08);
+
             border-radius: 20px;
-            background: rgba(7,12,25,.9);
+
+            background:
+                rgba(7,12,25,.9);
+
             backdrop-filter: blur(20px);
-            box-shadow: 0 15px 50px rgba(0,0,0,.45);
+
+            box-shadow:
+                0 15px 50px rgba(0,0,0,.45);
         }
 
         .bottom-nav button {
             border: none;
+
             border-radius: 14px;
+
             padding: 7px 4px;
+
             color: #5e6b81;
+
             background: transparent;
+
+            transition: .2s;
         }
 
         .bottom-nav button.active {
             color: #79bbff;
-            background: rgba(60,140,255,.09);
+
+            background:
+                rgba(60,140,255,.09);
         }
 
         .bottom-nav span,
@@ -984,42 +1357,72 @@
 
         .bottom-nav small {
             font-size: 8px;
+
             margin-top: 3px;
         }
 
 
-        /* =========================================
+        /* =====================================================
            GAME VIEW
-        ========================================= */
+        ===================================================== */
 
         .game-view {
             position: fixed;
+
             inset: 0;
+
             z-index: 100;
+
             background:
                 #050916;
+
             display: flex;
+
             flex-direction: column;
         }
 
         .game-view-header {
-            height: 68px;
+            min-height: 68px;
+
             padding: 8px 15px;
+
             display: flex;
+
             align-items: center;
+
             gap: 12px;
-            border-bottom: 1px solid rgba(255,255,255,.07);
-            background: rgba(6,10,22,.94);
+
+            border-bottom:
+                1px solid rgba(255,255,255,.07);
+
+            background:
+                rgba(6,10,22,.94);
+
+            flex-shrink: 0;
         }
 
         .game-back {
             width: 43px;
             height: 43px;
-            border: 1px solid rgba(255,255,255,.08);
+
+            border:
+                1px solid rgba(255,255,255,.08);
+
             border-radius: 13px;
-            background: rgba(255,255,255,.04);
+
+            background:
+                rgba(255,255,255,.04);
+
             color: white;
+
             font-size: 20px;
+
+            transition: .2s;
+        }
+
+        .game-back:hover {
+            background:
+                rgba(255,255,255,.09);
         }
 
         .game-view-header > div:nth-child(2) {
@@ -1028,59 +1431,176 @@
 
         .game-view-header span {
             color: #66738a;
+
             font-size: 9px;
         }
 
         .game-view-header h2 {
             margin: 2px 0 0;
+
             font-size: 16px;
         }
 
         .game-view-score {
             border-radius: 11px;
+
             padding: 8px 11px;
-            background: rgba(255,255,255,.04);
+
+            background:
+                rgba(255,255,255,.04);
+
             font-size: 12px;
         }
 
         #gameFrame {
             flex: 1;
+
             width: 100%;
             height: 100%;
+
             border: 0;
-            background: #050916;
+
+            background:
+                #050916;
         }
 
 
-        /* =========================================
+        /* =====================================================
+           GAME LOADING
+        ===================================================== */
+
+        .game-loading {
+            position: absolute;
+
+            inset: 68px 0 0;
+
+            z-index: 2;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                #050916;
+
+            transition: opacity .25s;
+        }
+
+        .game-loading.hidden {
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+        .loading-box {
+            text-align: center;
+        }
+
+        .loading-icon {
+            width: 65px;
+            height: 65px;
+
+            margin: auto auto 16px;
+
+            border-radius: 20px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 28px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(55,140,255,.15),
+                    rgba(255,140,40,.1)
+                );
+
+            animation:
+                loadingPulse 1.3s infinite;
+        }
+
+        .loading-box strong {
+            display: block;
+
+            font-size: 14px;
+        }
+
+        .loading-box span {
+            display: block;
+
+            color: #69768b;
+
+            font-size: 11px;
+
+            margin-top: 6px;
+        }
+
+        @keyframes loadingPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: .7;
+            }
+
+            50% {
+                transform: scale(1.08);
+                opacity: 1;
+            }
+
+        }
+
+
+        /* =====================================================
            MODAL
-        ========================================= */
+        ===================================================== */
 
         .modal {
             position: fixed;
+
             z-index: 200;
+
             inset: 0;
+
             display: flex;
+
             align-items: center;
             justify-content: center;
+
             padding: 20px;
-            background: rgba(0,0,0,.72);
+
+            background:
+                rgba(0,0,0,.72);
+
             backdrop-filter: blur(8px);
         }
 
         .modal-card {
-            width: min(380px,100%);
+            width:
+                min(380px,100%);
+
             padding: 27px;
+
             border-radius: 25px;
+
             text-align: center;
+
             background:
                 linear-gradient(
                     145deg,
                     #14203c,
                     #080d1b
                 );
-            border: 1px solid rgba(255,255,255,.08);
-            box-shadow: 0 30px 90px rgba(0,0,0,.5);
+
+            border:
+                1px solid rgba(255,255,255,.08);
+
+            box-shadow:
+                0 30px 90px rgba(0,0,0,.5);
         }
 
         .modal-card > div {
@@ -1093,19 +1613,23 @@
 
         .modal-card p {
             color: #7e8ba0;
+
             font-size: 13px;
+
             line-height: 1.7;
         }
 
 
-        /* =========================================
+        /* =====================================================
            MOBILE
-        ========================================= */
+        ===================================================== */
 
         @media (max-width: 600px) {
 
             .login-card {
-                padding: 28px 18px 20px;
+                padding:
+                    28px 18px 20px;
+
                 border-radius: 26px;
             }
 
@@ -1114,11 +1638,13 @@
             }
 
             .games-preview {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
 
             .game-tile:last-child {
-                grid-column: 1 / -1;
+                grid-column:
+                    1 / -1;
             }
 
         }
@@ -1137,6 +1663,11 @@
                 font-size: 24px;
             }
 
+            .score-bar {
+                padding:
+                    11px 12px;
+            }
+
         }
 
     </style>
@@ -1151,11 +1682,15 @@
      LOGIN
 ========================================================= -->
 
-<div id="loginScreen" class="login-screen">
+<div
+    id="loginScreen"
+    class="login-screen"
+>
 
     <div class="stars"></div>
 
     <div class="login-orbit moon-orbit"></div>
+
     <div class="login-orbit sun-orbit"></div>
 
 
@@ -1187,7 +1722,7 @@
         </div>
 
 
-        <!-- اختيار اللاعب -->
+        <!-- PLAYER SELECTION -->
 
         <section id="playerSelection">
 
@@ -1260,7 +1795,7 @@
         </section>
 
 
-        <!-- كلمة السر -->
+        <!-- PASSWORD -->
 
         <section
             id="passwordSection"
@@ -1355,6 +1890,8 @@
     class="app hidden"
 >
 
+
+    <!-- HEADER -->
 
     <header class="app-header">
 
@@ -1475,6 +2012,8 @@
     <main class="home">
 
 
+        <!-- WELCOME -->
+
         <section class="welcome-card">
 
             <div class="welcome-glow"></div>
@@ -1512,7 +2051,7 @@
 
 
 
-        <!-- QUICK -->
+        <!-- QUICK ACTIONS -->
 
         <section class="quick-actions">
 
@@ -1608,6 +2147,8 @@
             <div class="games-preview">
 
 
+                <!-- XO -->
+
                 <article
                     class="game-tile game-xo"
                     onclick="openGame('games/xo.html','إكس أو')"
@@ -1636,7 +2177,7 @@
                     </h3>
 
                     <p>
-                        مواجهة مباشرة
+                        مواجهة بدر × شمس
                     </p>
 
 
@@ -1647,6 +2188,8 @@
                 </article>
 
 
+
+                <!-- REACTION -->
 
                 <article
                     class="game-tile game-reaction"
@@ -1687,6 +2230,8 @@
                 </article>
 
 
+
+                <!-- MEMORY -->
 
                 <article
                     class="game-tile game-memory"
@@ -1767,7 +2312,7 @@
 
 
 
-        <!-- NAV -->
+        <!-- BOTTOM NAV -->
 
         <nav class="bottom-nav">
 
@@ -1857,9 +2402,11 @@
             type="button"
             onclick="closeGame()"
             class="game-back"
+            aria-label="رجوع"
         >
             →
         </button>
+
 
         <div>
 
@@ -1873,17 +2420,50 @@
 
         </div>
 
+
         <div class="game-view-score">
-            🏆 <b id="gameViewScore">0</b>
+            🏆
+            <b id="gameViewScore">
+                0
+            </b>
         </div>
 
     </header>
 
 
+    <!-- LOADING -->
+
+    <div
+        id="gameLoading"
+        class="game-loading"
+    >
+
+        <div class="loading-box">
+
+            <div class="loading-icon">
+                🎮
+            </div>
+
+            <strong>
+                جاري تجهيز اللعبة
+            </strong>
+
+            <span>
+                لحظة واحدة...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- GAME -->
+
     <iframe
         id="gameFrame"
         title="لعبة بدر وشمس"
         allow="fullscreen"
+        loading="eager"
     ></iframe>
 
 </div>
@@ -1937,7 +2517,7 @@
 
 
 /* =========================================================
-   إعدادات النظام
+   CONFIG
 ========================================================= */
 
 const CONFIG = {
@@ -1950,6 +2530,7 @@ const CONFIG = {
 
     },
 
+
     players: {
 
         hammam: {
@@ -1961,6 +2542,7 @@ const CONFIG = {
             icon: "☾"
 
         },
+
 
         monia: {
 
@@ -1978,16 +2560,18 @@ const CONFIG = {
 
 
 /* =========================================================
-   حالة التطبيق
+   STATE
 ========================================================= */
 
 let selectedPlayer = null;
 
 let currentPlayer = null;
 
+let currentGame = null;
+
 
 /* =========================================================
-   عناصر
+   DOM HELPER
 ========================================================= */
 
 function $(id) {
@@ -1998,7 +2582,7 @@ function $(id) {
 
 
 /* =========================================================
-   اختيار اللاعب
+   PLAYER SELECTION
 ========================================================= */
 
 window.selectPlayer = function(player) {
@@ -2035,8 +2619,11 @@ window.selectPlayer = function(player) {
                 ? "moon-selected"
                 : "sun-selected"
         }">
+
             ${info.icon}
+
         </div>
+
 
         <div>
 
@@ -2057,22 +2644,22 @@ window.selectPlayer = function(player) {
 
     $("passwordInput").value = "";
 
-    setTimeout(() => {
-
-        $("passwordInput").focus();
-
-    }, 100);
+    setTimeout(
+        () => $("passwordInput").focus(),
+        100
+    );
 
 };
 
 
 /* =========================================================
-   العودة
+   BACK
 ========================================================= */
 
 window.backToPlayers = function() {
 
     selectedPlayer = null;
+
 
     $("passwordSection")
         .classList
@@ -2087,6 +2674,7 @@ window.backToPlayers = function() {
     $("loginError")
         .textContent = "";
 
+
     $("passwordInput")
         .value = "";
 
@@ -2094,17 +2682,21 @@ window.backToPlayers = function() {
 
 
 /* =========================================================
-   إظهار/إخفاء كلمة السر
+   PASSWORD VISIBILITY
 ========================================================= */
 
 window.togglePassword = function() {
 
-    const input = $("passwordInput");
+    const input =
+        $("passwordInput");
 
-    const eye = $("passwordEye");
+    const eye =
+        $("passwordEye");
 
 
-    if (input.type === "password") {
+    if (
+        input.type === "password"
+    ) {
 
         input.type = "text";
 
@@ -2122,7 +2714,7 @@ window.togglePassword = function() {
 
 
 /* =========================================================
-   الدخول
+   LOGIN
 ========================================================= */
 
 window.enterSpace = function() {
@@ -2138,7 +2730,9 @@ window.enterSpace = function() {
 
 
     const password =
-        $("passwordInput").value.trim();
+        $("passwordInput")
+            .value
+            .trim();
 
 
     if (!password) {
@@ -2155,7 +2749,9 @@ window.enterSpace = function() {
         CONFIG.passwords[selectedPlayer];
 
 
-    if (password !== correctPassword) {
+    if (
+        password !== correctPassword
+    ) {
 
         $("loginError").textContent =
             "كلمة الدخول غير صحيحة ❌";
@@ -2170,7 +2766,8 @@ window.enterSpace = function() {
     }
 
 
-    currentPlayer = selectedPlayer;
+    currentPlayer =
+        selectedPlayer;
 
 
     sessionStorage.setItem(
@@ -2185,7 +2782,7 @@ window.enterSpace = function() {
 
 
 /* =========================================================
-   فتح التطبيق
+   OPEN APPLICATION
 ========================================================= */
 
 function openApplication() {
@@ -2208,7 +2805,7 @@ function openApplication() {
 
 
 /* =========================================================
-   تحديث بيانات اللاعب
+   PLAYER UI
 ========================================================= */
 
 function updatePlayerUI() {
@@ -2222,30 +2819,47 @@ function updatePlayerUI() {
         CONFIG.players[currentPlayer];
 
 
-    $("headerPlayerIcon").textContent =
+    $("headerPlayerIcon")
+        .textContent =
         player.icon;
 
 
-    $("headerPlayerName").textContent =
+    $("headerPlayerName")
+        .textContent =
         player.name;
 
 
-    $("welcomeTitle").textContent =
+    if (
         currentPlayer === "hammam"
-            ? "يا هلا يا بدر 🌙"
-            : "يا هلا يا شمس ☀️";
+    ) {
+
+        $("welcomeTitle")
+            .textContent =
+            "يا هلا يا بدر 🌙";
 
 
-    $("welcomeText").textContent =
-        currentPlayer === "hammam"
-            ? "جاهز تشوف هل تقدر تتفوق على شمس اليوم؟"
-            : "جاهزة تشوفي هل تقدري تتفوقي على بدر اليوم؟";
+        $("welcomeText")
+            .textContent =
+            "جاهز تشوف هل تقدر تتفوق على شمس اليوم؟";
+
+    } else {
+
+        $("welcomeTitle")
+            .textContent =
+            "يا هلا يا شمس ☀️";
+
+
+        $("welcomeText")
+            .textContent =
+            "جاهزة تشوفي هل تقدري تتفوقي على بدر اليوم؟";
+
+    }
 
 }
 
 
 /* =========================================================
-   النقاط
+   SCORES
 ========================================================= */
 
 function getScores() {
@@ -2315,53 +2929,321 @@ function saveScores(scores) {
 
 function updateScores() {
 
-    const scores = getScores();
+    const scores =
+        getScores();
 
 
-    $("baderScore").textContent =
+    $("baderScore")
+        .textContent =
         scores.hammam;
 
 
-    $("shamsScore").textContent =
+    $("shamsScore")
+        .textContent =
         scores.monia;
 
 
-    $("gameViewScore").textContent =
-        scores[currentPlayer] || 0;
+    $("gameViewScore")
+        .textContent =
+        currentPlayer
+            ? scores[currentPlayer] || 0
+            : 0;
 
 }
 
 
 /* =========================================================
-   API بسيطة للألعاب
+   ADD POINTS
 ========================================================= */
 
-window.addPoints = function(player, amount) {
+/*
+    يمكن لملف اللعبة استعمال:
+
+    parent.postMessage({
+        type: "ADD_POINTS",
+        player: "hammam",
+        amount: 10
+    }, "*");
+
+    أو:
+
+    parent.postMessage({
+        type: "ADD_POINTS",
+        amount: 10
+    }, "*");
+
+    وفي الحالة الثانية تضاف النقاط
+    للاعب الذي سجل الدخول حاليًا.
+*/
+
+window.addPoints = function(
+    player,
+    amount
+) {
 
     if (
         player !== "hammam" &&
         player !== "monia"
     ) {
-        return;
+        return false;
     }
 
 
-    const scores = getScores();
+    const points =
+        Number(amount);
 
 
-    scores[player] +=
-        Number(amount) || 0;
+    if (
+        !Number.isFinite(points) ||
+        points === 0
+    ) {
+        return false;
+    }
+
+
+    const scores =
+        getScores();
+
+
+    scores[player] += points;
 
 
     saveScores(scores);
 
     updateScores();
 
+
+    return true;
+
 };
 
 
 /* =========================================================
-   فتح اللعبة داخل التطبيق
+   GAME MESSAGE SYSTEM
+========================================================= */
+
+window.addEventListener(
+    "message",
+    function(event) {
+
+        const data =
+            event.data;
+
+
+        if (
+            !data ||
+            typeof data !== "object"
+        ) {
+            return;
+        }
+
+
+        /* اللعبة تطلب معلومات اللاعب */
+
+        if (
+            data.type ===
+            "GET_PLAYER"
+        ) {
+
+            sendPlayerToGame();
+
+            return;
+
+        }
+
+
+        /* اللعبة تطلب النقاط */
+
+        if (
+            data.type ===
+            "GET_SCORES"
+        ) {
+
+            sendScoresToGame();
+
+            return;
+
+        }
+
+
+        /* اللعبة تضيف نقاط */
+
+        if (
+            data.type ===
+            "ADD_POINTS"
+        ) {
+
+            const player =
+                data.player ||
+                currentPlayer;
+
+
+            const amount =
+                Number(data.amount);
+
+
+            if (
+                player === "hammam" ||
+                player === "monia"
+            ) {
+
+                addPoints(
+                    player,
+                    amount
+                );
+
+                sendScoresToGame();
+
+            }
+
+            return;
+
+        }
+
+
+        /* اللعبة تعلن نهاية الجولة */
+
+        if (
+            data.type ===
+            "GAME_RESULT"
+        ) {
+
+            handleGameResult(data);
+
+            return;
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SEND PLAYER TO GAME
+========================================================= */
+
+function sendPlayerToGame() {
+
+    const frame =
+        $("gameFrame");
+
+
+    if (
+        !frame.contentWindow ||
+        !currentPlayer
+    ) {
+        return;
+    }
+
+
+    frame.contentWindow.postMessage(
+
+        {
+
+            type:
+                "PLAYER_INFO",
+
+            player:
+                currentPlayer,
+
+            playerName:
+                CONFIG.players[
+                    currentPlayer
+                ].name,
+
+            realName:
+                CONFIG.players[
+                    currentPlayer
+                ].realName,
+
+            icon:
+                CONFIG.players[
+                    currentPlayer
+                ].icon
+
+        },
+
+        "*"
+
+    );
+
+}
+
+
+/* =========================================================
+   SEND SCORES
+========================================================= */
+
+function sendScoresToGame() {
+
+    const frame =
+        $("gameFrame");
+
+
+    if (
+        !frame.contentWindow
+    ) {
+        return;
+    }
+
+
+    const scores =
+        getScores();
+
+
+    frame.contentWindow.postMessage(
+
+        {
+
+            type:
+                "SCORES",
+
+            scores: {
+
+                hammam:
+                    scores.hammam,
+
+                monia:
+                    scores.monia
+
+            },
+
+            currentPlayer:
+                currentPlayer
+
+        },
+
+        "*"
+
+    );
+
+}
+
+
+/* =========================================================
+   GAME RESULT
+========================================================= */
+
+function handleGameResult(data) {
+
+    if (
+        !data ||
+        !data.result
+    ) {
+        return;
+    }
+
+
+    console.log(
+        "نتيجة اللعبة:",
+        data.result
+    );
+
+}
+
+
+/* =========================================================
+   OPEN GAME
 ========================================================= */
 
 window.openGame = function(
@@ -2369,13 +3251,37 @@ window.openGame = function(
     gameTitle = "اللعبة"
 ) {
 
-    if (!gameFile) {
+    if (!currentPlayer) {
 
-        showComingSoon(gameTitle);
+        showComingSoon(
+            "يجب تسجيل الدخول أولاً"
+        );
 
         return;
 
     }
+
+
+    if (!gameFile) {
+
+        showComingSoon(
+            gameTitle
+        );
+
+        return;
+
+    }
+
+
+    currentGame = {
+
+        file:
+            gameFile,
+
+        title:
+            gameTitle
+
+    };
 
 
     const gameView =
@@ -2386,12 +3292,21 @@ window.openGame = function(
         $("gameFrame");
 
 
+    const loading =
+        $("gameLoading");
+
+
     $("gameViewTitle")
         .textContent =
         gameTitle;
 
 
     updateScores();
+
+
+    loading
+        .classList
+        .remove("hidden");
 
 
     gameView
@@ -2403,35 +3318,67 @@ window.openGame = function(
         "hidden";
 
 
-    frame.src = gameFile;
+    /*
+        نستخدم timestamp حتى إذا
+        فتحت نفس اللعبة مرة أخرى
+        يتم تحميل نسخة جديدة.
+    */
 
+    frame.src =
+        gameFile +
+        (
+            gameFile.includes("?")
+                ? "&"
+                : "?"
+        ) +
+        "player=" +
+        encodeURIComponent(
+            currentPlayer
+        ) +
+        "&v=" +
+        Date.now();
+
+
+    /*
+        إذا كان الملف محملًا
+        نرسل البيانات مباشرة.
+    */
 
     frame.onload = function() {
 
-        console.log(
-            "تم تحميل اللعبة:",
-            gameFile
+        loading
+            .classList
+            .add("hidden");
+
+
+        setTimeout(
+            () => {
+
+                sendPlayerToGame();
+
+                sendScoresToGame();
+
+            },
+            50
         );
 
     };
 
 
-    frame.onerror = function() {
-
-        showGameError(gameFile);
-
-    };
-
 };
 
 
 /* =========================================================
-   إغلاق اللعبة
+   CLOSE GAME
 ========================================================= */
 
 window.closeGame = function() {
 
-    $("gameFrame").src =
+    const frame =
+        $("gameFrame");
+
+
+    frame.src =
         "about:blank";
 
 
@@ -2440,8 +3387,17 @@ window.closeGame = function() {
         .add("hidden");
 
 
+    $("gameLoading")
+        .classList
+        .remove("hidden");
+
+
     document.body.style.overflow =
         "";
+
+
+    currentGame = null;
+
 
     updateScores();
 
@@ -2449,83 +3405,25 @@ window.closeGame = function() {
 
 
 /* =========================================================
-   خطأ اللعبة
+   MODAL
 ========================================================= */
 
-function showGameError(file) {
+window.showComingSoon = function(
+    title
+) {
 
-    $("gameFrame").src =
-        "about:blank";
-
-
-    $("gameFrame").contentDocument
-        .body.innerHTML = `
-
-        <div style="
-            min-height:100vh;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding:30px;
-            color:white;
-            background:#050916;
-            font-family:Arial;
-            text-align:center;
-            direction:rtl;
-        ">
-
-            <div>
-
-                <div style="
-                    font-size:55px;
-                    margin-bottom:15px;
-                ">
-                    ⚠️
-                </div>
-
-                <h2>
-                    تعذر فتح اللعبة
-                </h2>
-
-                <p style="
-                    color:#8995a9;
-                    line-height:1.8;
-                ">
-                    تأكد أن الملف موجود في:
-                </p>
-
-                <code style="
-                    display:block;
-                    padding:12px;
-                    background:#111a2e;
-                    border-radius:10px;
-                    direction:ltr;
-                ">
-                    ${file}
-                </code>
-
-            </div>
-
-        </div>
-
-    `;
-
-}
+    $("modalIcon")
+        .textContent =
+        "✦";
 
 
-/* =========================================================
-   رسائل مؤقتة
-========================================================= */
-
-window.showComingSoon = function(title) {
-
-    $("modalIcon").textContent = "✦";
-
-    $("modalTitle").textContent =
+    $("modalTitle")
+        .textContent =
         title;
 
 
-    $("modalText").textContent =
+    $("modalText")
+        .textContent =
         "هذا القسم موجود في الخطة القادمة. بنفتحه داخل التطبيق مثل الألعاب بالضبط.";
 
 
@@ -2545,7 +3443,9 @@ window.hideModal = function() {
 };
 
 
-window.closeModal = function(event) {
+window.closeModal = function(
+    event
+) {
 
     if (
         event.target ===
@@ -2560,7 +3460,7 @@ window.closeModal = function(event) {
 
 
 /* =========================================================
-   تسجيل الخروج
+   LOGOUT
 ========================================================= */
 
 window.logout = function() {
@@ -2576,6 +3476,9 @@ window.logout = function() {
     }
 
 
+    closeGame();
+
+
     sessionStorage.removeItem(
         "badrShamsPlayer"
     );
@@ -2587,11 +3490,6 @@ window.logout = function() {
 
 
     $("app")
-        .classList
-        .add("hidden");
-
-
-    $("gameView")
         .classList
         .add("hidden");
 
@@ -2611,13 +3509,18 @@ window.logout = function() {
         .remove("hidden");
 
 
-    $("passwordInput").value = "";
+    $("passwordInput")
+        .value = "";
+
+
+    $("loginError")
+        .textContent = "";
 
 };
 
 
 /* =========================================================
-   Enter في كلمة السر
+   ENTER KEY
 ========================================================= */
 
 $("passwordInput")
@@ -2626,7 +3529,8 @@ $("passwordInput")
         function(event) {
 
             if (
-                event.key === "Enter"
+                event.key ===
+                "Enter"
             ) {
 
                 enterSpace();
@@ -2638,7 +3542,31 @@ $("passwordInput")
 
 
 /* =========================================================
-   استعادة الجلسة
+   ESCAPE
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape" &&
+            !$("gameView")
+                .classList
+                .contains("hidden")
+        ) {
+
+            closeGame();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   RESTORE SESSION
 ========================================================= */
 
 (function restoreSession() {
@@ -2654,7 +3582,9 @@ $("passwordInput")
         saved === "monia"
     ) {
 
-        currentPlayer = saved;
+        currentPlayer =
+            saved;
+
 
         openApplication();
 
@@ -2664,15 +3594,25 @@ $("passwordInput")
 
 
 /* =========================================================
-   رسالة تشغيل
+   SYSTEM READY
 ========================================================= */
 
 console.log(
     "🌙☀️ بدر × شمس — النظام جاهز"
 );
 
+console.log(
+    "🎮 نظام الألعاب الداخلي جاهز"
+);
+
+console.log(
+    "👤 اللاعب الحالي:",
+    currentPlayer
+);
+
 </script>
 
 
 </body>
-    </html>
+
+                    </html>
