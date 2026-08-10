@@ -1,36 +1,40 @@
 :root {
-    --bg: #050914;
-    --bg-2: #091326;
-    --card: rgba(14, 25, 47, 0.78);
-    --card-strong: #101e37;
+    --bg: #050811;
+    --bg2: #09101e;
 
-    --moon: #38a9ff;
-    --moon-light: #8bd3ff;
-    --moon-dark: #1455a0;
+    --panel: rgba(15, 23, 40, .82);
+    --panel2: rgba(20, 30, 50, .9);
 
-    --sun: #ff8a24;
-    --sun-light: #ffd166;
-    --sun-dark: #c6530b;
+    --white: #f7f8fc;
+    --muted: #8995aa;
 
-    --white: #f8fbff;
-    --muted: #9eacc2;
+    --moon: #4aa8ff;
+    --moon2: #82d0ff;
+    --moon-dark: #155fa8;
 
-    --border: rgba(255,255,255,.09);
+    --sun: #ff8b2c;
+    --sun2: #ffd166;
+    --sun-dark: #c9570e;
 
-    --radius: 24px;
+    --line: rgba(255,255,255,.075);
+
+    --radius: 22px;
 }
+
 
 * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
-html {
-    scroll-behavior: smooth;
-}
 
+html,
 body {
     margin: 0;
-    min-height: 100vh;
+    padding: 0;
+
+    width: 100%;
+    min-height: 100%;
 
     font-family:
         "Segoe UI",
@@ -42,305 +46,1877 @@ body {
 
     background:
         radial-gradient(
-            circle at 15% 10%,
-            rgba(56,169,255,.16),
-            transparent 28%
+            circle at 10% 5%,
+            rgba(74,168,255,.10),
+            transparent 30%
         ),
         radial-gradient(
-            circle at 88% 12%,
-            rgba(255,138,36,.14),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 50% 100%,
-            rgba(20,85,160,.12),
-            transparent 35%
+            circle at 90% 5%,
+            rgba(255,139,44,.09),
+            transparent 30%
         ),
         linear-gradient(
-            145deg,
-            #030610,
-            var(--bg),
-            #08152b
+            160deg,
+            #03050b,
+            #060b16 55%,
+            #080e1b
         );
+}
 
+
+body {
     overflow-x: hidden;
 }
 
-/* نجوم الخلفية */
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-
-    pointer-events: none;
-
-    background-image:
-        radial-gradient(circle, rgba(255,255,255,.65) 1px, transparent 1px),
-        radial-gradient(circle, rgba(255,255,255,.35) 1px, transparent 1px);
-
-    background-size:
-        90px 90px,
-        150px 150px;
-
-    background-position:
-        10px 20px,
-        40px 80px;
-
-    opacity: .18;
-
-    z-index: -1;
-}
-
-button {
+button,
+input {
     font-family: inherit;
 }
+
+
+button {
+    cursor: pointer;
+}
+
 
 .hidden {
     display: none !important;
 }
 
-/* =========================
-   الحاوية
-========================= */
 
-.app-shell {
-    width: 100%;
-    max-width: 1150px;
-    margin: auto;
-    padding: 16px;
+/* =====================================================
+   STARS
+===================================================== */
+
+.stars {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .28;
+
+    background-image:
+        radial-gradient(
+            circle,
+            white 1px,
+            transparent 1px
+        ),
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.5) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        100px 100px,
+        170px 170px;
+
+    background-position:
+        15px 20px,
+        60px 90px;
 }
 
-/* =========================
-   البطاقات
-========================= */
 
-.card {
+/* =====================================================
+   LOGIN
+===================================================== */
+
+.login-screen {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 22px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.login-card {
+    width: 100%;
+    max-width: 470px;
+
+    padding: 36px 25px 24px;
+
+    position: relative;
+    z-index: 5;
+
+    text-align: center;
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    border-radius: 30px;
+
     background:
         linear-gradient(
             145deg,
-            rgba(17,32,58,.86),
-            rgba(7,16,32,.82)
+            rgba(17,27,46,.88),
+            rgba(5,10,19,.94)
         );
-
-    border: 1px solid var(--border);
-
-    border-radius: var(--radius);
 
     box-shadow:
-        0 25px 70px rgba(0,0,0,.35),
-        inset 0 1px rgba(255,255,255,.04);
+        0 30px 100px rgba(0,0,0,.55),
+        0 0 80px rgba(74,168,255,.04);
 
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(25px);
+
+    animation: loginIn .7s ease;
 }
 
-/* =========================
-   شاشة الدخول
-========================= */
 
-.login {
-    max-width: 650px;
-    margin: 7vh auto;
-    padding: 35px 25px;
+@keyframes loginIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
-.brand {
-    text-align: center;
-    padding: 20px 10px 30px;
+
+.login-screen.login-exit
+.login-card {
+    animation: loginOut .45s ease forwards;
 }
 
-.brand .symbols {
-    font-size: 52px;
-    letter-spacing: 12px;
 
-    filter:
-        drop-shadow(0 0 12px rgba(56,169,255,.5))
-        drop-shadow(0 0 12px rgba(255,138,36,.35));
+@keyframes loginOut {
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px) scale(.97);
+    }
 }
 
-.brand h1 {
-    margin: 18px 0 8px;
 
-    font-size: clamp(38px, 9vw, 65px);
+/* =====================================================
+   ORBITS
+===================================================== */
+
+.login-orbit {
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(1px);
+
+    pointer-events: none;
+}
+
+
+.moon-orbit {
+    width: 350px;
+    height: 350px;
+
+    left: -170px;
+    top: -130px;
 
     background:
-        linear-gradient(
-            90deg,
-            var(--moon-light),
-            white 48%,
-            var(--sun-light)
+        radial-gradient(
+            circle,
+            rgba(74,168,255,.16),
+            transparent 65%
         );
-
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
 }
 
-.brand p {
+
+.sun-orbit {
+    width: 400px;
+    height: 400px;
+
+    right: -190px;
+    bottom: -180px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,139,44,.13),
+            transparent 65%
+        );
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand-mark {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 13px;
+
+    margin-bottom: 18px;
+}
+
+
+.moon-symbol,
+.sun-symbol {
+    width: 64px;
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 37px;
+}
+
+
+.moon-symbol {
+    color: var(--moon2);
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            rgba(130,208,255,.24),
+            rgba(21,95,168,.13)
+        );
+
+    box-shadow:
+        0 0 35px rgba(74,168,255,.15);
+
+    border:
+        1px solid rgba(74,168,255,.18);
+}
+
+
+.sun-symbol {
+    color: var(--sun2);
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(255,209,102,.24),
+            rgba(201,87,14,.12)
+        );
+
+    box-shadow:
+        0 0 35px rgba(255,139,44,.15);
+
+    border:
+        1px solid rgba(255,139,44,.18);
+}
+
+
+.brand-x {
+    font-size: 28px;
+
+    color: #69768b;
+}
+
+
+.brand-title {
+    font-size: 38px;
+    font-weight: 900;
+
+    letter-spacing: -1px;
+}
+
+
+.brand-title span {
+    color: #718096;
+    margin: 0 5px;
+}
+
+
+.brand-subtitle {
+    margin-top: 7px;
+
     color: var(--muted);
-    font-size: 16px;
-    line-height: 1.8;
+
+    font-size: 14px;
 }
 
-/* =========================
-   أزرار الدخول
-========================= */
 
-.login-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
+/* =====================================================
+   LOGIN SELECT
+===================================================== */
+
+.login-label {
+    margin:
+        38px 0
+        14px;
+
+    font-size: 14px;
+
+    color: var(--muted);
 }
 
-.btn {
-    border: 1px solid rgba(255,255,255,.1);
 
-    border-radius: 15px;
-
-    padding: 13px 18px;
-
-    color: white;
-
-    background: #172943;
-
-    cursor: pointer;
-
-    font-weight: 700;
-
-    transition:
-        transform .2s,
-        box-shadow .2s,
-        filter .2s;
-}
-
-.btn:hover {
-    transform: translateY(-3px);
-    filter: brightness(1.08);
-}
-
-.btn:active {
-    transform: scale(.97);
-}
-
-.moon {
-    background:
-        linear-gradient(
-            135deg,
-            #0d5da8,
-            #218bd7
-        );
-
-    box-shadow:
-        0 8px 25px rgba(56,169,255,.18);
-}
-
-.sun {
-    background:
-        linear-gradient(
-            135deg,
-            #d65c0c,
-            #ff9c2e
-        );
-
-    box-shadow:
-        0 8px 25px rgba(255,138,36,.18);
-}
-
-/* =========================
-   الشريط العلوي
-========================= */
-
-.topbar {
+.player-selection {
     display: grid;
 
-    grid-template-columns:
-        1fr
-        auto
-        1fr;
+    gap: 11px;
+}
+
+
+.player-choice {
+    width: 100%;
+
+    display: flex;
 
     align-items: center;
 
-    gap: 15px;
-
-    padding: 18px;
-}
-
-.player {
     text-align: right;
-}
 
-.player .name {
-    font-size: 25px;
-    font-weight: 900;
-}
+    gap: 14px;
 
-.player small {
-    color: var(--muted);
-}
+    padding: 14px;
 
-/* =========================
-   النقاط
-========================= */
-
-.scores {
-    display: flex;
-    gap: 8px;
-}
-
-.score {
-    min-width: 115px;
-
-    padding: 10px 15px;
-
-    text-align: center;
-
-    border-radius: 17px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(20,85,160,.8),
-            rgba(11,40,75,.9)
-        );
-
-    border: 1px solid rgba(56,169,255,.18);
-}
-
-.score.sun-score {
-    background:
-        linear-gradient(
-            145deg,
-            rgba(180,78,9,.8),
-            rgba(105,45,10,.9)
-        );
-
-    border-color:
-        rgba(255,138,36,.2);
-}
-
-.score b {
-    display: block;
-
-    font-size: 28px;
-
-    margin-top: 3px;
-}
-
-/* =========================
-   الدور
-========================= */
-
-.turn {
-    margin: 0 18px 15px;
-
-    padding: 13px;
-
-    text-align: center;
-
-    border-radius: 14px;
+    border-radius: 18px;
 
     background: rgba(255,255,255,.035);
 
+    border: 1px solid var(--line);
+
+    color: white;
+
+    transition:
+        transform .2s,
+        background .2s,
+        border-color .2s;
+}
+
+
+.player-choice:hover {
+    transform: translateY(-2px);
+}
+
+
+.moon-choice:hover {
+    background: rgba(74,168,255,.08);
+
+    border-color:
+        rgba(74,168,255,.3);
+}
+
+
+.sun-choice:hover {
+    background: rgba(255,139,44,.08);
+
+    border-color:
+        rgba(255,139,44,.3);
+}
+
+
+.choice-icon {
+    width: 55px;
+    height: 55px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    font-size: 31px;
+}
+
+
+.moon-choice .choice-icon {
+    color: var(--moon2);
+
+    background:
+        rgba(74,168,255,.10);
+}
+
+
+.sun-choice .choice-icon {
+    color: var(--sun2);
+
+    background:
+        rgba(255,139,44,.10);
+}
+
+
+.choice-info {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    flex: 1;
+}
+
+
+.choice-info strong {
+    font-size: 18px;
+}
+
+
+.choice-info span {
     color: var(--muted);
 
-    border: 1px
+    font-size: 13px;
+}
+
+
+.choice-arrow {
+    color: #68758b;
+
+    font-size: 20px;
+}
+
+
+/* =====================================================
+   PASSWORD
+===================================================== */
+
+.password-section {
+    animation: fadeUp .35s ease;
+}
+
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+.back-login {
+    border: 0;
+    background: none;
+
+    color: var(--muted);
+
+    padding: 5px;
+
+    font-size: 13px;
+}
+
+
+.selected-player {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    margin:
+        25px 0;
+}
+
+
+.selected-player > div:last-child {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+}
+
+
+.selected-player span {
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+.selected-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    font-size: 27px;
+}
+
+
+.moon-selected {
+    color: var(--moon2);
+    background: rgba(74,168,255,.12);
+}
+
+
+.sun-selected {
+    color: var(--sun2);
+    background: rgba(255,139,44,.12);
+}
+
+
+.password-section label {
+    display: block;
+
+    text-align: right;
+
+    margin-bottom: 8px;
+
+    font-size: 13px;
+
+    color: var(--muted);
+}
+
+
+.password-box {
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    border-radius: 15px;
+
+    background:
+        rgba(0,0,0,.25);
+}
+
+
+.password-box:focus-within {
+    border-color:
+        rgba(74,168,255,.45);
+
+    box-shadow:
+        0 0 0 3px rgba(74,168,255,.06);
+}
+
+
+.password-box input {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 16px;
+
+    border: 0;
+    outline: 0;
+
+    color: white;
+
+    background: transparent;
+
+    font-size: 20px;
+
+    letter-spacing: 5px;
+
+    text-align: center;
+}
+
+
+.password-box button {
+    width: 50px;
+
+    align-self: stretch;
+
+    border: 0;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    font-size: 18px;
+}
+
+
+.login-error {
+    height: 24px;
+
+    margin-top: 7px;
+
+    color: #ff687d;
+
+    font-size: 13px;
+}
+
+
+.enter-button {
+    width: 100%;
+
+    padding: 16px;
+
+    border: 0;
+
+    border-radius: 15px;
+
+    color: white;
+
+    font-weight: 800;
+
+    font-size: 16px;
+
+    background:
+        linear-gradient(
+            100deg,
+            #155fa8,
+            #2185d1 50%,
+            #c9570e
+        );
+
+    box-shadow:
+        0 10px 30px rgba(74,168,255,.12);
+
+    transition: .2s;
+}
+
+
+.enter-button:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.1);
+}
+
+
+.enter-button span {
+    margin-right: 10px;
+}
+
+
+.login-note {
+    margin-top: 14px;
+
+    color: #657287;
+
+    font-size: 11px;
+}
+
+
+.login-footer {
+    margin-top: 28px;
+
+    color: #4e5a6c;
+
+    font-size: 11px;
+}
+
+
+.shake {
+    animation: shake .4s ease;
+}
+
+
+@keyframes shake {
+
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-7px);
+    }
+
+    75% {
+        transform: translateX(7px);
+    }
+}
+
+
+/* =====================================================
+   APP HEADER
+===================================================== */
+
+.app {
+    min-height: 100vh;
+
+    padding-bottom: 90px;
+}
+
+
+.app-header {
+    width: 100%;
+    max-width: 720px;
+
+    margin: auto;
+
+    padding:
+        18px 16px 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.header-player {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+.header-player > div:last-child {
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.header-player small {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+.header-player strong {
+    font-size: 15px;
+}
+
+
+.header-player-icon {
+    width: 39px;
+    height: 39px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    color: var(--moon2);
+
+    background:
+        rgba(74,168,255,.10);
+}
+
+
+.header-center {
+    text-align: center;
+}
+
+
+.mini-brand {
+    font-weight: 800;
+
+    font-size: 14px;
+}
+
+
+.mini-brand span {
+    color: #657188;
+}
+
+
+.connection {
+    margin-top: 3px;
+
+    color: #657188;
+
+    font-size: 9px;
+}
+
+
+.connection i {
+    display: inline-block;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #50d890;
+
+    box-shadow:
+        0 0 8px #50d890;
+
+    margin-left: 3px;
+}
+
+
+.header-menu {
+    width: 39px;
+    height: 39px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 12px;
+
+    color: #8490a4;
+
+    background: rgba(255,255,255,.035);
+
+    font-size: 23px;
+}
+
+
+/* =====================================================
+   SCORE BAR
+===================================================== */
+
+.score-bar {
+    width: calc(100% - 24px);
+    max-width: 696px;
+
+    margin: 5px auto 15px;
+
+    padding: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 20px;
+
+    background:
+        rgba(13,21,36,.75);
+
+    backdrop-filter: blur(15px);
+}
+
+
+.score-side {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    min-width: 105px;
+}
+
+
+.score-side:last-child {
+    text-align: left;
+
+    justify-content: flex-end;
+}
+
+
+.score-avatar {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    font-size: 21px;
+}
+
+
+.moon-score .score-avatar {
+    color: var(--moon2);
+    background: rgba(74,168,255,.10);
+}
+
+
+.sun-score .score-avatar {
+    color: var(--sun2);
+    background: rgba(255,139,44,.10);
+}
+
+
+.score-data {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0;
+}
+
+
+.score-data span {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+.score-data strong {
+    font-size: 20px;
+}
+
+
+.moon-score .score-data strong {
+    color: var(--moon2);
+}
+
+
+.sun-score .score-data strong {
+    color: var(--sun2);
+}
+
+
+.score-middle {
+    text-align: center;
+
+    color: #667389;
+
+    font-size: 9px;
+}
+
+
+.score-middle div {
+    font-size: 11px;
+
+    font-weight: 900;
+
+    color: #7a879b;
+}
+
+
+/* =====================================================
+   HOME
+===================================================== */
+
+.home {
+    width: calc(100% - 24px);
+    max-width: 696px;
+
+    margin: auto;
+}
+
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+.welcome-card {
+    min-height: 180px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 25px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            130deg,
+            rgba(17,36,62,.9),
+            rgba(10,17,30,.95)
+        );
+}
+
+
+.welcome-glow {
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    left: -150px;
+    top: -160px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(74,168,255,.16),
+            transparent 65%
+        );
+}
+
+
+.welcome-content {
+    position: relative;
+    z-index: 2;
+}
+
+
+.welcome-small {
+    color: var(--moon2);
+
+    font-size: 12px;
+}
+
+
+.welcome-content h1 {
+    margin: 8px 0;
+
+    font-size:
+        clamp(27px, 7vw, 36px);
+}
+
+
+.welcome-content p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+.welcome-symbol {
+    margin-right: auto;
+
+    position: relative;
+
+    width: 115px;
+    height: 115px;
+}
+
+
+.welcome-moon,
+.welcome-sun {
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+}
+
+
+.welcome-moon {
+    width: 85px;
+    height: 85px;
+
+    right: 0;
+    top: 0;
+
+    color: var(--moon2);
+
+    font-size: 53px;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            rgba(130,208,255,.15),
+            rgba(21,95,168,.05)
+        );
+
+    box-shadow:
+        0 0 45px rgba(74,168,255,.12);
+}
+
+
+.welcome-sun {
+    width: 50px;
+    height: 50px;
+
+    left: 0;
+    bottom: 0;
+
+    color: var(--sun2);
+
+    font-size: 28px;
+
+    background:
+        rgba(255,139,44,.10);
+
+    box-shadow:
+        0 0 35px rgba(255,139,44,.10);
+}
+
+
+/* =====================================================
+   QUICK ACTIONS
+===================================================== */
+
+.quick-actions {
+    display: grid;
+
+    grid-template-columns: 1.2fr 1fr;
+
+    gap: 10px;
+
+    margin-top: 11px;
+}
+
+
+.quick-action {
+    min-height: 78px;
+
+    padding: 12px 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 18px;
+
+    color: white;
+
+    text-align: right;
+
+    background:
+        rgba(255,255,255,.035);
+
+    transition: .2s;
+}
+
+
+.quick-action:hover {
+    transform: translateY(-2px);
+}
+
+
+.main-action {
+    background:
+        linear-gradient(
+            110deg,
+            rgba(21,95,168,.30),
+            rgba(74,168,255,.07)
+        );
+
+    border-color:
+        rgba(74,168,255,.18);
+}
+
+
+.quick-icon {
+    width: 43px;
+    height: 43px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    font-size: 21px;
+}
+
+
+.quick-action > div:nth-child(2) {
+    display: flex;
+
+    flex-direction: column;
+
+    flex: 1;
+}
+
+
+.quick-action strong {
+    font-size: 13px;
+}
+
+
+.quick-action span {
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+.quick-action b {
+    color: #657389;
+
+    font-size: 17px;
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.home-section {
+    margin-top: 27px;
+}
+
+
+.section-heading {
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    margin-bottom: 13px;
+}
+
+
+.section-heading > div {
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.section-heading span {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+.section-heading h2 {
+    margin: 3px 0 0;
+
+    font-size: 23px;
+}
+
+
+.section-heading button {
+    border: 0;
+
+    background: none;
+
+    color: var(--moon2);
+
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   GAME TILES
+===================================================== */
+
+.games-preview {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 9px;
+}
+
+
+.game-tile {
+    min-height: 190px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 14px;
+
+    border-radius: 20px;
+
+    border:
+        1px solid var(--line);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16,29,49,.9),
+            rgba(8,14,25,.95)
+        );
+
+    transition:
+        transform .2s,
+        border-color .2s;
+
+    cursor: pointer;
+}
+
+
+.game-tile:hover {
+    transform: translateY(-3px);
+}
+
+
+.game-xo:hover {
+    border-color:
+        rgba(74,168,255,.28);
+}
+
+
+.game-reaction:hover {
+    border-color:
+        rgba(255,139,44,.28);
+}
+
+
+.game-tile-top {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.available,
+.coming {
+    padding: 4px 7px;
+
+    border-radius: 7px;
+
+    font-size: 8px;
+}
+
+
+.available {
+    color: var(--moon2);
+
+    background:
+        rgba(74,168,255,.10);
+}
+
+
+.coming {
+    color: #7b879b;
+
+    background:
+        rgba(255,255,255,.04);
+}
+
+
+.game-number {
+    color: #3e4b60;
+
+    font-size: 10px;
+}
+
+
+.game-art {
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+
+    font-size: 39px;
+
+    margin-top: 5px;
+}
+
+
+.game-tile h3 {
+    margin: 4px 0 3px;
+
+    font-size: 15px;
+}
+
+
+.game-tile p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+.game-start {
+    position: absolute;
+
+    right: 14px;
+    left: 14px;
+    bottom: 13px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #637087;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   TODAY
+===================================================== */
+
+.today-card {
+    margin-top: 12px;
+
+    min-height: 90px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 14px;
+
+    border:
+        1px solid rgba(255,139,44,.12);
+
+    border-radius: 19px;
+
+    background:
+        linear-gradient(
+            110deg,
+            rgba(255,139,44,.07),
+            rgba(255,255,255,.025)
+        );
+}
+
+
+.today-icon {
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    color: var(--sun2);
+
+    background:
+        rgba(255,139,44,.09);
+
+    font-size: 20px;
+}
+
+
+.today-content {
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.today-content span {
+    color: var(--sun2);
+
+    font-size: 9px;
+}
+
+
+.today-content strong {
+    margin-top: 2px;
+
+    font-size: 13px;
+}
+
+
+.today-content p {
+    margin: 3px 0 0;
+
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+
+.today-card button {
+    border: 0;
+
+    padding: 9px 12px;
+
+    border-radius: 10px;
+
+    color: white;
+
+    background:
+        rgba(255,139,44,.12);
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
+
+.bottom-nav {
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 12px;
+
+    transform: translateX(-50%);
+
+    width:
+        min(
+            calc(100% - 24px),
+            500px
+        );
+
+    padding: 7px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 4px;
+
+    z-index: 20;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: 19px;
+
+    background:
+        rgba(8,14,25,.88);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.45);
+}
+
+
+.bottom-nav button {
+    border: 0;
+
+    border-radius: 14px;
+
+    padding: 8px 4px;
+
+    color: #647188;
+
+    background: transparent;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 3px;
+}
+
+
+.bottom-nav button.active {
+    color: white;
+
+    background:
+        rgba(74,168,255,.10);
+}
+
+
+.bottom-nav span {
+    font-size: 18px;
+}
+
+
+.bottom-nav small {
+    font-size: 8px;
+}
+
+
+/* =====================================================
+   GAME VIEW
+===================================================== */
+
+.game-view {
+    min-height: 100vh;
+
+    background:
+        #050811;
+}
+
+
+.game-view-header {
+    width: 100%;
+    max-width: 900px;
+
+    margin: auto;
+
+    padding: 14px 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom:
+        1px solid var(--line);
+}
+
+
+.game-view-header > div:nth-child(2) {
+    text-align: center;
+}
+
+
+.game-view-header span {
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+
+.game-view-header h2 {
+    margin: 2px 0 0;
+
+    font-size: 18px;
+}
+
+
+.game-back {
+    width: 40px;
+    height: 40px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 12px;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.04);
+
+    font-size: 20px;
+}
+
+
+.game-view-score {
+    color: var(--sun2);
+
+    font-size: 13px;
+}
+
+
+#gameFrame {
+    width: 100%;
+
+    height:
+        calc(100vh - 70px);
+
+    border: 0;
+
+    display: block;
+
+    background:
+        #050811;
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(0,0,0,.65);
+
+    backdrop-filter: blur(7px);
+}
+
+
+.modal-card {
+    width: 100%;
+    max-width: 370px;
+
+    padding: 30px 23px;
+
+    text-align: center;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 25px;
+
+    background:
+        #0c1525;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.5);
+
+    animation: modalIn .25s ease;
+}
+
+
+@keyframes modalIn {
+
+    from {
+        opacity: 0;
+        transform: scale(.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+#modalIcon {
+    font-size: 35px;
+
+    color: var(--sun2);
+}
+
+
+.modal-card h2 {
+    margin: 13px 0 6px;
+}
+
+
+.modal-card p {
+    margin: 0 0 20px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 560px) {
+
+    .login-screen {
+        padding: 12px;
+    }
+
+
+    .login-card {
+        padding:
+            29px 17px 20px;
+
+        border-radius: 25px;
+    }
+
+
+    .brand-title {
+        font-size: 34px;
+    }
+
+
+    .brand-mark {
+        margin-bottom: 13px;
+    }
+
+
+    .moon-symbol,
+    .sun-symbol {
+        width: 55px;
+        height: 55px;
+
+        font-size: 31px;
+    }
+
+
+    .login-label {
+        margin-top: 30px;
+    }
+
+
+    .welcome-card {
+        min-height: 175px;
+
+        padding: 21px;
+    }
+
+
+    .welcome-symbol {
+        transform:
+            scale(.75);
+
+        margin-left: -10px;
+    }
+
+
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+
+
+    .games-preview {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .game-tile {
+        min-height: 175px;
+    }
+
+
+    .game-tile:last-child {
+        grid-column:
+            1 / -1;
+    }
+
+}
+
+
+@media (max-width: 360px) {
+
+    .games-preview {
+        grid-template-columns: 1fr;
+    }
+
+
+    .game-tile:last-child {
+        grid-column: auto;
+    }
+
+
+    .score-side {
+        min-width: 85px;
+    }
+
+
+    .welcome-symbol {
+        display: none;
+    }
+
+    }
