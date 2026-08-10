@@ -2,8 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#070b18">
+<meta name="color-scheme" content="dark">
 <title>بدر × شمس</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -25,12 +26,15 @@ body{min-height:100vh;overflow-x:hidden}button,input{font:inherit}button{cursor:
 .bottom-nav{position:fixed;z-index:30;bottom:10px;left:50%;transform:translateX(-50%);width:min(600px,calc(100% - 24px));padding:7px;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(255,255,255,.08);border-radius:20px;background:rgba(7,12,25,.9);backdrop-filter:blur(20px);box-shadow:0 15px 50px rgba(0,0,0,.45)}.bottom-nav button{border:none;border-radius:14px;padding:7px 4px;color:#5e6b81;background:transparent;transition:.2s}.bottom-nav button.active{color:#79bbff;background:rgba(60,140,255,.09)}.bottom-nav span,.bottom-nav small{display:block}.bottom-nav span{font-size:17px}.bottom-nav small{font-size:8px;margin-top:3px}
 .game-view{position:fixed;inset:0;z-index:100;background:#050916;display:flex;flex-direction:column}.game-view-header{min-height:68px;padding:8px 15px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.07);background:rgba(6,10,22,.94);flex-shrink:0}.game-back{width:43px;height:43px;border:1px solid rgba(255,255,255,.08);border-radius:13px;background:rgba(255,255,255,.04);color:white;font-size:20px;transition:.2s}.game-back:hover{background:rgba(255,255,255,.09)}.game-view-header>div:nth-child(2){flex:1}.game-view-header span{color:#66738a;font-size:9px}.game-view-header h2{margin:2px 0 0;font-size:16px}.game-view-score{border-radius:11px;padding:8px 11px;background:rgba(255,255,255,.04);font-size:12px}#gameFrame{flex:1;width:100%;height:100%;border:0;background:#050916}
 .game-loading{position:absolute;inset:68px 0 0;z-index:2;display:flex;align-items:center;justify-content:center;background:#050916;transition:opacity .25s}.game-loading.hidden{opacity:0;pointer-events:none}.loading-box{text-align:center}.loading-icon{width:65px;height:65px;margin:auto auto 16px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:28px;background:linear-gradient(135deg,rgba(55,140,255,.15),rgba(255,140,40,.1));animation:loadingPulse 1.3s infinite}.loading-box strong{display:block;font-size:14px}.loading-box span{display:block;color:#69768b;font-size:11px;margin-top:6px}@keyframes loadingPulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.08);opacity:1}}
-.modal{position:fixed;z-index:200;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px)}.modal-card{width:min(380px,100%);padding:27px;border-radius:25px;text-align:center;background:linear-gradient(145deg,#14203c,#080d1b);border:1px solid rgba(255,255,255,.08);box-shadow:0 30px 90px rgba(0,0,0,.5)}.modal-card>div{font-size:38px}.modal-card h2{margin:10px 0}.modal-card p{color:#7e8ba0;font-size:13px;line-height:1.7}
+.modal{position:fixed;z-index:200;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px)}.modal-card{width:min(380px,100%);padding:27px;border-radius:25px;text-align:center;background:linear-gradient(145deg,#14203c,#080d1b);border:1px solid rgba(255,255,255,.08);box-shadow:0 30px 90px rgba(0,0,0,.5)}.modal-card>div{font-size:38px}.modal-card h2{margin:10px 0}.modal-card p{color:#7e8ba0;font-size:13px;line-height:1.7}.modal-card .enter-button{margin-top:8px}
+.telegram-hint{position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);z-index:9999;pointer-events:none}
 @media(max-width:600px){.login-card{padding:28px 18px 20px;border-radius:26px}.brand-title{font-size:30px}.games-preview{grid-template-columns:repeat(2,1fr)}.game-tile:last-child{grid-column:1/-1}}
 @media(max-width:390px){.quick-actions{grid-template-columns:1fr}.welcome-content{max-width:70%}.welcome-content h1{font-size:24px}.score-bar{padding:11px 12px}}
 </style>
 </head>
 <body>
+
+<div class="telegram-hint"></div>
 
 <div id="loginScreen" class="login-screen">
 <div class="stars"></div><div class="login-orbit moon-orbit"></div><div class="login-orbit sun-orbit"></div>
@@ -115,11 +119,24 @@ body{min-height:100vh;overflow-x:hidden}button,input{font:inherit}button{cursor:
 </div>
 
 <div id="messageModal" class="modal hidden" onclick="closeModal(event)">
-<div class="modal-card" onclick="event.stopPropagation()"><div id="modalIcon">✦</div><h2 id="modalTitle">قريبًا</h2><p id="modalText">هذا القسم قيد التطوير.</p><button type="button" onclick="hideModal()" class="enter-button">تمام</button></div>
-</div>
+<div class="modal-card" onclick="event.stopPropagation()"><div id="modalIcon">✦</div><h2 id="modalTitle">قريبًا</h2><p id="modalText">هذا القسم قيد التطوير.</p><button type="button" onclick="hideModal()" class="enter-button">تمام</button></div></div>
 
 <script>
 "use strict";
+
+/* Telegram WebApp:
+   يعمل الموقع بشكل طبيعي خارج Telegram،
+   وإذا فُتح من زر Menu داخل البوت يستفيد من Telegram WebApp API إن كانت متاحة. */
+const TELEGRAM_WEBAPP = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+
+if(TELEGRAM_WEBAPP){
+    try{
+        TELEGRAM_WEBAPP.ready();
+        TELEGRAM_WEBAPP.expand();
+        if(TELEGRAM_WEBAPP.setHeaderColor) TELEGRAM_WEBAPP.setHeaderColor("#070b18");
+        if(TELEGRAM_WEBAPP.setBackgroundColor) TELEGRAM_WEBAPP.setBackgroundColor("#070b18");
+    }catch(e){}
+}
 
 const CONFIG={
     passwords:{hammam:"1234",monia:"5678"},
