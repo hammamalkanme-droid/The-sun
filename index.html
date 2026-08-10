@@ -1,169 +1,227 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#10111a">
-<title>البدر × الشمس — مساحة الصداقة</title>
-<style>
-:root{--bg:#090b12;--card:#121522;--text:#f4f5fb;--muted:#9da3b8;--line:#292e43;--a:#8f7cff;--b:#ffd166}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 10% 0%,#262041 0,transparent 34%),radial-gradient(circle at 90% 10%,#4b3d20 0,transparent 30%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;min-height:100vh}
-button,input{font:inherit}button{cursor:pointer}.app{max-width:980px;margin:auto;padding:18px 14px 50px}.hero{text-align:center;padding:20px 4px}.logo{font-size:42px}.title{font-size:clamp(28px,7vw,48px);font-weight:900;margin:5px 0}.sub,.muted{color:var(--muted)}.names{display:flex;gap:10px;justify-content:center}.pill{padding:9px 14px;border:1px solid var(--line);background:#ffffff08;border-radius:999px}.sun{color:var(--b)}.moon{color:#a89cff}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:12px 0}.stat,.card{background:linear-gradient(145deg,#161a29,#0f121d);border:1px solid var(--line);border-radius:18px;padding:14px}.stat b{display:block;font-size:22px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.action{min-height:116px;text-align:right;color:var(--text);background:linear-gradient(145deg,#191d30,#111421);border:1px solid var(--line);border-radius:20px;padding:18px;transition:.18s}.action:hover{transform:translateY(-2px)}.action .ico{font-size:29px}.action strong{display:block;font-size:18px;margin-top:8px}.action span{color:var(--muted);font-size:13px}
-.panel{display:none;margin-top:14px}.panel.active{display:block}.topline{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.topline h2{margin:0}.back,.secondary{background:#ffffff0b;color:var(--text);padding:10px 14px;border-radius:12px;border:1px solid var(--line)}.primary{background:linear-gradient(135deg,#8f7cff,#5e55e8);color:#fff;padding:12px 16px;border-radius:13px;font-weight:800}.row{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}.big{font-size:19px;line-height:1.8}.tag{display:inline-block;padding:5px 9px;background:#8f7cff18;color:#c4bdff;border-radius:999px;font-size:12px;margin-bottom:8px}.center{text-align:center}.result{font-size:30px;font-weight:900;margin:16px 0}.list{display:grid;gap:9px}.item{padding:13px;border:1px solid var(--line);border-radius:14px;background:#ffffff05;color:inherit}.timer{font-size:56px;font-weight:900;text-align:center;margin:16px}.score{display:flex;gap:10px}.score button{flex:1;padding:14px;border-radius:14px;border:1px solid var(--line);background:#ffffff08;color:var(--text)}input{width:100%;background:#090c15;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;outline:none}
-footer{text-align:center;color:#72788f;margin-top:25px;font-size:12px}@media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr)}.stats{grid-template-columns:repeat(4,1fr)}}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مساحة بدر وشمس 🌌</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1a1a2e; color: white; text-align: center; margin: 0; padding: 15px; }
+        .hidden { display: none; }
+        .btn { padding: 12px 20px; margin: 8px; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.3s; }
+        .btn-bader { background-color: #0f3460; color: white; }
+        .btn-shams { background-color: #e94560; color: white; }
+        .btn:hover { opacity: 0.85; transform: scale(1.03); }
+        
+        #scoreboard { display: flex; justify-content: space-around; background: #0f3460; padding: 12px; border-radius: 10px; margin-bottom: 15px; font-size: 18px; font-weight: bold; }
+        #turn-indicator { font-size: 18px; margin: 10px 0; padding: 10px; border-radius: 8px; font-weight: bold; }
+        
+        .games-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 15px; }
+        .game-card { background: #16213e; padding: 15px; border-radius: 12px; cursor: pointer; border: 2px solid #0f3460; transition: 0.2s; }
+        .game-card:hover { border-color: #e94560; }
+        
+        .board { display: grid; grid-template-columns: repeat(3, 90px); gap: 5px; justify-content: center; margin-top: 15px; }
+        .cell { width: 90px; height: 90px; background-color: #16213e; font-size: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 8px; }
+        
+        .disabled { pointer-events: none; opacity: 0.5; }
+        input, textarea { width: 90%; padding: 10px; margin: 8px 0; border-radius: 8px; border: none; background: #16213e; color: white; font-size: 16px; }
+    </style>
+</head>
+<body>
 
-#auth{position:fixed;inset:0;z-index:99;background:radial-gradient(circle at 20% 10%,#29234a 0,transparent 35%),radial-gradient(circle at 90% 20%,#4b3d20 0,transparent 30%),#090b12;display:flex;align-items:center;justify-content:center;padding:18px}
-.auth-box{width:min(470px,100%);background:linear-gradient(145deg,#171a29,#0f121d);border:1px solid #292e43;border-radius:24px;padding:24px;box-shadow:0 25px 80px #0008}
-.auth-box h1{text-align:center;margin:0 0 6px;font-size:30px}.auth-sub{text-align:center;color:#9da3b8;margin:0 0 20px}
-.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}.auth-tab{padding:11px;border-radius:12px;background:#ffffff08;color:#f4f5fb;border:1px solid #292e43}.auth-tab.active{background:#8f7cff22;border-color:#8f7cff}
-.auth-field{margin:10px 0}.auth-field label{display:block;margin-bottom:6px;color:#b8bdd0;font-size:13px}.auth-field input{width:100%;background:#090c15;color:#f4f5fb;border:1px solid #292e43;border-radius:12px;padding:12px;outline:none}
-.auth-msg{min-height:22px;color:#ff9aa5;font-size:13px;margin:8px 0}.auth-note{color:#777e95;font-size:11px;line-height:1.6;margin-top:14px}
-.session{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 12px;padding:9px 12px;border:1px solid #292e43;border-radius:13px;background:#ffffff05}.session button{background:#ffffff0b;color:#f4f5fb;border:1px solid #292e43;border-radius:10px;padding:7px 10px}
-.share-box{display:grid;gap:9px}.share-box textarea{min-height:130px}
-@media(min-width:700px){.auth-box{padding:30px}}
-</style></head><body>
-<div id="auth">
-  <div class="auth-box">
-    <div style="text-align:center;font-size:42px">☀️ × 🌙</div>
-    <h1>بدر × شمس</h1>
-    <p class="auth-sub">سجّل دخولك أولًا، وبعدها تدخل لمساحتكم الخاصة.</p>
-
-    <div class="auth-tabs">
-      <button id="tabBadr" class="auth-tab active" onclick="selectUser('badr')">🌙 بدر · همام</button>
-      <button id="tabShams" class="auth-tab" onclick="selectUser('shams')">☀️ شمس · منية</button>
+    <!-- شاشة تسجيل الدخول -->
+    <div id="login-screen">
+        <h1 style="color: #e94560;">مساحة بدر وشمس 🌌</h1>
+        <p style="font-size: 18px;">من أنت يا صديقي؟</p>
+        <button class="btn btn-bader" onclick="login('hammam')">بدر (همام) 👨🏻</button>
+        <button class="btn btn-shams" onclick="login('monia')">شمس (منية) 👩🏻</button>
     </div>
 
-    <div id="authRegister">
-      <div class="auth-field"><label>كلمة السر</label><input id="regPass" type="password" autocomplete="new-password" placeholder="اختاروا كلمة سر لهذا الحساب"></div>
-      <div class="auth-field"><label>تأكيد كلمة السر</label><input id="regPass2" type="password" autocomplete="new-password" placeholder="أعد كتابة كلمة السر"></div>
-      <div id="authMsg" class="auth-msg"></div>
-      <button class="primary" style="width:100%" onclick="registerAccount()">إنشاء حساب ودخول</button>
-      <div class="auth-note">الحسابات محلية على هذا الجهاز. هذا مناسب لقفل الموقع داخل الجهاز، لكنه ليس نظام حسابات على الإنترنت.</div>
+    <!-- الشاشة الرئيسية -->
+    <div id="main-screen" class="hidden">
+        <div id="scoreboard">
+            <div>👨🏻 نقاط بدر: <span id="score-hammam">0</span></div>
+            <div>👩🏻 نقاط شمس: <span id="score-monia">0</span></div>
+        </div>
+        
+        <div id="turn-indicator">جارِ الاتصال...</div>
+
+        <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 15px;">
+            <button class="btn" style="background:#4caf50; color:white;" onclick="showScreen('menu-screen')">🏠 الألعاب</button>
+            <button class="btn" style="background:#ff9800; color:white;" onclick="showScreen('settings-screen')">⚙️ الإعدادات</button>
+        </div>
+
+        <!-- شاشة قائمة الألعاب -->
+        <div id="menu-screen">
+            <h3>اختر لعبة للبدء التفاعلي 🎮</h3>
+            <div class="games-grid">
+                <div class="game-card" onclick="openGame('xo')">❌ إكس أو (XO)</div>
+                <div class="game-card" onclick="openGame('truth')">💬 أسئلة صراحة</div>
+                <div class="game-card" onclick="openGame('challenge')">🔥 تحدي السريعة</div>
+                <div class="game-card" onclick="openGame('memory')">🧠 من يعرف الثاني أكثر</div>
+            </div>
+        </div>
+
+        <!-- ساحة عرض الألعاب الفردية -->
+        <div id="game-container" class="hidden">
+            <button class="btn" style="background:#666; color:white; margin-bottom:10px;" onclick="showScreen('menu-screen')">⬅️ عودة للقائمة</button>
+            <div id="active-game-content"></div>
+        </div>
+
+        <!-- شاشة الإعدادات وإضافة محتوى جديد -->
+        <div id="settings-screen" class="hidden">
+            <h3>إعدادات المساحة وإضافة الأسئلة ⚙️</h3>
+            <p>أضف سؤالاً أو تحدياً جديداً ليظهر عند الطرف الآخر:</p>
+            <textarea id="custom-question" placeholder="اكتب السؤال أو التحدي هنا..."></textarea>
+            <button class="btn btn-bader" onclick="addCustomContent()">إضافة للمساحة 🚀</button>
+            <div id="custom-list" style="margin-top: 15px; text-align: right;"></div>
+        </div>
     </div>
 
-    <div id="authLogin" style="display:none">
-      <div class="auth-field"><label>كلمة السر</label><input id="loginPass" type="password" autocomplete="current-password" placeholder="أدخل كلمة السر"></div>
-      <div id="loginMsg" class="auth-msg"></div>
-      <button class="primary" style="width:100%" onclick="loginAccount()">دخول</button>
-      <div class="auth-note">إذا أردتم تشغيل الموقع على جهاز آخر بنفس الحسابات، نقدر في النسخة القادمة نضيف مزامنة حقيقية عبر الإنترنت.</div>
-    </div>
-  </div>
-</div>
-<div class="app">
-<header class="hero"><div class="logo">☀️ × 🌙</div><div class="title">بدر × شمس</div>
-<p class="sub">مساحة للضحك، اللعب، التحديات، والأسئلة — صداقة وبس.</p><div class="names"><span class="pill moon">🌙 بدر</span><span class="pill sun">☀️ شمس</span></div></header>
+    <!-- جافاسكريبت و Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, set, onValue, update, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-<div id="sessionBar" class="session" style="display:none">
-  <span id="sessionText">مسجل الدخول</span>
-  <button onclick="logoutAccount()">تسجيل خروج</button>
-</div>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBCh5eqP5A6c0K_-KtlwNAPR_vYFXYHxm4",
+            authDomain: "space-4e22f.firebaseapp.com",
+            projectId: "space-4e22f",
+            storageBucket: "space-4e22f.firebasestorage.app",
+            messagingSenderId: "804457119217",
+            appId: "1:804457119217:web:99a62f5ef4ebfed8afd850",
+            measurementId: "G-R2YRH0EX9L"
+        };
 
-<section id="home"><div class="stats"><div class="stat"><b id="streak">0</b><small>🔥 أيام متتالية</small></div><div class="stat"><b id="gamesPlayed">0</b><small>🎮 ألعاب</small></div><div class="stat"><b id="points">0</b><small>🏆 نقاط</small></div><div class="stat"><b id="days">0</b><small>📅 جلسات</small></div></div>
-<div class="grid">
-<button class="action" onclick="randomPick()"><div class="ico">🎲</div><strong>اختارلنا شيء</strong><span>خلّوا الحظ يقرر</span></button>
-<button class="action" onclick="daily()"><div class="ico">⚡</div><strong>فعالية اليوم</strong><span>تتغير يوميًا</span></button>
-<button class="action" onclick="showGames()"><div class="ico">🕹️</div><strong>الألعاب</strong><span>50 لعبة وتحدي</span></button>
-<button class="action" onclick="showQuestions()"><div class="ico">❓</div><strong>الأسئلة</strong><span>300 سؤال</span></button>
-<button class="action" onclick="challenge()"><div class="ico">🏆</div><strong>تحدي النقاط</strong><span>تنافسوا وخذوا نقاط</span></button>
-<button class="action" onclick="showHistory()"><div class="ico">📖</div><strong>السجل</strong><span>ذكريات الجلسات</span></button>
-<button class="action" onclick="bored()"><div class="ico">😵‍💫</div><strong>وضع الملل</strong><span>اختيار سريع حسب الوقت</span></button>
-<button class="action" onclick="showAbout()"><div class="ico">⚙️</div><strong>الإدارة والتحديث</strong><span>حفظ وتطوير النسخة</span></button>
-</div></section>
-<section id="panel" class="panel"><div class="topline"><h2 id="panelTitle"></h2><button class="back" onclick="home()">رجوع</button></div><div id="panelBody"></div></section>
-<footer>بدر 🌙 × شمس ☀️ · نسخة 1.0 · التقدم محفوظ على هذا الجهاز</footer></div>
-<script>
-const DATA={"activities": [["تحدي الدقيقة", "اختاروا موضوعًا وتكلموا عنه بدون توقف لمدة 60 ثانية."], ["ارسم وخمّن", "أحدكم يرسم شيئًا عشوائيًا والآخر يحاول تخمينه خلال دقيقة."], ["قصة من 5 كلمات", "كل واحد يضيف 5 كلمات فقط لصناعة قصة غريبة مشتركة."], ["ممنوع نعم ولا", "تحدثوا دقيقتين، ومن يقول نعم أو لا يخسر نقطة."], ["تحدي الإيموجي", "عبّر عن فيلم أو لعبة أو موقف باستخدام الإيموجي فقط."], ["أسرع جواب", "اختاروا حرفًا، وكل واحد يقول 5 أشياء تبدأ به بأسرع وقت."], ["ذاكرة الأشياء", "ضعوا 10 أشياء أمامكم، انظروا 20 ثانية ثم أخفوها واختبروا الذاكرة."], ["تحدي التقليد", "قلّدوا طريقة كلام أو حركة مضحكة بدون تقليد أشخاص حقيقيين بشكل مسيء."], ["ثلاث كذبات وصدق", "كل واحد يقول أربع جمل عن نفسه، والثاني يكتشف الصدق."], ["اسماء في 10 ثواني", "سمّوا 5 أشياء من تصنيف واحد قبل انتهاء الوقت."], ["اختيار مستحيل", "اختاروا بين خيارين صعبين واشرحوا السبب."], ["محقق اليوم", "واحد يختار شيئًا في الغرفة والثاني يسأل أسئلة نعم/لا ليكتشفه."], ["كلمة ممنوعة", "اختاروا كلمة شائعة وحاولوا الحديث 3 دقائق بدون قولها."], ["تحدي الذاكرة الصوتية", "سجّلوا جملة قصيرة، وبعدها حاولوا تكرارها بنفس الترتيب."], ["أكمل الرسم", "الأول يرسم نصف شيء والثاني يكمله بطريقة مفاجئة."], ["اختبار سرعة الكتابة", "اختاروا جملة صعبة وشوفوا من يكتبها أسرع وبأخطاء أقل."], ["مهمة 5 أشياء", "خلال دقيقة، أحضروا 5 أشياء تحقق شرطًا محددًا."], ["خمن الشخصية", "فكر في شخصية معروفة واجعل الآخر يكتشفها بأسئلة."], ["تحدي الحروف", "كل واحد يختار حرفًا ويذكر أكبر عدد من الكلمات خلال 30 ثانية."], ["مين يلاحظ؟", "غيّروا شيئًا صغيرًا في المكان وحاول الآخر اكتشافه."], ["حكاية الصورة", "اختاروا صورة عشوائية واخترعوا لها قصة في 60 ثانية."], ["تحدي الأصوات", "قلّد صوت شيء أو حيوان والآخر يخمّن."], ["رتّبها", "رتّبوا 5 أشياء من الأقل إلى الأكثر حسب معيار متفق عليه."], ["ممنوع التكرار", "كل واحد يقول شيئًا في تصنيف معين، ومن يكرر أو يتوقف يخسر."], ["خمس أسئلة فقط", "عندك 5 أسئلة لا أكثر لمعرفة الشيء المختار."], ["تحدي الوجه الجاد", "حاولوا جعل الآخر يضحك بدون لمس أو إهانة."], ["كلمة بكلمة", "اكتبوا قصة، كل واحد يضيف كلمة واحدة فقط."], ["تحدي الذاكرة", "اذكروا أكبر عدد من الأشياء التي حدثت اليوم بالترتيب."], ["اختراع غريب", "اخترعوا منتجًا لا فائدة منه وسوّقوه خلال دقيقة."], ["نشرة الأخبار", "قدّموا خبرًا مضحكًا عن حدث عادي جدًا وكأنه عاجل."], ["مذيع ومشاهد", "واحد مذيع والآخر يختار موضوعًا عشوائيًا في اللحظة الأخيرة."], ["تحدي العنوان", "اخترعوا عنوان فيلم لحياتكم اليوم."], ["إعلان 30 ثانية", "سوّقوا لأي غرض أمامكم كأنه أغلى منتج في العالم."], ["وصف بدون اسم", "صف شيئًا بدون ذكر اسمه أو مرادف مباشر له."], ["تحدي الترتيب الأبجدي", "اذكروا أسماء من تصنيف واحد بترتيب الحروف قدر الإمكان."], ["ماذا لو؟", "اخترعوا سيناريو افتراضيًا غريبًا وحاولوا حلّه."], ["المحامي", "واحد يدافع عن رأي عشوائي والثاني يعارضه باحترام."], ["قائمة الثلاثة", "كل واحد يختار أفضل 3 أشياء في موضوع ويقارنها."], ["تحدي الصمت", "حاولوا إيصال كلمة بالإشارات فقط."], ["تخمين الوقت", "أغمضوا أعينكم وحاولوا فتحها عند 20 ثانية بالضبط."], ["تحدي النغمة", "همهم لحنًا معروفًا والآخر يخمّن."], ["وصف المكان", "صف المكان كأنك دليل سياحي محترف."], ["حرف اليوم", "أي كلمة تقولها خلال دقيقة يجب أن تحتوي الحرف المختار."], ["الجواب الخطأ", "اسألوا أسئلة سهلة، والمطلوب الإجابة الخاطئة بسرعة."], ["تحدي الأرقام", "كل واحد يختار رقمًا والآخر يحاول معرفة سبب اختياره."], ["خمس فئات", "اختاروا 5 فئات واكتبوا عنصرًا من كل فئة خلال 30 ثانية."], ["مقابلة غريبة", "أجروا مقابلة جدية جدًا عن موضوع تافه."], ["نقطة ضعف اللعبة", "اختاروا لعبة تعرفونها واخترعوا لها قاعدة جديدة."], ["تحدي بدون حرف", "تحدثوا دقيقة بدون استخدام حرف تختارونه."], ["تحدي الذاكرة البصرية", "انظروا لشيء 15 ثانية ثم اكتبوا تفاصيله."], ["اختراع قانون", "ضعوا قانونًا طريفًا لليوم والتزموا به ساعة."], ["مهمة سرية", "كل واحد يكتب مهمة بسيطة للآخر وينفذها خلال اليوم."], ["خمن الأغنية", "صفوا أغنية بدون كلماتها، والآخر يخمن."], ["تحدي المقارنة", "قارنوا شيئين لا علاقة بينهما وابحثوا عن 3 أوجه شبه."], ["أغرب جواب", "اسألوا سؤالًا بسيطًا، والفوز لأغرب إجابة منطقية."], ["التصنيف السريع", "صنّفوا 10 أشياء إلى مجموعتين من اختياركم."], ["تحدي 20 ثانية", "لديك 20 ثانية فقط لإنجاز مهمة صغيرة."], ["الرسمة العمياء", "ارسموا شيئًا بدون النظر للورقة."], ["قصة بثلاثة أشياء", "اختاروا 3 أشياء عشوائية وأدخلوا كلها في قصة."], ["تحدي الترجمة", "اشرحوا كلمة عادية بطريقة رسمية جدًا."], ["تحدي اللهجات", "قولوا جملة عادية بأسلوب تمثيلي مختلف بدون السخرية من أحد."], ["من يتذكر؟", "اختبروا بعضكم في تفاصيل موقف قديم مشترك."], ["ممنوع كلمة أنا", "تحدث دقيقة بدون قول كلمة أنا."], ["خمن الشيء من الصوت", "أصدر صوتًا باستخدام غرض آمن والآخر يخمن."], ["تحدي التبديل", "كل واحد يدافع عن اختيار الآخر لمدة دقيقة."], ["خمس استخدامات", "اذكر 5 استخدامات مبتكرة لغرض واحد."], ["عنوان صحفي", "حوّلوا موقفًا عاديًا إلى عنوان صحفي مضخم."], ["اختبار التركيز", "اقرأوا سلسلة أرقام قصيرة ثم أعيدوها بالعكس."], ["تحدي الأسئلة", "خلال دقيقة، اسأل أكبر عدد من الأسئلة بدون تكرار."], ["لغز من صنعك", "كل واحد يخترع لغزًا قصيرًا للآخر."], ["نقطة الحظ", "اكتبوا 3 خيارات، اختاروا عشوائيًا ونفذوا الأقل صعوبة."], ["تحدي المثل", "اشرحوا مثلًا أو حكمة بدون قول كلماتها الأساسية."], ["المخرج", "أحدكم يختار مشهدًا قصيرًا والآخر يحدد طريقة تمثيله."], ["كلمة واحدة", "ناقشوا موضوعًا كاملًا لكن كل رد لا يتجاوز كلمة واحدة."], ["تحدي التوقع", "قبل بداية لعبة، توقعوا النتيجة ثم قارنوا."], ["خريطة الذاكرة", "ارسموا طريقًا تعرفونه من الذاكرة ثم قارنوا التفاصيل."], ["مهمة التعاون", "حلوا لغزًا أو سؤالًا يحتاج إجابة مشتركة بدون تنافس."], ["اختراع لعبة", "صمّموا لعبة جديدة في 3 دقائق وجربوها."], ["تحدي التبديل السريع", "كل 10 ثوانٍ يتغير موضوع الحديث."], ["المعلومة الغريبة", "كل واحد يقدم معلومة ويقرر الآخر هل تبدو صحيحة."], ["تحدي الوصف", "صف كلمة من 3 كلمات فقط."], ["آخر حرف", "كل كلمة جديدة تبدأ بآخر حرف من الكلمة السابقة."], ["نهاية مفاجئة", "اكتبوا بداية قصة واتركوا النهاية للآخر."], ["تحدي النقطتين", "لكل واحد نقطتان فقط؛ استخدمهما في أفضل إجابة أو حركة."], ["جلسة اختيار", "اختاروا 5 أشياء من قائمة عشوائية ورتبوها."], ["تحدي اليوم الكامل", "اختاروا لقبًا لليوم والتزموا به حتى النهاية."], ["تحدي القاموس", "اختاروا حرفًا، وكل واحد يحاول إيجاد 8 كلمات مختلفة تبدأ به."], ["دقيقة المخرج", "اختاروا مشهدًا عاديًا وغيّروا أسلوبه: أكشن، كوميديا، وثائقي أو نشرة أخبار."], ["لغز الشيء المخفي", "خبّوا غرضًا آمنًا، وأعطوا 3 تلميحات متدرجة حتى يكتشفه الآخر."], ["مهمة النهاية", "اختاروا أي لعبة أو فعالية من الموقع، لكن أضيفوا لها قاعدة جديدة من عندكم."]], "games": [["حجر ورق مقص", "classic"], ["XO", "ttt"], ["خمن الرقم", "number"], ["أعلى أو أقل", "highlow"], ["عملة الحظ", "coin"], ["زوجي أو فردي", "evenodd"], ["رد سريع", "rapid"], ["صح أو خطأ", "truefalse"], ["نرد", "dice"], ["اختيار عشوائي", "random"], ["خمن الكلمة", "content"], ["من يعرف الثاني أكثر", "content"], ["أسئلة سرعة", "content"], ["خمن الإيموجي", "content"], ["أكمل الجملة", "content"], ["حرف وكلمة", "content"], ["مين قالها؟", "content"], ["تصنيف سريع", "content"], ["تحدي الذاكرة", "content"], ["ترتيب الأرقام", "content"], ["تحدي 10 ثواني", "content"], ["ممنوع تقول", "content"], ["كلمة بكلمة", "content"], ["تحدي الرسم", "content"], ["خمن الشيء", "content"], ["ثلاثة خيارات", "content"], ["أغرب إجابة", "content"], ["تحدي الأصوات", "content"], ["خمن الأغنية", "content"], ["تحدي الحروف", "content"], ["قصة مشتركة", "content"], ["محقق", "content"], ["من أنا؟", "content"], ["خمن المكان", "content"], ["خمن الحيوان", "content"], ["خمن الطعام", "content"], ["أكمل النمط", "content"], ["الرقم المفقود", "content"], ["ذاكرة الإيموجي", "content"], ["سرعة الحساب", "content"], ["أقرب جواب", "content"], ["الاختيار المستحيل", "content"], ["حقيقة أم تخمين", "content"], ["خمس فئات", "content"], ["تحدي التركيز", "content"], ["المتاهة النصية", "content"], ["حرب الكلمات", "content"], ["سلسلة الكلمات", "content"], ["تحدي الممنوع", "content"], ["الجواب المعكوس", "content"]], "questions": ["شن أكثر شيء يضحكك بسرعة؟", "شن الشيء اللي تتمنى تتقنه يومًا ما؟", "لو عندك يوم فاضي بالكامل، كيف تقضيه؟", "شن أكثر لعبة ممكن تلعبها لساعات؟", "شن أكلة ما تملش منها؟", "شن أكثر عادة بسيطة تحبها في يومك؟", "لو تختار مكانًا تزوره الآن، وين؟", "شن أكثر شيء يخليك تتحمس؟", "شن أكثر موقف غريب تتذكره؟", "شن الشيء اللي تتوقع أن {other} يعرفه عنك؟", "لو تغير اسمك ليوم واحد، شنو تختار؟", "شن أكثر تطبيق تستخدمه؟", "شن مهارة تتمنى تتعلمها بسرعة؟", "لو تربح تحدي واحد دائمًا، أي نوع تختار؟", "شن أفضل اختراع في رأيك؟", "شن أكثر لون يعجبك؟", "شن فيلم أو مسلسل ممكن تعيده؟", "شن أكثر شيء يضايقك في الألعاب؟", "شن أفضل وقت في اليوم بالنسبة لك؟", "لو تقدر توقف الوقت ساعة، شن تدير؟", "شن أغرب فكرة خطرت لك؟", "شن شيء صغير يحسن مزاجك؟", "لو عندك روبوت يساعدك، شن أول مهمة تعطيه؟", "شن أكثر شيء تحب تتعلم عنه؟", "شن نوع الألغاز اللي تحبه؟", "لو تفتح مشروع غريب، شنو يكون؟", "شن أكثر صفة تحبها في الصديق؟", "شن أكثر شيء يخلّي الفريق ينجح؟", "لو لازم تختار لعبة واحدة لشهر، شنو تختار؟", "شن أكثر تحدي تفتكر أنه يناسب {other}؟", "شن أكثر شيء يضحكك بسرعة؟", "شن الشيء اللي تتمنى تتقنه يومًا ما؟", "لو عندك يوم فاضي بالكامل، كيف تقضيه؟", "شن أكثر لعبة ممكن تلعبها لساعات؟", "شن أكلة ما تملش منها؟", "شن أكثر عادة بسيطة تحبها في يومك؟", "لو تختار مكانًا تزوره الآن، وين؟", "شن أكثر شيء يخليك تتحمس؟", "شن أكثر موقف غريب تتذكره؟", "شن الشيء اللي تتوقع أن {other} يعرفه عنك؟", "لو تغير اسمك ليوم واحد، شنو تختار؟", "شن أكثر تطبيق تستخدمه؟", "شن مهارة تتمنى تتعلمها بسرعة؟", "لو تربح تحدي واحد دائمًا، أي نوع تختار؟", "شن أفضل اختراع في رأيك؟", "شن أكثر لون يعجبك؟", "شن فيلم أو مسلسل ممكن تعيده؟", "شن أكثر شيء يضايقك في الألعاب؟", "شن أفضل وقت في اليوم بالنسبة لك؟", "لو تقدر توقف الوقت ساعة، شن تدير؟", "شن أغرب فكرة خطرت لك؟", "شن شيء صغير يحسن مزاجك؟", "لو عندك روبوت يساعدك، شن أول مهمة تعطيه؟", "شن أكثر شيء تحب تتعلم عنه؟", "شن نوع الألغاز اللي تحبه؟", "لو تفتح مشروع غريب، شنو يكون؟", "شن أكثر صفة تحبها في الصديق؟", "شن أكثر شيء يخلّي الفريق ينجح؟", "لو لازم تختار لعبة واحدة لشهر، شنو تختار؟", "شن أكثر تحدي تفتكر أنه يناسب {other}؟", "شن أكثر شيء يضحكك بسرعة؟", "شن الشيء اللي تتمنى تتقنه يومًا ما؟", "لو عندك يوم فاضي بالكامل، كيف تقضيه؟", "شن أكثر لعبة ممكن تلعبها لساعات؟", "شن أكلة ما تملش منها؟", "شن أكثر عادة بسيطة تحبها في يومك؟", "لو تختار مكانًا تزوره الآن، وين؟", "شن أكثر شيء يخليك تتحمس؟", "شن أكثر موقف غريب تتذكره؟", "شن الشيء اللي تتوقع أن {other} يعرفه عنك؟", "لو تغير اسمك ليوم واحد، شنو تختار؟", "شن أكثر تطبيق تستخدمه؟", "شن مهارة تتمنى تتعلمها بسرعة؟", "لو تربح تحدي واحد دائمًا، أي نوع تختار؟", "شن أفضل اختراع في رأيك؟", "شن أكثر لون يعجبك؟", "شن فيلم أو مسلسل ممكن تعيده؟", "شن أكثر شيء يضايقك في الألعاب؟", "شن أفضل وقت في اليوم بالنسبة لك؟", "لو تقدر توقف الوقت ساعة، شن تدير؟", "شن أغرب فكرة خطرت لك؟", "شن شيء صغير يحسن مزاجك؟", "لو عندك روبوت يساعدك، شن أول مهمة تعطيه؟", "شن أكثر شيء تحب تتعلم عنه؟", "شن نوع الألغاز اللي تحبه؟", "لو تفتح مشروع غريب، شنو يكون؟", "شن أكثر صفة تحبها في الصديق؟", "شن أكثر شيء يخلّي الفريق ينجح؟", "لو لازم تختار لعبة واحدة لشهر، شنو تختار؟", "شن أكثر تحدي تفتكر أنه يناسب {other}؟", "شن أكثر شيء يضحكك بسرعة؟", "شن الشيء اللي تتمنى تتقنه يومًا ما؟", "لو عندك يوم فاضي بالكامل، كيف تقضيه؟", "شن أكثر لعبة ممكن تلعبها لساعات؟", "شن أكلة ما تملش منها؟", "شن أكثر عادة بسيطة تحبها في يومك؟", "لو تختار مكانًا تزوره الآن، وين؟", "شن أكثر شيء يخليك تتحمس؟", "شن أكثر موقف غريب تتذكره؟", "شن الشيء اللي تتوقع أن {other} يعرفه عنك؟", "لو تغير اسمك ليوم واحد، شنو تختار؟", "شن أكثر تطبيق تستخدمه؟", "شن مهارة تتمنى تتعلمها بسرعة؟", "لو تربح تحدي واحد دائمًا، أي نوع تختار؟", "شن أفضل اختراع في رأيك؟", "شن أكثر لون يعجبك؟", "شن فيلم أو مسلسل ممكن تعيده؟", "شن أكثر شيء يضايقك في الألعاب؟", "شن أفضل وقت في اليوم بالنسبة لك؟", "لو تقدر توقف الوقت ساعة، شن تدير؟", "شن أغرب فكرة خطرت لك؟", "شن شيء صغير يحسن مزاجك؟", "لو عندك روبوت يساعدك، شن أول مهمة تعطيه؟", "شن أكثر شيء تحب تتعلم عنه؟", "شن نوع الألغاز اللي تحبه؟", "لو تفتح مشروع غريب، شنو يكون؟", "شن أكثر صفة تحبها في الصديق؟", "شن أكثر شيء يخلّي الفريق ينجح؟", "لو لازم تختار لعبة واحدة لشهر، شنو تختار؟", "شن أكثر تحدي تفتكر أنه يناسب {other}؟", "شن أكثر شيء يضحكك بسرعة؟", "شن الشيء اللي تتمنى تتقنه يومًا ما؟", "لو عندك يوم فاضي بالكامل، كيف تقضيه؟", "شن أكثر لعبة ممكن تلعبها لساعات؟", "شن أكلة ما تملش منها؟", "شن أكثر عادة بسيطة تحبها في يومك؟", "لو تختار مكانًا تزوره الآن، وين؟", "شن أكثر شيء يخليك تتحمس؟", "شن أكثر موقف غريب تتذكره؟", "شن الشيء اللي تتوقع أن {other} يعرفه عنك؟", "لو تغير اسمك ليوم واحد، شنو تختار؟", "شن أكثر تطبيق تستخدمه؟", "شن مهارة تتمنى تتعلمها بسرعة؟", "لو تربح تحدي واحد دائمًا، أي نوع تختار؟", "شن أفضل اختراع في رأيك؟", "شن أكثر لون يعجبك؟", "شن فيلم أو مسلسل ممكن تعيده؟", "شن أكثر شيء يضايقك في الألعاب؟", "شن أفضل وقت في اليوم بالنسبة لك؟", "لو تقدر توقف الوقت ساعة، شن تدير؟", "شن أغرب فكرة خطرت لك؟", "شن شيء صغير يحسن مزاجك؟", "لو عندك روبوت يساعدك، شن أول مهمة تعطيه؟", "شن أكثر شيء تحب تتعلم عنه؟", "شن نوع الألغاز اللي تحبه؟", "لو تفتح مشروع غريب، شنو يكون؟", "شن أكثر صفة تحبها في الصديق؟", "شن أكثر شيء يخلّي الفريق ينجح؟", "لو لازم تختار لعبة واحدة لشهر، شنو تختار؟", "شن أكثر تحدي تفتكر أنه يناسب {other}؟", "شن أكثر شيء يضحكك بسرعة؟", "شن الشيء اللي تتمنى تتقنه يومًا ما؟", "لو عندك يوم فاضي بالكامل، كيف تقضيه؟", "شن أكثر لعبة ممكن تلعبها لساعات؟", "شن أكلة ما تملش منها؟", "شن أكثر عادة بسيطة تحبها في يومك؟", "لو تختار مكانًا تزوره الآن، وين؟", "شن أكثر شيء يخليك تتحمس؟", "شن أكثر موقف غريب تتذكره؟", "شن الشيء اللي تتوقع أن {other} يعرفه عنك؟", "لو تغير اسمك ليوم واحد، شنو تختار؟", "شن أكثر تطبيق تستخدمه؟", "شن مهارة تتمنى تتعلمها بسرعة؟", "لو تربح تحدي واحد دائمًا، أي نوع تختار؟", "شن أفضل اختراع في رأيك؟", "شن أكثر لون يعجبك؟", "شن فيلم أو مسلسل ممكن تعيده؟", "شن أكثر شيء يضايقك في الألعاب؟", "شن أفضل وقت في اليوم بالنسبة لك؟", "لو تقدر توقف الوقت ساعة، شن تدير؟", "شن أغرب فكرة خطرت لك؟", "شن شيء صغير يحسن مزاجك؟", "لو عندك روبوت يساعدك، شن أول مهمة تعطيه؟", "شن أكثر شيء تحب تتعلم عنه؟", "شن نوع الألغاز اللي تحبه؟", "لو تفتح مشروع غريب، شنو يكون؟", "شن أكثر صفة تحبها في الصديق؟", "شن أكثر شيء يخلّي الفريق ينجح؟", "لو لازم تختار لعبة واحدة لشهر، شنو تختار؟", "شن أكثر تحدي تفتكر أنه يناسب {other}؟", "شن أكثر شيء يضحكك بسرعة؟", "شن الشيء اللي تتمنى تتقنه يومًا ما؟", "لو عندك يوم فاضي بالكامل، كيف تقضيه؟", "شن أكثر لعبة ممكن تلعبها لساعات؟", "شن أكلة ما تملش منها؟", "شن أكثر عادة بسيطة تحبها في يومك؟", "لو تختار مكانًا تزوره الآن، وين؟", "شن أكثر شيء يخليك تتحمس؟", "شن أكثر موقف غريب تتذكره؟", "شن الشيء اللي تتوقع أن {other} يعرفه عنك؟", "لو تغير اسمك ليوم واحد، شنو تختار؟", "شن أكثر تطبيق تستخدمه؟", "شن مهارة تتمنى تتعلمها بسرعة؟", "لو تربح تحدي واحد دائمًا، أي نوع تختار؟", "شن أفضل اختراع في رأيك؟", "شن أكثر لون يعجبك؟", "شن فيلم أو مسلسل ممكن تعيده؟", "شن أكثر شيء يضايقك في الألعاب؟", "شن أفضل وقت في اليوم بالنسبة لك؟", "لو تقدر توقف الوقت ساعة، شن تدير؟", "شن أغرب فكرة خطرت لك؟", "شن شيء صغير يحسن مزاجك؟", "لو عندك روبوت يساعدك، شن أول مهمة تعطيه؟", "شن أكثر شيء تحب تتعلم عنه؟", "شن نوع الألغاز اللي تحبه؟", "لو تفتح مشروع غريب، شنو يكون؟", "شن أكثر صفة تحبها في الصديق؟", "شن أكثر شيء يخلّي الفريق ينجح؟", "لو لازم تختار لعبة واحدة لشهر، شنو تختار؟", "شن أكثر تحدي تفتكر أنه يناسب {other}؟", "شن أكثر شيء يضحكك بسرعة؟", "شن الشيء اللي تتمنى تتقنه يومًا ما؟", "لو عندك يوم فاضي بالكامل، كيف تقضيه؟", "شن أكثر لعبة ممكن تلعبها لساعات؟", "شن أكلة ما تملش منها؟", "شن أكثر عادة بسيطة تحبها في يومك؟", "لو تختار مكانًا تزوره الآن، وين؟", "شن أكثر شيء يخليك تتحمس؟", "شن أكثر موقف غريب تتذكره؟", "شن الشيء اللي تتوقع أن {other} يعرفه عنك؟", "لو تغير اسمك ليوم واحد، شنو تختار؟", "شن أكثر تطبيق تستخدمه؟", "شن مهارة تتمنى تتعلمها بسرعة؟", "لو تربح تحدي واحد دائمًا، أي نوع تختار؟", "شن أفضل اختراع في رأيك؟", "شن أكثر لون يعجبك؟", "شن فيلم أو مسلسل ممكن تعيده؟", "شن أكثر شيء يضايقك في الألعاب؟", "شن أفضل وقت في اليوم بالنسبة لك؟", "لو تقدر توقف الوقت ساعة، شن تدير؟", "شن أغرب فكرة خطرت لك؟", "شن شيء صغير يحسن مزاجك؟", "لو عندك روبوت يساعدك، شن أول مهمة تعطيه؟", "شن أكثر شيء تحب تتعلم عنه؟", "شن نوع الألغاز اللي تحبه؟", "لو تفتح مشروع غريب، شنو يكون؟", "شن أكثر صفة تحبها في الصديق؟", "شن أكثر شيء يخلّي الفريق ينجح؟", "لو لازم تختار لعبة واحدة لشهر، شنو تختار؟", "شن أكثر تحدي تفتكر أنه يناسب {other}؟", "شن أكثر شيء يضحكك بسرعة؟", "شن الشيء اللي تتمنى تتقنه يومًا ما؟", "لو عندك يوم فاضي بالكامل، كيف تقضيه؟", "شن أكثر لعبة ممكن تلعبها لساعات؟", "شن أكلة ما تملش منها؟", "شن أكثر عادة بسيطة تحبها في يومك؟", "لو تختار مكانًا تزوره الآن، وين؟", "شن أكثر شيء يخليك تتحمس؟", "شن أكثر موقف غريب تتذكره؟", "شن الشيء اللي تتوقع أن {other} يعرفه عنك؟", "لو تغير اسمك ليوم واحد، شنو تختار؟", "شن أكثر تطبيق تستخدمه؟", "شن مهارة تتمنى تتعلمها بسرعة؟", "لو تربح تحدي واحد دائمًا، أي نوع تختار؟", "شن أفضل اختراع في رأيك؟", "شن أكثر لون يعجبك؟", "شن فيلم أو مسلسل ممكن تعيده؟", "شن أكثر شيء يضايقك في الألعاب؟", "شن أفضل وقت في اليوم بالنسبة لك؟", "لو تقدر توقف الوقت ساعة، شن تدير؟", "شن أغرب فكرة خطرت لك؟", "شن شيء صغير يحسن مزاجك؟", "لو عندك روبوت يساعدك، شن أول مهمة تعطيه؟", "شن أكثر شيء تحب تتعلم عنه؟", "شن نوع الألغاز اللي تحبه؟", "لو تفتح مشروع غريب، شنو يكون؟", "شن أكثر صفة تحبها في الصديق؟", "شن أكثر شيء يخلّي الفريق ينجح؟", "لو لازم تختار لعبة واحدة لشهر، شنو تختار؟", "شن أكثر تحدي تفتكر أنه يناسب {other}؟", "شن أكثر شيء يضحكك بسرعة؟", "شن الشيء اللي تتمنى تتقنه يومًا ما؟", "لو عندك يوم فاضي بالكامل، كيف تقضيه؟", "شن أكثر لعبة ممكن تلعبها لساعات؟", "شن أكلة ما تملش منها؟", "شن أكثر عادة بسيطة تحبها في يومك؟", "لو تختار مكانًا تزوره الآن، وين؟", "شن أكثر شيء يخليك تتحمس؟", "شن أكثر موقف غريب تتذكره؟", "شن الشيء اللي تتوقع أن {other} يعرفه عنك؟", "لو تغير اسمك ليوم واحد، شنو تختار؟", "شن أكثر تطبيق تستخدمه؟", "شن مهارة تتمنى تتعلمها بسرعة؟", "لو تربح تحدي واحد دائمًا، أي نوع تختار؟", "شن أفضل اختراع في رأيك؟", "شن أكثر لون يعجبك؟", "شن فيلم أو مسلسل ممكن تعيده؟", "شن أكثر شيء يضايقك في الألعاب؟", "شن أفضل وقت في اليوم بالنسبة لك؟", "لو تقدر توقف الوقت ساعة، شن تدير؟", "شن أغرب فكرة خطرت لك؟", "شن شيء صغير يحسن مزاجك؟", "لو عندك روبوت يساعدك، شن أول مهمة تعطيه؟", "شن أكثر شيء تحب تتعلم عنه؟", "شن نوع الألغاز اللي تحبه؟", "لو تفتح مشروع غريب، شنو يكون؟", "شن أكثر صفة تحبها في الصديق؟", "شن أكثر شيء يخلّي الفريق ينجح؟", "لو لازم تختار لعبة واحدة لشهر، شنو تختار؟", "شن أكثر تحدي تفتكر أنه يناسب {other}؟"]};
-let state=JSON.parse(localStorage.getItem("bs_state")||'{"points":0,"games":0,"sessions":0,"streak":0,"last":"","history":[]}');
-const $=x=>document.getElementById(x); function save(){localStorage.setItem("bs_state",JSON.stringify(state));render()}
-function render(){$("points").textContent=state.points;$("gamesPlayed").textContent=state.games;$("days").textContent=state.sessions;$("streak").textContent=state.streak} 
-const AUTH_KEY="bs_accounts_v11";
-const SESSION_KEY="bs_session_v11";
-let authUser="badr";
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
-function accountStore(){return JSON.parse(localStorage.getItem(AUTH_KEY)||"{}")}
-function saveAccounts(a){localStorage.setItem(AUTH_KEY,JSON.stringify(a))}
-function selectUser(u){
-  authUser=u;
-  $("tabBadr").classList.toggle("active",u==="badr");
-  $("tabShams").classList.toggle("active",u==="shams");
-  let accounts=accountStore(), exists=!!accounts[u];
-  $("authRegister").style.display=exists?"none":"block";
-  $("authLogin").style.display=exists?"block":"none";
-  $("authMsg").textContent=""; $("loginMsg").textContent="";
-}
-async function digest(text){
-  if(window.crypto?.subtle){
-    let data=new TextEncoder().encode(text);
-    let buf=await crypto.subtle.digest("SHA-256",data);
-    return [...new Uint8Array(buf)].map(x=>x.toString(16).padStart(2,"0")).join("");
-  }
-  return btoa(unescape(encodeURIComponent(text)));
-}
-async function registerAccount(){
-  let p=$("regPass").value,p2=$("regPass2").value;
-  if(p.length<4){$("authMsg").textContent="خلي كلمة السر 4 أحرف/أرقام على الأقل.";return}
-  if(p!==p2){$("authMsg").textContent="كلمتا السر مش متطابقتين.";return}
-  let a=accountStore(); if(a[authUser]){selectUser(authUser);return}
-  a[authUser]={hash:await digest(p),name:authUser==="badr"?"بدر · همام":"شمس · منية"};
-  saveAccounts(a); localStorage.setItem(SESSION_KEY,authUser); enterApp();
-}
-async function loginAccount(){
-  let p=$("loginPass").value,a=accountStore();
-  if(!a[authUser] || (await digest(p))!==a[authUser].hash){$("loginMsg").textContent="كلمة السر غير صحيحة.";return}
-  localStorage.setItem(SESSION_KEY,authUser);enterApp();
-}
-function enterApp(){
-  $("auth").style.display="none";$("sessionBar").style.display="flex";
-  $("sessionText").textContent="مسجل الدخول: "+(authUser==="badr"?"🌙 بدر · همام":"☀️ شمس · منية");
-}
-function logoutAccount(){localStorage.removeItem(SESSION_KEY);location.reload()}
-(function bootAuth(){
-  let a=accountStore(),s=localStorage.getItem(SESSION_KEY);
-  if(s && a[s]){authUser=s;enterApp()} else {$("auth").style.display="flex";selectUser("badr")}
-})();
+        let currentPlayer = "";
+        let globalData = null;
 
-render()
-function home(){$("home").style.display="block";$("panel").classList.remove("active")}
-function panel(t,h){$("home").style.display="none";$("panel").classList.add("active");$("panelTitle").textContent=t;$("panelBody").innerHTML=h}
-function addH(t){state.history.unshift({t:new Date().toLocaleString("ar-LY"),text:t});state.history=state.history.slice(0,60);state.sessions=Math.max(state.sessions,1);save()}
-function addP(n){state.points+=n;save()}
-function card(t,d,tag="فعالية"){return `<div class="card"><span class="tag">${tag}</span><div class="big">${t}</div><p class="muted">${d}</p><div class="row"><button class="primary" onclick="addP(2);addH('${safe(t)}');alert('+2 نقاط 🎉')">تم</button><button class="secondary" onclick="randomPick()">التالي</button></div></div>`}
-function safe(s){return String(s).replaceAll("'","\\'").replaceAll("\n"," ")}
-function daily(){let d=new Date().toISOString().slice(0,10),a=DATA.activities[Math.abs(hash(d))%90];panel("⚡ فعالية اليوم",card(a[0],a[1],"اليوم"))}
-function randomPick(){let r=Math.random();if(r<.45){let a=DATA.activities[Math.floor(Math.random()*90)];panel("🎲 اختيار عشوائي",card(a[0],a[1]))}else if(r<.7){let g=DATA.games[Math.floor(Math.random()*50)];panel("🎲 لعبة عشوائية",card(g[0],"لعبة سريعة. جربوها الآن.","لعبة"))}else{panel("🎲 سؤال عشوائي",`<div class="card"><span class="tag">سؤال</span><div class="big" id="rq">${question()}</div><div class="row"><button class="primary" onclick="addP(1);alert('+1 نقطة ✨')">جاوبنا</button><button class="secondary" onclick="$('rq').textContent=question()">سؤال آخر</button></div></div>`)}}
-function question(){return DATA.questions[Math.floor(Math.random()*300)].replaceAll("{other}",Math.random()<.5?"بدر":"شمس")}
-function showQuestions(){
-  panel("❓ 300 سؤال",`<div class="card">
-    <span class="tag">سؤال للتواصل خارج الموقع</span>
-    <div id="q" class="big">${question()}</div>
-    <p class="muted">انسخوه أو شاركوه في واتساب/ماسنجر/تلغرام أو أي تطبيق تستخدمونه، وبعد ما تجاوبوا اضغطوا «تمت الإجابة».</p>
-    <div class="row">
-      <button class="primary" onclick="copyQuestion()">📋 نسخ السؤال</button>
-      <button class="secondary" onclick="shareQuestion()">📤 مشاركة</button>
-      <button class="secondary" onclick="$('q').textContent=question()">🔄 سؤال جديد</button>
-      <button class="secondary" onclick="addP(1);addH('تمت الإجابة عن سؤال خارج الموقع');alert('+1 نقطة ✨')">✅ تمت الإجابة</button>
-    </div>
-  </div>`)}
-function copyQuestion(){navigator.clipboard?.writeText($('q').textContent).then(()=>alert('تم نسخ السؤال 📋')).catch(()=>alert('انسخ السؤال يدويًا'))}
-async function shareQuestion(){let text=$('q').textContent;if(navigator.share){try{await navigator.share({title:'بدر × شمس',text})}catch(e){}}else{copyQuestion()}}
-function showGames(){let h='<div class="list">';DATA.games.forEach((g,i)=>h+=`<button class="item" style="text-align:right" onclick="play(${i})"><b>${i+1}. ${g[0]}</b><span class="muted">اضغط للعب</span></button>`);panel("🕹️ 50 لعبة",h+"</div>")}
-function play(i){state.games++;save();let g=DATA.games[i];if(g[1]=="ttt")return ttt();if(g[1]=="number")return numberGame();if(g[1]=="highlow")return highlow();if(g[1]=="coin")return coin();if(g[1]=="evenodd")return evenodd();if(g[1]=="dice")return dice();if(g[1]=="rapid")return rapid();if(g[1]=="truefalse")return truefalse();panel("🕹️ "+g[0],`<div class="card center"><div class="big">${g[0]}</div><p class="muted">نفذوا الفكرة كجولة سريعة، والفائز يأخذ +2.</p><button class="primary" onclick="addP(2);alert('+2 🏆');showGames()">تسجيل الفوز</button></div>`)}
-function ttt(){panel("❌ XO",`<div class="card center"><div id="board" style="display:grid;grid-template-columns:repeat(3,70px);gap:6px;justify-content:center"></div><p id="xm" class="result">دور بدر</p></div>`);let b=Array(9).fill(""),turn="🌙";b.forEach((_,i)=>{let x=document.createElement("button");x.className="secondary";x.style.height="70px";x.style.fontSize="30px";x.onclick=()=>{if(b[i])return;b[i]=turn;x.textContent=turn;if(win(b,turn)){$("xm").textContent=turn+" فاز! 🏆";addP(3);return}turn=turn==="🌙"?"☀️":"🌙";$("xm").textContent="دور "+(turn==="🌙"?"بدر":"شمس")};$("board").appendChild(x)})}
-function win(b,p){return [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]].some(a=>a.every(i=>b[i]===p))}
-function numberGame(){let n=Math.floor(Math.random()*20)+1;panel("🔢 خمن الرقم",`<div class="card"><p>رقم سري من 1 إلى 20.</p><input id="guess" type="number" min="1" max="20" placeholder="التخمين"><div class="row"><button class="primary" onclick="let g=+guess.value;if(g===${n}){addP(3);alert('صح! +3 🏆')}else alert(g<${n}?'أكبر ⬆️':'أصغر ⬇️')">تخمين</button><button class="secondary" onclick="alert('الرقم كان ${n}')">كشف</button></div></div>`)}
-function highlow(){let n=Math.floor(Math.random()*100)+1;panel("⬆️ أعلى أو أقل",`<div class="card center"><div class="result">${n}</div><p>الرقم القادم أعلى أم أقل؟</p><div class="row"><button class="primary" onclick="hl(1,${n})">أعلى ⬆️</button><button class="secondary" onclick="hl(0,${n})">أقل ⬇️</button></div></div>`)}
-function hl(c,n){let x=Math.floor(Math.random()*100)+1,ok=c?x>n:x<n;ok?(addP(2),alert(x+" — صح! +2")):alert(x+" — لا 😅");highlow()}
-function coin(){let x=Math.random()<.5?"وجه 🪙":"كتابة 🔄";panel("🪙 عملة الحظ",`<div class="card center"><div class="result">${x}</div><button class="primary" onclick="addP(1);alert('+1')">نحسبها نقطة</button></div>`)}
-function evenodd(){let n=Math.floor(Math.random()*100)+1;panel("🔢 زوجي أو فردي",`<div class="card center"><div class="result">${n}</div><div class="row"><button class="primary" onclick="eo(${n},1)">زوجي</button><button class="secondary" onclick="eo(${n},0)">فردي</button></div></div>`)}
-function eo(n,a){let r=n%2===0;if(r==a){addP(2);alert('صح! +2')}else alert("غلط 😅");evenodd()}
-function dice(){let a=1+Math.floor(Math.random()*6),b=1+Math.floor(Math.random()*6);panel("🎲 النرد",`<div class="card center"><div class="result">${a} + ${b} = ${a+b}</div><p>الأعلى يفوز.</p><button class="primary" onclick="addP(2);alert('+2 للفائز 🏆')">تسجيل الفوز</button></div>`)}
-function rapid(){panel("⚡ رد سريع",`<div class="card center"><div class="result">جاهزين؟</div><button class="primary" onclick="timer(10,'قولوا 5 أشياء تبدأ بحرف تختارونه')">ابدأ 10 ثواني</button></div>`)}
-function truefalse(){let arr=[["القمر يدور حول الأرض.",1],["الأخطبوط لديه ثلاثة قلوب.",1],["الشمس كوكب.",0],["الماء يتجمد عند 0° مئوية تقريبًا.",1]],f=arr[Math.floor(Math.random()*arr.length)];panel("✅ صح أو خطأ",`<div class="card center"><div class="big">${f[0]}</div><div class="row"><button class="primary" onclick="tf(1,${f[1]})">صح</button><button class="secondary" onclick="tf(0,${f[1]})">خطأ</button></div></div>`)}
-function tf(a,b){a===b?(addP(2),alert('صح! +2')):alert('غلط 😅');truefalse()}
-function timer(s,label){panel("⏱️ "+label,`<div class="card center"><div id="tm" class="timer">${s}</div><p>ابدؤوا!</p><button class="secondary" onclick="clearInterval(window.tt);alert('وقفنا المؤقت')">إيقاف</button></div>`);let t=s;window.tt=setInterval(()=>{t--;if($("tm"))$("tm").textContent=t;if(t<=0){clearInterval(window.tt);alert("⏰ انتهى الوقت!")}},1000)}
-function challenge(){let a=DATA.activities[Math.floor(Math.random()*90)];panel("🏆 تحدي",`<div class="card center"><div class="big">${a[0]}</div><p>${a[1]}</p><div class="score"><button onclick="addP(5);alert('بدر +5 🏆')">🌙 بدر +5</button><button onclick="addP(5);alert('شمس +5 🏆')">☀️ شمس +5</button></div></div>`)}
-function bored(){panel("😵‍💫 وضع الملل",`<div class="card"><b>قداش عندكم وقت؟</b><div class="row"><button class="secondary" onclick="boredPick(2)">2 د</button><button class="secondary" onclick="boredPick(10)">10 د</button><button class="secondary" onclick="boredPick(30)">30 د</button><button class="secondary" onclick="boredPick(60)">ساعة</button></div></div>`)}
-function boredPick(m){let x=m<=2?DATA.games[Math.floor(Math.random()*10)]:DATA.activities[Math.floor(Math.random()*90)];panel("🎯 "+m+" دقيقة",card(x[0],x[1]||"لعبة سريعة.","اختيار مناسب للوقت"))}
-function showHistory(){let h=state.history.map(x=>`<div class="item"><b>${x.text}</b><span class="muted">${x.t}</span></div>`).join("")||'<div class="card">لسه ما سجلناش شيء.</div>';panel("📖 السجل",`<div class="list">${h}</div><div class="row"><button class="secondary" onclick="state.history=[];save();showHistory()">مسح السجل</button></div>`)}
-function showAbout(){panel("⚙️ الإدارة والتحديث",`<div class="card"><div class="big">نسخة 1.0 جاهزة.</div><p class="muted">90 فعالية + 50 لعبة + 300 سؤال. التقدم محفوظ على نفس الجهاز.</p><div class="row"><button class="secondary" onclick="exportProgress()">تصدير التقدم</button><button class="secondary" onclick="resetAll()">تصفير التقدم</button></div></div><div class="card" style="margin-top:10px"><b>التطوير المقترح في 2.0</b><p class="muted">محرر محتوى داخل الموقع، إنجازات، مواسم، مؤثرات، ألعاب ثنائية أقوى، ومزامنة بين جهاز بدر وجهاز شمس.</p></div>`)}
-function exportProgress(){let b=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="badr-shams-progress.json";a.click()}
-function resetAll(){if(confirm("متأكد من تصفير التقدم؟")){localStorage.removeItem("bs_state");location.reload()}}
-function hash(s){let h=0;for(let i=0;i<s.length;i++)h=((h<<5)-h)+s.charCodeAt(i)|0;return h}
-</script></div></body></html>
+        window.login = function(player) {
+            currentPlayer = player;
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('main-screen').classList.remove('hidden');
+            syncData();
+        }
+
+        function syncData() {
+            onValue(ref(db, 'spaceData'), (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    globalData = data;
+                    updateUI();
+                } else {
+                    set(ref(db, 'spaceData'), {
+                        turn: 'hammam',
+                        scores: { hammam: 0, monia: 0 },
+                        currentGame: 'menu',
+                        xo: { board: ["","","","","","","","",""] },
+                        currentQuestion: "ما هو أكثر شيء تفضله في الطرف الآخر؟",
+                        customs: {}
+                    });
+                }
+            });
+        }
+
+        function updateUI() {
+            if (!globalData) return;
+            document.getElementById('score-hammam').innerText = globalData.scores.hammam;
+            document.getElementById('score-monia').innerText = globalData.scores.monia;
+
+            const turnEl = document.getElementById('turn-indicator');
+            if (globalData.turn === currentPlayer) {
+                turnEl.innerText = "دورك الآن للعب والتفاعل! 🤩";
+                turnEl.style.background = "rgba(76, 175, 80, 0.2)";
+                turnEl.style.color = "#4caf50";
+            } else {
+                let other = globalData.turn === 'hammam' ? 'بدر' : 'شمس';
+                turnEl.innerText = `انتظر، دور ${other} الآن... ⏳`;
+                turnEl.style.background = "rgba(233, 69, 96, 0.2)";
+                turnEl.style.color = "#e94560";
+            }
+
+            // عرض المحتوى المخصص في الإعدادات
+            let customsDiv = document.getElementById('custom-list');
+            customsDiv.innerHTML = "<h4>الأسئلة المضافة حديثاً:</h4>";
+            if (globalData.customs) {
+                Object.values(globalData.customs).forEach(q => {
+                    customsDiv.innerHTML += `<div style="background:#16213e; padding:8px; margin:5px 0; border-radius:6px;">📌 ${q}</div>`;
+                });
+            }
+        }
+
+        window.showScreen = function(screenId) {
+            document.getElementById('menu-screen').classList.add('hidden');
+            document.getElementById('game-container').classList.add('hidden');
+            document.getElementById('settings-screen').classList.add('hidden');
+            document.getElementById(screenId).classList.remove('hidden');
+            
+            if(screenId !== 'game-container') {
+                update(ref(db, 'spaceData'), { currentGame: screenId });
+            }
+        }
+
+        window.openGame = function(gameType) {
+            document.getElementById('menu-screen').classList.add('hidden');
+            document.getElementById('game-container').classList.remove('hidden');
+            renderActiveGame(gameType);
+        }
+
+        function renderActiveGame(type) {
+            const container = document.getElementById('active-game-content');
+            if (type === 'xo') {
+                container.innerHTML = `<h3>لعبة إكس أو (XO)</h3><div class="board" id="xo-board"></div>`;
+                drawXOBoard();
+            } else if (type === 'truth') {
+                container.innerHTML = `<h3>سؤال صراحة 💬</h3><p style="font-size:20px; background:#16213e; padding:20px; border-radius:10px;">${globalData.currentQuestion || "لا يوجد سؤال حالياً"}</p><button class="btn btn-shams" onclick="changeQuestion()">سؤال جديد 🔀</button>`;
+            } else if (type === 'challenge') {
+                container.innerHTML = `<h3>تحدي السريعة 🔥</h3><p style="font-size:18px;">أسرع شخص يضغط الزر يكسب نقطة!</p><button class="btn btn-bader" onclick="winPoint()">أنا سبقت وضغطت! ⚡</button>`;
+            } else if (type === 'memory') {
+                container.innerHTML = `<h3>من يعرف الثاني أكثر؟ 🧠</h3><p style="font-size:18px;">اكتب توقعك عن إجابة الطرف الآخر في قسم الإعدادات!</p>`;
+            }
+        }
+
+        function drawXOBoard() {
+            const boardDiv = document.getElementById('xo-board');
+            if(!boardDiv) return;
+            boardDiv.innerHTML = "";
+            let board = globalData.xo.board;
+            
+            board.forEach((cell, index) => {
+                const div = document.createElement('div');
+                div.className = 'cell';
+                div.innerText = cell === 'hammam' ? 'X' : (cell === 'monia' ? 'O' : '');
+                div.style.color = cell === 'hammam' ? '#0f3460' : '#e94560';
+                
+                div.onclick = () => {
+                    if (globalData.turn !== currentPlayer || board[index] !== "") return;
+                    board[index] = currentPlayer;
+                    let next = globalData.turn === 'hammam' ? 'monia' : 'hammam';
+                    update(ref(db, 'spaceData'), { 'xo/board': board, turn: next });
+                    drawXOBoard();
+                };
+                boardDiv.appendChild(div);
+            });
+        }
+
+        window.winPoint = function() {
+            if (globalData.turn !== currentPlayer) return;
+            let currentPoints = globalData.scores[currentPlayer];
+            let updates = {};
+            updates[`scores/${currentPlayer}`] = currentPoints + 1;
+            updates['turn'] = currentPlayer === 'hammam' ? 'monia' : 'hammam';
+            update(ref(db, 'spaceData'), updates);
+            alert("مبروك، كسبت نقطة!");
+        }
+
+        window.addCustomContent = function() {
+            let val = document.getElementById('custom-question').value;
+            if(!val) return;
+            push(ref(db, 'spaceData/customs'), val);
+            document.getElementById('custom-question').value = "";
+            alert("تمت الإضافة بنجاح!");
+        }
+    </script>
+</body>
+</html>
