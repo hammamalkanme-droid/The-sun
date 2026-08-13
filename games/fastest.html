@@ -61,8 +61,8 @@ body{min-height:100vh}.wrap{width:min(680px,100%);margin:auto;padding:18px 14px 
     <div id="roomCode" class="room-code">------</div>
 
     <div class="players">
-      <div class="player"><div class="icon">☾</div><strong id="hostName">بدر</strong><span id="hostStatus">متصل</span></div>
-      <div class="player"><div class="icon">☀</div><strong id="guestName">في انتظار شمس...</strong><span id="guestStatus">بانتظار اللاعب</span></div>
+      <div class="player"><div class="icon">☾</div><strong id="baderName">بدر</strong><span id="baderStatus">متصل</span></div>
+      <div class="player"><div class="icon">☀</div><strong id="shamsName">في انتظار شمس...</strong><span id="shamsStatus">بانتظار اللاعب</span></div>
     </div>
 
     <div class="score">
@@ -180,7 +180,7 @@ async function joinRoom(){
 
   const {data:updated,error:upErr}=await sb.from("game_rooms")
     .update({guest_id:meId,status:"ready"})
-    .eq("id",data.id).eq("status","waiting").select().single();
+    .eq("id",data.id).eq("status","waiting").is("guest_id",null).select().single();
 
   if(upErr||!updated){setError("joinError","سبق لاعب آخر ودخل الغرفة.");return}
   await enterRoom(updated);
@@ -197,16 +197,22 @@ async function enterRoom(r){
 
 function renderRoom(r){
   const scores=(r.state&&r.state.scores)||{};
-  $("hostName").textContent=PLAYERS[String(r.host_id)]?.name||"بدر";
-  $("guestName").textContent=r.guest_id
-    ? (PLAYERS[String(r.guest_id)]?.name||"اللاعب الثاني")
-    : "في انتظار شمس...";
-  $("guestStatus").textContent=r.guest_id?"متصل":"بانتظار اللاعب";
+  const host=String(r.host_id);
+  const guest=r.guest_id ? String(r.guest_id) : null;
+
+  const baderPresent=host==='1250493517'||guest==='1250493517';
+  const shamsPresent=host==='8187108979'||guest==='8187108979';
+
+  $("baderName").textContent=baderPresent?"بدر":"في انتظار بدر...";
+  $("baderStatus").textContent=baderPresent?"متصل":"بانتظار اللاعب";
+  $("shamsName").textContent=shamsPresent?"شمس":"في انتظار شمس...";
+  $("shamsStatus").textContent=shamsPresent?"متصل":"بانتظار اللاعب";
+
   $("scoreA").textContent=Number(scores["1250493517"])||0;
   $("scoreB").textContent=Number(scores["8187108979"])||0;
 
-  const isHost=String(r.host_id)===meId;
-  const hasGuest=!!r.guest_id;
+  const isHost=host===meId;
+  const hasGuest=!!guest;
   const phase=r.state?.phase||"lobby";
 
   $("waitingBox").classList.toggle("hidden",phase!=="lobby" && phase!=="result");
@@ -214,12 +220,10 @@ function renderRoom(r){
 
   if(phase==="lobby"){
     $("startLobbyBtn").disabled=!isHost||!hasGuest;
-    $("startLobbyBtn").textContent=!hasGuest?"في انتظار اللاعب الثاني...":isHost?"ابدأ الجولة":"انتظر بدر ليبدأ";
+    $("startLobbyBtn").textContent=!hasGuest?"في انتظار اللاعب الثاني...":isHost?"ابدأ الجولة":"انتظر منشئ الغرفة ليبدأ";
   }
 
-  if(phase==="round"||phase==="go"||phase==="result"){
-    renderGame(r);
-  }
+  if(phase==="round"||phase==="go"||phase==="result") renderGame(r);
 }
 
 function renderGame(r){
@@ -264,7 +268,7 @@ function scheduleGo(ts){
     const current=room.state||{};
     if(current.phase!=="round"||Number(current.round)!==round)return;
     const state={...current,phase:"go",goAt:Date.now()};
-    const {data,error}=await sb.from("game_rooms").update({state}).eq("id",room.id).select().single();
+    const {data,error}=await sb.from("game_rooms").update({state}).eq("id",room.id).filter("state->>phase","eq","round").filter("state->>round","eq",String(round)).select().single();
     if(!error&&data)room=data;
   },delay);
 }
@@ -300,7 +304,7 @@ async function press(){
 
   if(!active||current.phase!=="go"){
     const state={...current,phase:"result",winner:"false-start",round};
-    await sb.from("game_rooms").update({state}).eq("id",room.id);
+    await sb.from("game_rooms").update({state}).eq("id",room.id).filter("state->>phase","eq","round").filter("state->>round","eq",String(round));
     return;
   }
 
@@ -309,8 +313,9 @@ async function press(){
   scores[meId]=(Number(scores[meId])||0)+1;
   const state={...current,phase:"result",winner:meId,winnerMs:ms,scores};
 
-  const {data}=await sb.from("game_rooms").update({state}).eq("id",room.id).select().single();
+  const {data}=await sb.from("game_rooms").update({state}).eq("id",room.id).filter("state->>phase","eq","go").filter("state->>round","eq",String(round)).select().single();
   if(data)room=data;
+  else { localPressed=true; return; }
   $("state").textContent="رد فعلك: "+ms+"ms ⚡";
 }
 
