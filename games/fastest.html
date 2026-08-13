@@ -1,1036 +1,338 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#070b18">
 <title>الأسرع — بدر × شمس</title>
-
 <style>
-
-*{box-sizing:border-box}
-
-html,body{
-margin:0;
-min-height:100%;
-font-family:Segoe UI,Tahoma,Arial,sans-serif;
-background:#050916;
-color:#fff
-}
-
-body{padding:16px}
-
-.wrap{
-width:min(620px,100%);
-margin:auto
-}
-
-.top{
-display:flex;
-align-items:center;
-justify-content:space-between
-}
-
-.top a{
-color:#82c5ff;
-text-decoration:none
-}
-
-.card{
-margin-top:14px;
-padding:22px;
-border:1px solid #ffffff12;
-border-radius:25px;
-background:linear-gradient(145deg,#142444,#080d1b);
-box-shadow:0 25px 80px #0008
-}
-
-.code{
-text-align:center;
-color:#728097;
-font-size:11px
-}
-
-.code b{
-color:#fff;
-font-size:17px
-}
-
-.players{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-margin-top:15px
-}
-
-.p{
-padding:12px;
-text-align:center;
-border-radius:15px;
-background:#ffffff07
-}
-
-.p strong,.p span{
-display:block
-}
-
-.p span{
-font-size:10px;
-color:#718098;
-margin-top:4px
-}
-
-.score{
-display:flex;
-justify-content:space-between;
-margin-top:12px;
-padding:12px;
-border-radius:14px;
-background:#ffffff06
-}
-
-.arena{
-margin-top:14px;
-min-height:350px;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center
-}
-
-.state{
-color:#8190a8;
-font-size:13px;
-line-height:1.7;
-min-height:45px
-}
-
-.reaction{
-width:min(300px,80vw);
-height:min(300px,80vw);
-border-radius:50%;
-border:0;
-background:radial-gradient(circle,#243d6d,#101a31);
-box-shadow:0 0 70px #2b74d433;
-transition:.08s;
-color:#fff;
-font-size:28px;
-font-weight:900
-}
-
-.reaction.wait{
-background:radial-gradient(circle,#222d45,#0b1120)
-}
-
-.reaction.go{
-background:radial-gradient(circle,#2acb72,#0d5a37);
-box-shadow:0 0 90px #2acb7266;
-transform:scale(1.03)
-}
-
-.reaction.bad{
-background:radial-gradient(circle,#d34f61,#591e2b)
-}
-
-.btn{
-width:100%;
-border:0;
-border-radius:14px;
-padding:14px;
-background:#1f70c9;
-color:#fff;
-font-weight:800;
-margin-top:14px
-}
-
-.small{
-font-size:10px;
-color:#647289;
-text-align:center;
-margin-top:12px
-}
-
-.hidden{
-display:none!important
-}
-
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;font-family:Segoe UI,Tahoma,Arial,sans-serif;background:radial-gradient(circle at 50% -20%,#182b55,#090f21 45%,#040711);color:#fff}
+body{min-height:100vh}.wrap{width:min(680px,100%);margin:auto;padding:18px 14px 60px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.top h2{margin:0;font-size:21px}.back{color:#82c5ff;text-decoration:none;font-size:12px}
+.card{padding:21px;border-radius:25px;background:linear-gradient(145deg,#142444,#080d1b);border:1px solid #ffffff12;box-shadow:0 25px 80px #0008}
+.sub{color:#718098;font-size:11px;text-align:center}.title{text-align:center;font-size:27px;font-weight:900;margin:8px 0 4px}
+.lobby-actions{display:grid;gap:10px;margin-top:20px}.btn{width:100%;border:0;border-radius:15px;padding:15px;color:#fff;font-weight:900;background:linear-gradient(135deg,#1e67ba,#3286df)}.btn.secondary{background:#ffffff08;border:1px solid #ffffff10}.btn.orange{background:linear-gradient(135deg,#d86b16,#ff9d38)}
+.join{margin-top:12px}.code{direction:ltr;text-align:center;letter-spacing:7px;font-size:25px;font-weight:900;padding:14px;border-radius:14px;border:1px solid #ffffff12;background:#0004;color:#fff;width:100%;outline:none}
+.error{min-height:20px;text-align:center;color:#ff6b7c;font-size:11px;margin:7px}
+.room-code{font-size:42px;letter-spacing:9px;text-align:center;font-weight:900;margin:7px 0 18px}
+.players{display:grid;grid-template-columns:1fr 1fr;gap:10px}.player{padding:15px;text-align:center;border-radius:17px;background:#ffffff07;border:1px solid #ffffff0c}.player .icon{font-size:28px}.player strong,.player span{display:block}.player span{font-size:10px;color:#718098;margin-top:4px}
+.score{display:flex;justify-content:space-between;margin:12px 0;padding:13px 15px;border-radius:16px;background:#ffffff06}
+.divider{height:1px;background:#ffffff0b;margin:20px 0}
+.arena{display:flex;flex-direction:column;align-items:center;text-align:center}.state{min-height:43px;color:#8190a8;font-size:12px;line-height:1.7}
+.reaction{width:min(285px,75vw);height:min(285px,75vw);border-radius:50%;border:0;background:radial-gradient(circle,#243d6d,#101a31);box-shadow:0 0 70px #2b74d433;color:#fff;font-size:27px;font-weight:900;transition:.08s}.reaction.wait{background:radial-gradient(circle,#222d45,#0b1120)}.reaction.go{background:radial-gradient(circle,#2acb72,#0d5a37);box-shadow:0 0 90px #2acb7266;transform:scale(1.03)}.reaction.bad{background:radial-gradient(circle,#d34f61,#591e2b)}
+.small{font-size:10px;color:#647289;text-align:center;margin-top:12px;line-height:1.6}
+.badge{display:inline-block;padding:7px 10px;border-radius:20px;background:#55db8317;color:#65df92;font-size:10px}
+.hidden{display:none!important}
 </style>
-
 </head>
-
 <body>
-
 <div class="wrap">
+  <div class="top">
+    <h2>⚡ الأسرع</h2>
+    <a class="back" href="../index.html">← الرئيسية</a>
+  </div>
 
-<div class="top">
+  <!-- شاشة إنشاء/دخول الغرفة -->
+  <section id="lobby" class="card">
+    <div class="sub">لعبة سرعة وردة فعل مباشرة</div>
+    <div class="title">⚡ الأسرع</div>
+    <div id="lobbyUser" class="sub">...</div>
 
-<h2>⚡ الأسرع</h2>
+    <div id="lobbyActions" class="lobby-actions">
+      <button class="btn" onclick="createRoom()">إنشاء غرفة</button>
+      <button class="btn secondary" onclick="showJoin()">دخول غرفة</button>
+    </div>
 
-<a href="../index.html">
-← الغرفة
-</a>
+    <div id="joinBox" class="join hidden">
+      <input id="joinCode" class="code" maxlength="6" inputmode="numeric" placeholder="كود الغرفة">
+      <div id="joinError" class="error"></div>
+      <div class="lobby-actions">
+        <button class="btn" onclick="joinRoom()">دخول</button>
+        <button class="btn secondary" onclick="hideJoin()">رجوع</button>
+      </div>
+    </div>
+    <div id="lobbyError" class="error"></div>
+  </section>
 
+  <!-- شاشة الغرفة -->
+  <section id="roomView" class="card hidden">
+    <div class="sub">كود الغرفة</div>
+    <div id="roomCode" class="room-code">------</div>
+
+    <div class="players">
+      <div class="player"><div class="icon">☾</div><strong id="hostName">بدر</strong><span id="hostStatus">متصل</span></div>
+      <div class="player"><div class="icon">☀</div><strong id="guestName">في انتظار شمس...</strong><span id="guestStatus">بانتظار اللاعب</span></div>
+    </div>
+
+    <div class="score">
+      <span>☾ بدر: <b id="scoreA">0</b></span>
+      <span>☀ شمس: <b id="scoreB">0</b></span>
+    </div>
+
+    <div id="waitingBox">
+      <div class="divider"></div>
+      <div style="text-align:center"><span class="badge">الغرفة جاهزة</span></div>
+      <p class="sub" style="margin-top:12px">ابعث كود الغرفة للاعب الثاني. عندما يدخل، تبدأ الجولة.</p>
+      <button id="startLobbyBtn" class="btn orange" onclick="requestStart()">ابدأ الجولة</button>
+      <button class="btn secondary" onclick="leaveRoom()">مغادرة الغرفة</button>
+    </div>
+
+    <div id="gameBox" class="hidden">
+      <div class="divider"></div>
+      <div class="arena">
+        <div id="state" class="state">استعد...</div>
+        <button id="reaction" class="reaction wait" disabled>استعد</button>
+        <button id="nextBtn" class="btn" onclick="requestStart()">جولة جديدة</button>
+        <div class="small">لا تضغط قبل أن تصبح الدائرة خضراء. أول ضغطة صحيحة تفوز.</div>
+      </div>
+      <button class="btn secondary" onclick="leaveRoom()">مغادرة الغرفة</button>
+    </div>
+  </section>
 </div>
-
-
-<div class="card">
-
-<div class="code">
-غرفة <b id="roomCode">------</b>
-</div>
-
-
-<div class="players">
-
-<div class="p">
-☾
-<strong id="meName">...</strong>
-<span id="meStatus">متصل</span>
-</div>
-
-<div class="p">
-☀
-<strong id="otherName">...</strong>
-<span id="otherStatus">متصل</span>
-</div>
-
-</div>
-
-
-<div class="score">
-
-<span>
-☾ بدر:
-<b id="scoreA">0</b>
-</span>
-
-<span>
-☀ شمس:
-<b id="scoreB">0</b>
-</span>
-
-</div>
-
-
-<div class="arena">
-
-<div id="state" class="state">
-جاري ربط الهاتفين...
-</div>
-
-
-<button
-id="reaction"
-class="reaction wait"
-disabled>
-استعد
-</button>
-
-
-<button
-id="start"
-class="btn"
-onclick="requestStart()">
-ابدأ الجولة
-</button>
-
-
-<div class="small">
-لا تضغط إلا عندما تصبح الدائرة خضراء.
-أول ضغطة صحيحة تفوز.
-</div>
-
-</div>
-
-</div>
-
-</div>
-
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
 <script>
-
 "use strict";
 
+const SUPABASE_URL="https://vslatdxtvfjeftoljxc.supabase.co";
+const SUPABASE_KEY="sb_publishable_bxZkAQifpNf7yHYo_HuM-w_fUafg_Y2";
 
-const SUPABASE_URL =
-"https://vslatdxtvfjeftoljxc.supabase.co";
-
-
-const SUPABASE_KEY =
-"sb_publishable_bxZkAQifpNf7yHYo_HuM-w_fUafg_Y2";
-
-
-const PLAYERS = {
-
-"1250493517":{
-name:"بدر",
-icon:"☾"
-},
-
-"8187108979":{
-name:"شمس",
-icon:"☀"
-}
-
+const PLAYERS={
+  "1250493517":{name:"بدر",icon:"☾"},
+  "8187108979":{name:"شمس",icon:"☀"}
 };
 
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let meId=null,me=null,room=null,ch=null,timer=null,round=0,active=false,localPressed=false,goAt=0;
 
-const sb =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
-
-
-let meId = null;
-let room = null;
-let ch = null;
-
-let timer = null;
-let round = 0;
-let active = false;
-let goAt = 0;
-let localPressed = false;
-
-
-function $(x){
-return document.getElementById(x);
-}
-
+const $=id=>document.getElementById(id);
 
 function getId(){
-
-try{
-
-const tg =
-window.Telegram &&
-window.Telegram.WebApp;
-
-if(tg){
-
-tg.ready();
-
-try{
-tg.expand();
-}catch(e){}
-
-const u =
-tg.initDataUnsafe &&
-tg.initDataUnsafe.user;
-
-if(u && u.id)
-return String(u.id);
-
+  try{
+    const tg=window.Telegram?.WebApp;
+    if(tg){
+      tg.ready();
+      tg.expand();
+      const u=tg.initDataUnsafe?.user;
+      if(u?.id)return String(u.id);
+    }
+  }catch(e){}
+  return new URLSearchParams(location.search).get("user_id");
 }
 
-}catch(e){}
+function setError(id,msg){$(id).textContent=msg||""}
 
-
-const urlId =
-new URLSearchParams(location.search)
-.get("user_id");
-
-return urlId
-? String(urlId)
-: null;
-
+function boot(){
+  meId=getId();
+  me=PLAYERS[meId];
+  if(!me){
+    $("lobbyUser").textContent=meId?"الحساب غير مسجل: "+meId:"افتح اللعبة من داخل البوت";
+    $("lobbyActions").classList.add("hidden");
+    return;
+  }
+  $("lobbyUser").textContent=me.icon+" "+me.name;
 }
 
-
-async function load(){
-
-meId = getId();
-
-
-const code =
-new URLSearchParams(location.search)
-.get("room");
-
-
-if(
-!meId ||
-!PLAYERS[meId] ||
-!code
-){
-
-$("state").textContent =
-"تعذر معرفة اللاعب أو الغرفة.";
-
-return;
-
+function showJoin(){
+  $("lobbyActions").classList.add("hidden");
+  $("joinBox").classList.remove("hidden");
+  $("joinCode").focus();
+}
+function hideJoin(){
+  $("joinBox").classList.add("hidden");
+  $("lobbyActions").classList.remove("hidden");
+  setError("joinError","");
 }
 
+function randomCode(){return String(Math.floor(100000+Math.random()*900000))}
 
-$("meName").textContent =
-PLAYERS[meId].icon +
-" " +
-PLAYERS[meId].name;
-
-
-$("roomCode").textContent =
-code;
-
-
-const {data,error} =
-await sb
-.from("game_rooms")
-.select("*")
-.eq("code",code)
-.maybeSingle();
-
-
-if(error || !data){
-
-$("state").textContent =
-"الغرفة غير موجودة.";
-
-return;
-
+async function createRoom(){
+  if(!meId)return;
+  setError("lobbyError","");
+  for(let i=0;i<8;i++){
+    const code=randomCode();
+    const {data,error}=await sb.from("game_rooms").insert({
+      code,
+      host_id:meId,
+      guest_id:null,
+      game:"fastest",
+      status:"waiting",
+      state:{scores:{"1250493517":0,"8187108979":0},phase:"lobby",round:0}
+    }).select().single();
+    if(!error&&data){
+      await enterRoom(data);
+      return;
+    }
+  }
+  setError("lobbyError","تعذر إنشاء الغرفة. تأكد أن SQL تم تنفيذه بنجاح.");
 }
 
+async function joinRoom(){
+  const code=$("joinCode").value.replace(/\D/g,"").slice(0,6);
+  if(code.length!==6){setError("joinError","اكتب كود الغرفة من 6 أرقام.");return}
+  setError("joinError","");
 
-room = data;
+  const {data,error}=await sb.from("game_rooms").select("*").eq("code",code).eq("status","waiting").maybeSingle();
+  if(error||!data){setError("joinError","الغرفة غير موجودة أو ليست متاحة.");return}
+  if(String(data.host_id)===meId){setError("joinError","أنت منشئ هذه الغرفة بالفعل.");return}
 
+  const {data:updated,error:upErr}=await sb.from("game_rooms")
+    .update({guest_id:meId,status:"ready"})
+    .eq("id",data.id).eq("status","waiting").select().single();
 
-const other =
-String(room.host_id) === meId
-? room.guest_id
-: room.host_id;
-
-
-$("otherName").textContent =
-other &&
-PLAYERS[String(other)]
-?
-PLAYERS[String(other)].icon+
-" "+
-PLAYERS[String(other)].name
-:
-"في الانتظار";
-
-
-render(room);
-
-subscribe();
-
+  if(upErr||!updated){setError("joinError","سبق لاعب آخر ودخل الغرفة.");return}
+  await enterRoom(updated);
 }
 
-
-function render(r){
-
-const s =
-r.state || {};
-
-const scores =
-s.scores || {};
-
-
-$("scoreA").textContent =
-Number(scores["1250493517"]) || 0;
-
-
-$("scoreB").textContent =
-Number(scores["8187108979"]) || 0;
-
-
-if(s.game !== "fastest")
-return;
-
-
-/*
-الجولة الجديدة:
-نستعمل goAt الموجود في قاعدة البيانات
-بدل ما نخلي كل هاتف يغير القاعدة بنفسه.
-*/
-
-if(
-s.phase === "round" &&
-Number(s.round) !== round
-){
-
-round =
-Number(s.round);
-
-active = false;
-
-localPressed = false;
-
-$("reaction").disabled = false;
-
-$("reaction").className =
-"reaction wait";
-
-$("reaction").textContent =
-"استعد";
-
-$("state").textContent =
-"استعد… لا تضغط قبل الأخضر";
-
-
-scheduleGo(
-Number(s.goAt)
-);
-
-return;
-
+async function enterRoom(r){
+  room=r;
+  $("lobby").classList.add("hidden");
+  $("roomView").classList.remove("hidden");
+  $("roomCode").textContent=r.code;
+  renderRoom(r);
+  await subscribeRoom();
 }
 
+function renderRoom(r){
+  const scores=(r.state&&r.state.scores)||{};
+  $("hostName").textContent=PLAYERS[String(r.host_id)]?.name||"بدر";
+  $("guestName").textContent=r.guest_id
+    ? (PLAYERS[String(r.guest_id)]?.name||"اللاعب الثاني")
+    : "في انتظار شمس...";
+  $("guestStatus").textContent=r.guest_id?"متصل":"بانتظار اللاعب";
+  $("scoreA").textContent=Number(scores["1250493517"])||0;
+  $("scoreB").textContent=Number(scores["8187108979"])||0;
 
-/*
-إذا وصلنا لحالة الأخضر
-*/
+  const isHost=String(r.host_id)===meId;
+  const hasGuest=!!r.guest_id;
+  const phase=r.state?.phase||"lobby";
 
-if(
-s.phase === "go" &&
-Number(s.round) === round
-){
+  $("waitingBox").classList.toggle("hidden",phase!=="lobby" && phase!=="result");
+  $("gameBox").classList.toggle("hidden",phase==="lobby");
 
-active = true;
+  if(phase==="lobby"){
+    $("startLobbyBtn").disabled=!isHost||!hasGuest;
+    $("startLobbyBtn").textContent=!hasGuest?"في انتظار اللاعب الثاني...":isHost?"ابدأ الجولة":"انتظر بدر ليبدأ";
+  }
 
-goAt =
-Number(s.goAt) || Date.now();
-
-$("reaction").disabled = false;
-
-$("reaction").className =
-"reaction go";
-
-$("reaction").textContent =
-"اضغط!";
-
-$("state").textContent =
-"الآن! ⚡";
-
-return;
-
+  if(phase==="round"||phase==="go"||phase==="result"){
+    renderGame(r);
+  }
 }
 
-
-/*
-النتيجة
-*/
-
-if(
-s.phase === "result" &&
-Number(s.round) === round
-){
-
-clearTimeout(timer);
-
-active = false;
-
-$("reaction").disabled = true;
-
-if(s.winner === "false-start"){
-
-$("reaction").className =
-"reaction bad";
-
-$("reaction").textContent =
-"❌";
-
-$("state").textContent =
-s.falseStarter === meId
-?
-"ضغطت بدري! ❌"
-:
-"الخصم ضغط بدري! 🎉";
-
-}else{
-
-$("reaction").className =
-"reaction wait";
-
-$("reaction").textContent =
-"🏆";
-
-if(s.winner === meId){
-
-$("state").textContent =
-"فزت بالجولة! 🎉";
-
-}else{
-
-const ms =
-Number(s.winnerMs) || 0;
-
-$("state").textContent =
-"الخصم أسرع بـ "+ms+"ms ⚡";
-
+function renderGame(r){
+  const s=r.state||{};
+  if(s.phase==="round"){
+    if(s.round!==round){
+      round=Number(s.round)||0;
+      active=false;localPressed=false;
+      $("reaction").disabled=false;
+      $("reaction").className="reaction wait";
+      $("reaction").textContent="استعد";
+      $("state").textContent="الجولة بدأت… لا تضغط قبل الأخضر";
+      scheduleGo(Number(s.goAt)||Date.now()+1500);
+    }
+  }else if(s.phase==="go"){
+    round=Number(s.round)||round;
+    active=true;localPressed=false;
+    goAt=Number(s.goAt)||Date.now();
+    $("reaction").disabled=false;
+    $("reaction").className="reaction go";
+    $("reaction").textContent="اضغط!";
+    $("state").textContent="الآن! ⚡";
+  }else if(s.phase==="result"){
+    active=false;
+    $("reaction").disabled=true;
+    $("reaction").className="reaction wait";
+    $("reaction").textContent="🏆";
+    if(s.winner==="false-start"){
+      $("state").textContent="ضغط أحد اللاعبين بدري ❌";
+    }else{
+      const winName=PLAYERS[String(s.winner)]?.name||"اللاعب";
+      $("state").textContent=winName+" فاز بالجولة! ⚡";
+    }
+  }
 }
-
-}
-
-}
-
-}
-
-
-/*
-كل هاتف يحوّل الدائرة للأخضر محلياً
-في نفس الوقت المحدد من السيرفر.
-*/
 
 function scheduleGo(ts){
-
-clearTimeout(timer);
-
-if(!ts)
-return;
-
-
-const delay =
-Math.max(0,ts-Date.now());
-
-
-timer =
-setTimeout(()=>{
-
-if(!room)
-return;
-
-
-const current =
-room.state || {};
-
-
-if(
-current.phase !== "round" ||
-Number(current.round) !== round
-)
-return;
-
-
-active = true;
-
-goAt =
-Number(current.goAt) || Date.now();
-
-
-$("reaction").disabled = false;
-
-$("reaction").className =
-"reaction go";
-
-$("reaction").textContent =
-"اضغط!";
-
-$("state").textContent =
-"الآن! ⚡";
-
-},delay);
-
+  clearTimeout(timer);
+  const delay=Math.max(100,ts-Date.now());
+  timer=setTimeout(async()=>{
+    if(!room)return;
+    const current=room.state||{};
+    if(current.phase!=="round"||Number(current.round)!==round)return;
+    const state={...current,phase:"go",goAt:Date.now()};
+    const {data,error}=await sb.from("game_rooms").update({state}).eq("id",room.id).select().single();
+    if(!error&&data)room=data;
+  },delay);
 }
 
-
-/*
-البداية تكون من المنشئ فقط
-حتى ما يضغط اللاعبان "ابدأ الجولة"
-في نفس اللحظة.
-*/
+async function subscribeRoom(){
+  if(ch)await sb.removeChannel(ch);
+  ch=sb.channel("fastest-room-"+room.id)
+    .on("postgres_changes",{event:"UPDATE",schema:"public",table:"game_rooms",filter:"id=eq."+room.id},payload=>{
+      room=payload.new;
+      renderRoom(room);
+    })
+    .subscribe();
+}
 
 async function requestStart(){
+  if(!room?.guest_id){alert("استنى اللاعب الثاني يدخل الغرفة أولاً.");return}
+  if(String(room.host_id)!==meId){$("state").textContent="خلي بدر يبدأ الجولة.";return}
 
-if(!room?.guest_id){
+  const next=(Number(room.state?.round)||0)+1;
+  const goAt=Date.now()+1800+Math.floor(Math.random()*2600);
+  const state={...(room.state||{}),game:"fastest",phase:"round",round:next,goAt};
+  round=next;active=false;localPressed=false;
 
-$("state").textContent =
-"استنى اللاعب الثاني يدخل الغرفة.";
-
-return;
-
+  const {data,error}=await sb.from("game_rooms").update({status:"playing",state}).eq("id",room.id).select().single();
+  if(error){$("state").textContent="تعذر بدء الجولة.";return}
+  room=data;renderRoom(room);
 }
-
-
-if(String(room.host_id) !== meId){
-
-$("state").textContent =
-"بدر هو اللي يبدأ الجولة.";
-
-return;
-
-}
-
-
-/*
-لا تبدأ جولة جديدة إذا كانت جولة حالياً.
-*/
-
-const current =
-room.state || {};
-
-if(
-current.phase === "round" ||
-current.phase === "go"
-){
-
-$("state").textContent =
-"الجولة الحالية ما زالت شغالة.";
-
-return;
-
-}
-
-
-const next =
-(Number(current.round) || 0) + 1;
-
-
-/*
-وقت عشوائي بين 1.8 و4.4 ثانية
-*/
-
-const goAt =
-Date.now() +
-1800 +
-Math.floor(
-Math.random()*2600
-);
-
-
-const state = {
-
-...current,
-
-game:"fastest",
-
-phase:"round",
-
-round:next,
-
-goAt,
-
-winner:null,
-
-winnerMs:null,
-
-falseStarter:null
-
-};
-
-
-round = next;
-
-active = false;
-
-localPressed = false;
-
-
-$("reaction").disabled = false;
-
-$("reaction").className =
-"reaction wait";
-
-$("reaction").textContent =
-"استعد";
-
-$("state").textContent =
-"استعد…";
-
-
-const {data,error} =
-await sb
-.from("game_rooms")
-.update({
-game:"fastest",
-state
-})
-.eq("id",room.id)
-.select()
-.single();
-
-
-if(error){
-
-$("state").textContent =
-"حدث خطأ في بدء الجولة.";
-
-return;
-
-}
-
-
-/*
-مهم جداً:
-نشغّل مؤقت الهاتف الذي بدأ الجولة أيضاً.
-*/
-
-room = data;
-
-scheduleGo(goAt);
-
-}
-
-
-/*
-الضغط قبل الأخضر:
-تحديث ذري، وأول واحد فقط ينجح.
-*/
-
-async function falseStart(){
-
-if(localPressed)
-return;
-
-localPressed = true;
-
-clearTimeout(timer);
-
-const current =
-room.state || {};
-
-
-const state = {
-
-...current,
-
-phase:"result",
-
-winner:"false-start",
-
-falseStarter:meId
-
-};
-
-
-const {data,error} =
-await sb
-.from("game_rooms")
-.update({
-state
-})
-.eq("id",room.id)
-.eq("state->>phase","round")
-.eq("state->>round",String(round))
-.select()
-.maybeSingle();
-
-
-if(data){
-
-room = data;
-
-active = false;
-
-$("reaction").disabled = true;
-
-$("reaction").className =
-"reaction bad";
-
-$("reaction").textContent =
-"❌";
-
-$("state").textContent =
-"ضغطت بدري! ❌";
-
-}else{
-
-/*
-لاعب آخر حسم الجولة قبلك.
-*/
-
-localPressed = false;
-
-}
-
-}
-
-
-/*
-الضغط الصحيح:
-نستعمل شرط phase=go
-حتى أول تحديث فقط ينجح.
-*/
 
 async function press(){
+  if(localPressed)return;
+  localPressed=true;
+  const current=room?.state||{};
 
-if(localPressed)
-return;
+  if(!active||current.phase!=="go"){
+    const state={...current,phase:"result",winner:"false-start",round};
+    await sb.from("game_rooms").update({state}).eq("id",room.id);
+    return;
+  }
 
+  const ms=Math.max(0,Date.now()-goAt);
+  const scores={...(current.scores||{})};
+  scores[meId]=(Number(scores[meId])||0)+1;
+  const state={...current,phase:"result",winner:meId,winnerMs:ms,scores};
 
-if(!active){
-
-await falseStart();
-
-return;
-
+  const {data}=await sb.from("game_rooms").update({state}).eq("id",room.id).select().single();
+  if(data)room=data;
+  $("state").textContent="رد فعلك: "+ms+"ms ⚡";
 }
 
-
-localPressed = true;
-
-
-const current =
-room.state || {};
-
-
-if(
-current.phase !== "go" ||
-Number(current.round) !== round
-){
-
-localPressed = false;
-
-return;
-
+async function leaveRoom(){
+  clearTimeout(timer);
+  if(room){
+    if(String(room.host_id)===meId){
+      await sb.from("game_rooms").update({status:"closed",state:{...(room.state||{}),phase:"closed"}}).eq("id",room.id);
+    }else{
+      await sb.from("game_rooms").update({guest_id:null,status:"waiting",state:{...(room.state||{}),phase:"lobby"}}).eq("id",room.id);
+    }
+  }
+  if(ch)await sb.removeChannel(ch);
+  ch=null;room=null;
+  $("roomView").classList.add("hidden");
+  $("lobby").classList.remove("hidden");
+  $("lobbyActions").classList.remove("hidden");
+  $("joinBox").classList.add("hidden");
 }
 
-
-const ms =
-Math.max(
-0,
-Date.now() -
-(Number(current.goAt) || goAt)
-);
-
-
-const scores = {
-...(current.scores || {})
-};
-
-
-scores[meId] =
-(Number(scores[meId]) || 0) + 1;
-
-
-const state = {
-
-...current,
-
-phase:"result",
-
-winner:meId,
-
-winnerMs:ms,
-
-scores
-
-};
-
-
-/*
-هذا الشرط هو المهم:
-إذا بدر وشمس ضغطوا تقريباً في نفس اللحظة،
-أول UPDATE يحوّل phase من go إلى result،
-والثاني لن يجد phase=go وبالتالي لن يفوز.
-*/
-
-const {data,error} =
-await sb
-.from("game_rooms")
-.update({
-state
-})
-.eq("id",room.id)
-.eq("state->>phase","go")
-.eq("state->>round",String(round))
-.select()
-.maybeSingle();
-
-
-if(data){
-
-room = data;
-
-active = false;
-
-clearTimeout(timer);
-
-$("reaction").disabled = true;
-
-$("reaction").className =
-"reaction wait";
-
-$("reaction").textContent =
-"🏆";
-
-$("state").textContent =
-"رد فعلك: "+ms+"ms ⚡";
-
-}else{
-
-/*
-الخصم سبقك بجزء من الثانية.
-*/
-
-localPressed = false;
-
-active = false;
-
-$("reaction").disabled = true;
-
-$("reaction").className =
-"reaction bad";
-
-$("reaction").textContent =
-"⚡";
-
-$("state").textContent =
-"الخصم كان أسرع!";
-
-}
-
-}
-
-
-/*
-Realtime
-*/
-
-function subscribe(){
-
-if(ch)
-sb.removeChannel(ch);
-
-
-ch =
-sb
-.channel("fastest-"+room.id)
-
-.on(
-"postgres_changes",
-{
-event:"UPDATE",
-schema:"public",
-table:"game_rooms",
-filter:"id=eq."+room.id
-},
-p=>{
-
-room = p.new;
-
-render(room);
-
-}
-)
-
-.subscribe();
-
-}
-
-
-$("reaction")
-.addEventListener(
-"click",
-press
-);
-
-
-window.addEventListener(
-"load",
-load
-);
-
+$("reaction").addEventListener("click",press);
+window.addEventListener("load",boot);
 </script>
-
 </body>
 </html>
