@@ -5,223 +5,733 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#070b18">
 <title>بدر × شمس</title>
+
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;min-height:100%;font-family:Segoe UI,Tahoma,Arial,sans-serif;background:radial-gradient(circle at 50% -20%,#182b55,#090f21 45%,#040711);color:#fff}
-body{min-height:100vh;overflow-x:hidden}button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-.stars{position:fixed;inset:0;pointer-events:none;opacity:.7;background-image:radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1px),radial-gradient(circle,rgba(255,255,255,.45) 1px,transparent 1px);background-size:80px 80px,130px 130px;background-position:0 0,30px 40px}
-.login-screen{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;position:relative}
-.login-card,.panel{width:min(560px,100%);padding:26px;border:1px solid rgba(255,255,255,.08);border-radius:28px;background:linear-gradient(145deg,rgba(20,31,62,.96),rgba(7,11,25,.97));box-shadow:0 30px 90px #0008;backdrop-filter:blur(18px)}
-.brand{text-align:center}.brand-icons{font-size:44px;letter-spacing:10px}.brand h1{margin:5px 0;font-size:30px}.brand p,.muted{color:#8190a8;font-size:13px}
-.user-card{margin:25px 0 15px;padding:16px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);text-align:center}
-.user-card strong{display:block;font-size:19px}.user-card span{color:#718099;font-size:11px}
-.actions{display:grid;gap:10px}.btn{width:100%;border:0;border-radius:15px;padding:15px;color:#fff;font-weight:800;background:linear-gradient(135deg,#1e67ba,#3286df)}.btn.secondary{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}.btn.orange{background:linear-gradient(135deg,#d86b16,#ff9d38)}
-.code{direction:ltr;text-align:center;letter-spacing:7px;font-size:26px;font-weight:900;padding:15px;border-radius:15px;border:1px solid rgba(255,255,255,.08);background:#0004;color:#fff;width:100%}
-.room{max-width:720px;margin:auto;padding:18px 14px 100px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.top h2{margin:0}.badge{padding:7px 10px;border-radius:20px;background:#55db8317;color:#65df92;font-size:10px}
-.room-card{padding:20px;border-radius:24px;background:linear-gradient(135deg,#143765,#0b152d);border:1px solid #5aa5ff1c}.room-code{font-size:42px;letter-spacing:10px;text-align:center;font-weight:900;margin:8px 0 18px}.players{display:grid;grid-template-columns:1fr 1fr;gap:10px}.player{padding:15px;border-radius:17px;background:#ffffff09;border:1px solid #ffffff0c;text-align:center}.player .icon{font-size:28px}.player strong,.player span{display:block}.player span{color:#74829a;font-size:10px;margin-top:4px}
-.games{display:grid;gap:10px;margin-top:14px}.game{padding:17px;border-radius:18px;background:#ffffff06;border:1px solid #ffffff0c;display:flex;align-items:center;gap:12px}.game .art{font-size:32px}.game>div:nth-child(2){flex:1}.game strong,.game small{display:block}.game small{color:#718098;margin-top:4px}
-.score{display:flex;justify-content:space-between;margin:12px 0;padding:13px 16px;border-radius:16px;background:#ffffff06}.error{color:#ff6b7c;text-align:center;min-height:22px;font-size:12px;margin:8px}
+body{min-height:100vh;overflow-x:hidden}
+button,input{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+.stars{
+position:fixed;inset:0;pointer-events:none;opacity:.7;
+background-image:radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1px),
+radial-gradient(circle,rgba(255,255,255,.45) 1px,transparent 1px);
+background-size:80px 80px,130px 130px;
+background-position:0 0,30px 40px
+}
+
+.login-screen{
+min-height:100vh;display:flex;justify-content:center;align-items:center;
+padding:20px;position:relative
+}
+
+.login-card,.panel{
+width:min(560px,100%);
+padding:26px;border:1px solid rgba(255,255,255,.08);
+border-radius:28px;
+background:linear-gradient(145deg,rgba(20,31,62,.96),rgba(7,11,25,.97));
+box-shadow:0 30px 90px #0008;
+backdrop-filter:blur(18px)
+}
+
+.brand{text-align:center}
+.brand-icons{font-size:44px;letter-spacing:10px}
+.brand h1{margin:5px 0;font-size:30px}
+.brand p,.muted{color:#8190a8;font-size:13px}
+
+.user-card{
+margin:25px 0 15px;padding:16px;border-radius:18px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.07);
+text-align:center
+}
+
+.user-card strong{display:block;font-size:19px}
+.user-card span{color:#718099;font-size:11px}
+
+.actions{display:grid;gap:10px}
+
+.btn{
+width:100%;border:0;border-radius:15px;padding:15px;
+color:#fff;font-weight:800;
+background:linear-gradient(135deg,#1e67ba,#3286df)
+}
+
+.btn.secondary{
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.08)
+}
+
+.code{
+direction:ltr;text-align:center;letter-spacing:7px;font-size:26px;
+font-weight:900;padding:15px;border-radius:15px;
+border:1px solid rgba(255,255,255,.08);
+background:#0004;color:#fff;width:100%
+}
+
+.room{
+max-width:720px;margin:auto;padding:18px 14px 100px
+}
+
+.top{
+display:flex;justify-content:space-between;align-items:center;
+margin-bottom:14px
+}
+
+.top h2{margin:0}
+
+.badge{
+padding:7px 10px;border-radius:20px;
+background:#55db8317;color:#65df92;font-size:10px
+}
+
+.room-card{
+padding:20px;border-radius:24px;
+background:linear-gradient(135deg,#143765,#0b152d);
+border:1px solid #5aa5ff1c
+}
+
+.room-code{
+font-size:42px;letter-spacing:10px;text-align:center;
+font-weight:900;margin:8px 0 18px
+}
+
+.players{
+display:grid;grid-template-columns:1fr 1fr;gap:10px
+}
+
+.player{
+padding:15px;border-radius:17px;
+background:#ffffff09;border:1px solid #ffffff0c;
+text-align:center
+}
+
+.player .icon{font-size:28px}
+.player strong,.player span{display:block}
+.player span{
+color:#74829a;font-size:10px;margin-top:4px
+}
+
+.games{display:grid;gap:10px;margin-top:14px}
+
+.game{
+padding:17px;border-radius:18px;
+background:#ffffff06;border:1px solid #ffffff0c;
+display:flex;align-items:center;gap:12px
+}
+
+.game .art{font-size:32px}
+.game>div:nth-child(2){flex:1}
+.game strong,.game small{display:block}
+.game small{color:#718098;margin-top:4px}
+
+.score{
+display:flex;justify-content:space-between;
+margin:12px 0;padding:13px 16px;
+border-radius:16px;background:#ffffff06
+}
+
+.error{
+color:#ff6b7c;text-align:center;
+min-height:22px;font-size:12px;margin:8px
+}
 </style>
 </head>
+
 <body>
+
 <div class="stars"></div>
 
 <section id="login" class="login-screen">
-  <main class="login-card">
-    <div class="brand">
-      <div class="brand-icons">☾ × ☀</div>
-      <h1>بدر × شمس</h1>
-      <p>مساحة اللعب المتصلة</p>
-    </div>
-    <div id="userCard" class="user-card">
-      <strong id="userName">جاري التعرف عليك...</strong>
-      <span id="userId"></span>
-    </div>
-    <div id="loginActions" class="actions hidden">
-      <button class="btn" onclick="createRoom()">إنشاء غرفة</button>
-      <button class="btn secondary" onclick="showJoin()">دخول غرفة</button>
-    </div>
-    <div id="joinBox" class="hidden">
-      <input id="joinCode" class="code" maxlength="6" inputmode="numeric" placeholder="كود الغرفة">
-      <div class="error" id="joinError"></div>
-      <div class="actions">
-        <button class="btn" onclick="joinRoom()">دخول</button>
-        <button class="btn secondary" onclick="hideJoin()">رجوع</button>
-      </div>
-    </div>
-    <div id="loginError" class="error"></div>
-  </main>
+<main class="login-card">
+
+<div class="brand">
+<div class="brand-icons">☾ × ☀</div>
+<h1>بدر × شمس</h1>
+<p>مساحة اللعب المتصلة</p>
+</div>
+
+<div id="userCard" class="user-card">
+<strong id="userName">جاري التعرف عليك...</strong>
+<span id="userId"></span>
+</div>
+
+<div id="loginActions" class="actions hidden">
+<button class="btn" onclick="createRoom()">إنشاء غرفة</button>
+<button class="btn secondary" onclick="showJoin()">دخول غرفة</button>
+</div>
+
+<div id="joinBox" class="hidden">
+<input id="joinCode" class="code"
+maxlength="6"
+inputmode="numeric"
+placeholder="كود الغرفة">
+
+<div class="error" id="joinError"></div>
+
+<div class="actions">
+<button class="btn" onclick="joinRoom()">دخول</button>
+<button class="btn secondary" onclick="hideJoin()">رجوع</button>
+</div>
+</div>
+
+<div id="loginError" class="error"></div>
+
+</main>
 </section>
+
 
 <section id="roomView" class="room hidden">
-  <div class="top">
-    <div><small class="muted">الغرفة</small><h2>بدر × شمس</h2></div>
-    <span id="connection" class="badge">جاري الاتصال...</span>
-  </div>
-  <div class="room-card">
-    <div class="muted" style="text-align:center">كود الغرفة</div>
-    <div id="roomCode" class="room-code">------</div>
-    <div class="players">
-      <div class="player"><div class="icon">☾</div><strong id="hostName">بدر</strong><span id="hostStatus">متصل</span></div>
-      <div class="player"><div class="icon">☀</div><strong id="guestName">في انتظار شمس...</strong><span id="guestStatus">بانتظار اللاعب</span></div>
-    </div>
-  </div>
-  <div class="score">
-    <span>☾ بدر: <b id="baderScore">0</b></span>
-    <span>☀ شمس: <b id="shamsScore">0</b></span>
-  </div>
-  <h3>الألعاب</h3>
-  <div class="games">
-    <div class="game">
-      <div class="art">⚡</div><div><strong>الأسرع</strong><small>تحدي سرعة وردة فعل مباشر بين الهاتفين</small></div>
-      <button class="btn" style="width:auto;padding:11px 15px" onclick="startGame('fastest')">العب</button>
-    </div>
-  </div>
-  <div style="margin-top:15px"><button class="btn secondary" onclick="leaveRoom()">مغادرة الغرفة</button></div>
+
+<div class="top">
+<div>
+<small class="muted">الغرفة</small>
+<h2>بدر × شمس</h2>
+</div>
+
+<span id="connection" class="badge">
+جاري الاتصال...
+</span>
+</div>
+
+
+<div class="room-card">
+
+<div class="muted" style="text-align:center">
+كود الغرفة
+</div>
+
+<div id="roomCode" class="room-code">
+------
+</div>
+
+<div class="players">
+
+<div class="player">
+<div class="icon">☾</div>
+<strong id="hostName">بدر</strong>
+<span id="hostStatus">متصل</span>
+</div>
+
+<div class="player">
+<div class="icon">☀</div>
+<strong id="guestName">في انتظار شمس...</strong>
+<span id="guestStatus">بانتظار اللاعب</span>
+</div>
+
+</div>
+</div>
+
+
+<div class="score">
+<span>☾ بدر: <b id="baderScore">0</b></span>
+<span>☀ شمس: <b id="shamsScore">0</b></span>
+</div>
+
+
+<h3>الألعاب</h3>
+
+<div class="games">
+
+<div class="game">
+
+<div class="art">⚡</div>
+
+<div>
+<strong>الأسرع</strong>
+<small>تحدي سرعة وردة فعل مباشر بين الهاتفين</small>
+</div>
+
+<button
+class="btn"
+style="width:auto;padding:11px 15px"
+onclick="startGame('fastest')">
+العب
+</button>
+
+</div>
+
+</div>
+
+
+<div style="margin-top:15px">
+<button class="btn secondary" onclick="leaveRoom()">
+مغادرة الغرفة
+</button>
+</div>
+
 </section>
 
+
+<!-- Telegram Mini App -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<!-- Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 "use strict";
 
-/* إعداد Supabase */
-const SUPABASE_URL = "https://vslatdxtvfjeftoljxc.supabase.co";
-const SUPABASE_KEY = "sb_publishable_bxZkAQifpNf7yHYo_HuM-w_fUafg_Y2";
+const SUPABASE_URL =
+"https://vslatdxtvfjeftoljxc.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_bxZkAQifpNf7yHYo_HuM-w_fUafg_Y2";
 
 const KNOWN_PLAYERS = {
-  "1250493517": {name:"بدر", icon:"☾"},
-  "8187108979": {name:"شمس", icon:"☀"}
+"1250493517": {name:"بدر",icon:"☾"},
+"8187108979": {name:"شمس",icon:"☀"}
 };
 
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-let me = null, room = null, roomChannel = null;
+const sb =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
-const $ = id => document.getElementById(id);
+let me = null;
+let room = null;
+let roomChannel = null;
+
+
+const $ = id =>
+document.getElementById(id);
+
 
 function getMiniAppUser(){
-  try{
-    const tg = window.Telegram && window.Telegram.WebApp;
-    if(tg){
-      tg.ready();
-      tg.expand();
-      const u = tg.initDataUnsafe && tg.initDataUnsafe.user;
-      if(u && u.id) return String(u.id);
-    }
-  }catch(e){}
-  const p = new URLSearchParams(location.search).get("user_id");
-  return p ? String(p) : null;
+
+try{
+
+const tg =
+window.Telegram &&
+window.Telegram.WebApp;
+
+if(tg){
+
+tg.ready();
+
+try{
+tg.expand();
+}catch(e){}
+
+const u =
+tg.initDataUnsafe &&
+tg.initDataUnsafe.user;
+
+if(u && u.id)
+return String(u.id);
+
 }
 
-function setError(id,msg){ $(id).textContent = msg || ""; }
+}catch(e){}
+
+const p =
+new URLSearchParams(location.search)
+.get("user_id");
+
+return p ? String(p) : null;
+}
+
+
+function setError(id,msg){
+$(id).textContent = msg || "";
+}
+
 
 async function boot(){
-  const id = getMiniAppUser();
-  if(!id){
-    $("userName").textContent = "افتح اللعبة من التطبيق المصغر";
-    $("userId").textContent = "لم يتم العثور على Telegram User ID";
-    return;
-  }
-  if(!KNOWN_PLAYERS[id]){
-    $("userName").textContent = "هذا الحساب غير مسجل";
-    $("userId").textContent = "ID: "+id;
-    return;
-  }
-  me = {id, ...KNOWN_PLAYERS[id]};
-  $("userName").textContent = me.icon+" "+me.name;
-  $("userId").textContent = "ID: "+id;
-  $("loginActions").classList.remove("hidden");
+
+const id =
+getMiniAppUser();
+
+if(!id){
+
+$("userName").textContent =
+"افتح اللعبة من البوت";
+
+$("userId").textContent =
+"لم يتم العثور على Telegram User ID";
+
+return;
 }
 
-function showJoin(){ $("loginActions").classList.add("hidden"); $("joinBox").classList.remove("hidden"); $("joinCode").focus(); }
-function hideJoin(){ $("joinBox").classList.add("hidden"); $("loginActions").classList.remove("hidden"); setError("joinError",""); }
+
+if(!KNOWN_PLAYERS[id]){
+
+$("userName").textContent =
+"هذا الحساب غير مسجل";
+
+$("userId").textContent =
+"ID: " + id;
+
+return;
+}
+
+
+me = {
+id,
+...KNOWN_PLAYERS[id]
+};
+
+$("userName").textContent =
+me.icon + " " + me.name;
+
+$("userId").textContent =
+"ID: " + id;
+
+$("loginActions")
+.classList.remove("hidden");
+
+}
+
+
+function showJoin(){
+
+$("loginActions")
+.classList.add("hidden");
+
+$("joinBox")
+.classList.remove("hidden");
+
+$("joinCode").focus();
+
+}
+
+
+function hideJoin(){
+
+$("joinBox")
+.classList.add("hidden");
+
+$("loginActions")
+.classList.remove("hidden");
+
+setError("joinError","");
+
+}
+
 
 function randomCode(){
-  return String(Math.floor(100000 + Math.random()*900000));
+
+return String(
+Math.floor(
+100000 + Math.random()*900000
+)
+);
+
 }
+
 
 async function createRoom(){
-  setError("loginError","");
-  for(let i=0;i<8;i++){
-    const code=randomCode();
-    const {data,error}=await sb.from("game_rooms").insert({
-      code, host_id:me.id, game:"fastest", status:"waiting", state:{scores:{"1250493517":0,"8187108979":0}}
-    }).select().single();
-    if(!error){ await enterRoom(data); return; }
-  }
-  setError("loginError","تعذر إنشاء الغرفة. تأكد أنك طبقت ملف supabase.sql.");
+
+setError("loginError","");
+
+for(let i=0;i<8;i++){
+
+const code =
+randomCode();
+
+const {data,error} =
+await sb
+.from("game_rooms")
+.insert({
+code,
+host_id:me.id,
+game:"fastest",
+status:"waiting",
+state:{
+scores:{
+"1250493517":0,
+"8187108979":0
 }
+}
+})
+.select()
+.single();
+
+if(!error){
+
+await enterRoom(data);
+return;
+
+}
+
+}
+
+setError(
+"loginError",
+"تعذر إنشاء الغرفة. تأكد أن قاعدة البيانات مفعلة."
+);
+
+}
+
 
 async function joinRoom(){
-  const code=$("joinCode").value.replace(/\D/g,"").slice(0,6);
-  if(code.length!==6){setError("joinError","اكتب كود الغرفة من 6 أرقام.");return;}
-  setError("joinError","");
-  const {data,error}=await sb.from("game_rooms").select("*").eq("code",code).eq("status","waiting").maybeSingle();
-  if(error || !data){setError("joinError","الغرفة غير موجودة أو انتهت.");return;}
-  if(String(data.host_id)===me.id){setError("joinError","أنت منشئ هذه الغرفة بالفعل.");return;}
-  const {data:updated,error:upErr}=await sb.from("game_rooms").update({guest_id:me.id,status:"ready"}).eq("id",data.id).eq("status","waiting").select().single();
-  if(upErr || !updated){setError("joinError","سبق لاعب آخر ودخل الغرفة.");return;}
-  await enterRoom(updated);
+
+const code =
+$("joinCode")
+.value
+.replace(/\D/g,"")
+.slice(0,6);
+
+if(code.length !== 6){
+
+setError(
+"joinError",
+"اكتب كود الغرفة من 6 أرقام."
+);
+
+return;
 }
+
+setError("joinError","");
+
+
+const {data,error} =
+await sb
+.from("game_rooms")
+.select("*")
+.eq("code",code)
+.eq("status","waiting")
+.maybeSingle();
+
+
+if(error || !data){
+
+setError(
+"joinError",
+"الغرفة غير موجودة أو انتهت."
+);
+
+return;
+}
+
+
+if(String(data.host_id) === me.id){
+
+setError(
+"joinError",
+"أنت منشئ هذه الغرفة بالفعل."
+);
+
+return;
+}
+
+
+const {data:updated,error:upErr} =
+await sb
+.from("game_rooms")
+.update({
+guest_id:me.id,
+status:"ready"
+})
+.eq("id",data.id)
+.eq("status","waiting")
+.select()
+.single();
+
+
+if(upErr || !updated){
+
+setError(
+"joinError",
+"سبق لاعب آخر ودخل الغرفة."
+);
+
+return;
+}
+
+
+await enterRoom(updated);
+
+}
+
 
 async function enterRoom(r){
-  room=r;
-  $("login").classList.add("hidden");
-  $("roomView").classList.remove("hidden");
-  $("roomCode").textContent=r.code;
-  renderRoom(r);
-  await subscribeRoom();
+
+room = r;
+
+$("login")
+.classList.add("hidden");
+
+$("roomView")
+.classList.remove("hidden");
+
+$("roomCode")
+.textContent = r.code;
+
+renderRoom(r);
+
+await subscribeRoom();
+
 }
+
 
 function renderRoom(r){
-  const scores=(r.state&&r.state.scores)||{};
-  $("hostName").textContent=KNOWN_PLAYERS[String(r.host_id)]?.name || "بدر";
-  $("hostStatus").textContent="متصل";
-  if(r.guest_id){
-    $("guestName").textContent=KNOWN_PLAYERS[String(r.guest_id)]?.name || "اللاعب الثاني";
-    $("guestStatus").textContent="متصل";
-  }else{
-    $("guestName").textContent="في انتظار شمس...";
-    $("guestStatus").textContent="بانتظار اللاعب";
-  }
-  $("baderScore").textContent=Number(scores["1250493517"])||0;
-  $("shamsScore").textContent=Number(scores["8187108979"])||0;
+
+const scores =
+(r.state && r.state.scores) || {};
+
+$("hostName").textContent =
+KNOWN_PLAYERS[String(r.host_id)]?.name ||
+"بدر";
+
+$("hostStatus").textContent =
+"متصل";
+
+
+if(r.guest_id){
+
+$("guestName").textContent =
+KNOWN_PLAYERS[String(r.guest_id)]?.name ||
+"اللاعب الثاني";
+
+$("guestStatus").textContent =
+"متصل";
+
+}else{
+
+$("guestName").textContent =
+"في انتظار شمس...";
+
+$("guestStatus").textContent =
+"بانتظار اللاعب";
+
 }
+
+
+$("baderScore").textContent =
+Number(scores["1250493517"]) || 0;
+
+$("shamsScore").textContent =
+Number(scores["8187108979"]) || 0;
+
+}
+
 
 async function subscribeRoom(){
-  if(roomChannel) await sb.removeChannel(roomChannel);
-  roomChannel=sb.channel("room-"+room.id)
-    .on("postgres_changes",{event:"UPDATE",schema:"public",table:"game_rooms",filter:"id=eq."+room.id},payload=>{
-      room=payload.new; renderRoom(room);
-      $("connection").textContent="متصل ⚡";
-    })
-    .subscribe(status=>{
-      $("connection").textContent = status==="SUBSCRIBED" ? "متصل ⚡" : "إعادة الاتصال...";
-    });
+
+if(roomChannel)
+await sb.removeChannel(roomChannel);
+
+
+roomChannel =
+sb
+.channel("room-"+room.id)
+
+.on(
+"postgres_changes",
+{
+event:"UPDATE",
+schema:"public",
+table:"game_rooms",
+filter:"id=eq."+room.id
+},
+payload=>{
+
+room =
+payload.new;
+
+renderRoom(room);
+
+$("connection")
+.textContent =
+"متصل ⚡";
+
 }
+)
+
+.subscribe(status=>{
+
+$("connection")
+.textContent =
+status === "SUBSCRIBED"
+? "متصل ⚡"
+: "إعادة الاتصال...";
+
+});
+
+}
+
 
 function startGame(game){
-  if(!room || !room.guest_id){ alert("استنى اللاعب الثاني يدخل الغرفة أولاً."); return; }
-  if(game==="fastest"){
-    location.href="games/fastest.html?room="+encodeURIComponent(room.code);
-  }
+
+if(!room || !room.guest_id){
+
+alert(
+"استنى اللاعب الثاني يدخل الغرفة أولاً."
+);
+
+return;
 }
+
+
+if(game === "fastest"){
+
+location.href =
+"games/fastest.html?room="+
+encodeURIComponent(room.code);
+
+}
+
+}
+
 
 async function leaveRoom(){
-  if(room){
-    if(String(room.host_id)===me.id){
-      await sb.from("game_rooms").update({status:"closed"}).eq("id",room.id);
-    }else{
-      await sb.from("game_rooms").update({guest_id:null,status:"waiting"}).eq("id",room.id);
-    }
-  }
-  if(roomChannel) await sb.removeChannel(roomChannel);
-  room=null; roomChannel=null;
-  $("roomView").classList.add("hidden");
-  $("login").classList.remove("hidden");
-  $("loginActions").classList.remove("hidden");
+
+if(room){
+
+if(String(room.host_id) === me.id){
+
+await sb
+.from("game_rooms")
+.update({
+status:"closed"
+})
+.eq("id",room.id);
+
+}else{
+
+await sb
+.from("game_rooms")
+.update({
+guest_id:null,
+status:"waiting"
+})
+.eq("id",room.id);
+
 }
 
-window.addEventListener("load",boot);
+}
+
+
+if(roomChannel)
+await sb.removeChannel(roomChannel);
+
+
+room = null;
+roomChannel = null;
+
+
+$("roomView")
+.classList.add("hidden");
+
+$("login")
+.classList.remove("hidden");
+
+$("loginActions")
+.classList.remove("hidden");
+
+}
+
+
+window.addEventListener(
+"load",
+boot
+);
+
 </script>
+
 </body>
 </html>
