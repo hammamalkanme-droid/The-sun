@@ -2,52 +2,34 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>الأسرع — بدر × شمس</title>
-<style>
-body{background:#040711;color:#fff;font-family:sans-serif;text-align:center;padding:20px}
-.btn{background:#1e67ba;color:#fff;border:none;padding:15px;border-radius:10px;width:100%;margin-top:10px;cursor:pointer;font-weight:bold}
-.error{color:#ff4b65;margin-top:10px;font-size:14px}
-</style>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>اختبار الاتصال</title>
 </head>
-<body>
-<h1>⚡ الأسرع</h1>
-<div id="status">جاري التحقق...</div>
-<button class="btn" onclick="createRoom()">إنشاء غرفة جديدة 🎮</button>
-<div id="errorMessage" class="error"></div>
+<body style="background:#040711;color:#fff;text-align:center;padding:50px;font-family:sans-serif">
+<h2>اختبار اتصال Supabase</h2>
+<button onclick="test()" style="padding:15px 30px;font-size:18px;background:#1e67ba;color:#fff;border:none;border-radius:10px;cursor:pointer">اضغط لاختبار الإنشاء</button>
+<p id="res" style="margin-top:20px;font-weight:bold"></p>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL = "https://vslatdxtvfjeftoljxc.supabase.co";
-const SUPABASE_KEY = "sb_publishable_bxZkAQifpNf7yHYo_HuM-w_fUafg_Y2";
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const sb = window.supabase.createClient(
+  "https://vslatdxtvfjeftoljxc.supabase.co",
+  "sb_publishable_bxZkAQifpNf7yHYo_HuM-w_fUafg_Y2"
+);
 
-const urlParams = new URLSearchParams(window.location.search);
-const meId = urlParams.get("user_id");
+async function test() {
+  document.getElementById("res").textContent = "جاري الإرسال...";
+  const { data, error } = await sb.from("game_rooms").insert([
+    { code: "999999", host_id: "1250493517", game: "fastest", status: "waiting" }
+  ]).select();
 
-document.getElementById("status").textContent = meId ? "أنت تلعب كـ: " + meId : "خطأ: لم يتم التعرف عليك";
-
-async function createRoom() {
-    document.getElementById("errorMessage").textContent = "جاري الإنشاء...";
-    try {
-        const code = Math.floor(100000 + Math.random() * 900000).toString();
-        const { data, error } = await sb.from("game_rooms").insert([
-            { 
-                code: code, 
-                host_id: meId, 
-                game: "fastest",
-                status: "waiting",
-                state: { scores: { "1250493517": 0, "8187108979": 0 }, phase: "lobby" }
-            }
-        ]).select();
-        
-        if (error) throw error;
-        alert("تم إنشاء الغرفة! الكود هو: " + code);
-        document.getElementById("errorMessage").textContent = "";
-    } catch (e) {
-        document.getElementById("errorMessage").textContent = "خطأ: " + e.message;
-        console.error(e);
-    }
+  if (error) {
+    document.getElementById("res").style.color = "#ff4b65";
+    document.getElementById("res").textContent = "خطأ: " + error.message;
+  } else {
+    document.getElementById("res").style.color = "#65df92";
+    document.getElementById("res").textContent = "تم بنجاح! الاتصال شغال 100%";
+  }
 }
 </script>
 </body>
