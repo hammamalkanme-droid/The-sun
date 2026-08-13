@@ -28,20 +28,15 @@ body{min-height:100vh}.wrap{width:min(680px,100%);margin:auto;padding:18px 14px 
 </head>
 <body>
 <div class="wrap">
-  <div class="top">
-    <h2>⚡ الأسرع</h2>
-    <a class="back" href="../index.html">← الرئيسية</a>
-  </div>
-
   <!-- شاشة إنشاء/دخول الغرفة -->
   <section id="lobby" class="card">
     <div class="sub">لعبة سرعة وردة فعل مباشرة</div>
     <div class="title">⚡ الأسرع</div>
-    <div id="lobbyUser" class="sub">...</div>
+    <div id="lobbyUser" class="sub" style="color:#65df92; font-weight:bold; margin-top:5px;">جاري التعرف عليك...</div>
 
-    <div id="lobbyActions" class="lobby-actions">
-      <button class="btn" onclick="createRoom()">إنشاء غرفة</button>
-      <button class="btn secondary" onclick="showJoin()">دخول غرفة</button>
+    <div id="lobbyActions" class="lobby-actions hidden">
+      <button class="btn" onclick="createRoom()">إنشاء غرفة جديدة</button>
+      <button class="btn secondary" onclick="showJoin()">دخول غرفة موجودة</button>
     </div>
 
     <div id="joinBox" class="join hidden">
@@ -57,7 +52,7 @@ body{min-height:100vh}.wrap{width:min(680px,100%);margin:auto;padding:18px 14px 
 
   <!-- شاشة الغرفة -->
   <section id="roomView" class="card hidden">
-    <div class="sub">كود الغرفة</div>
+    <div class="sub">كود الغرفة (أرسله للطرف الثاني)</div>
     <div id="roomCode" class="room-code">------</div>
 
     <div class="players">
@@ -73,9 +68,8 @@ body{min-height:100vh}.wrap{width:min(680px,100%);margin:auto;padding:18px 14px 
     <div id="waitingBox">
       <div class="divider"></div>
       <div style="text-align:center"><span class="badge">الغرفة جاهزة</span></div>
-      <p class="sub" style="margin-top:12px">ابعث كود الغرفة للاعب الثاني. عندما يدخل، تبدأ الجولة.</p>
-      <button id="startLobbyBtn" class="btn orange" onclick="requestStart()">ابدأ الجولة</button>
-      <button class="btn secondary" onclick="leaveRoom()">مغادرة الغرفة</button>
+      <button id="startLobbyBtn" class="btn orange" onclick="requestStart()" style="margin-top:15px;">ابدأ الجولة</button>
+      <button class="btn secondary" onclick="leaveRoom()" style="margin-top:10px;">مغادرة الغرفة</button>
     </div>
 
     <div id="gameBox" class="hidden">
@@ -83,15 +77,14 @@ body{min-height:100vh}.wrap{width:min(680px,100%);margin:auto;padding:18px 14px 
       <div class="arena">
         <div id="state" class="state">استعد...</div>
         <button id="reaction" class="reaction wait" disabled>استعد</button>
-        <button id="nextBtn" class="btn" onclick="requestStart()">جولة جديدة</button>
+        <button id="nextBtn" class="btn" onclick="requestStart()" style="margin-top:20px;">جولة جديدة</button>
         <div class="small">لا تضغط قبل أن تصبح الدائرة خضراء. أول ضغطة صحيحة تفوز.</div>
       </div>
-      <button class="btn secondary" onclick="leaveRoom()">مغادرة الغرفة</button>
+      <button class="btn secondary" onclick="leaveRoom()" style="margin-top:10px;">مغادرة الغرفة</button>
     </div>
   </section>
 </div>
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 "use strict";
@@ -109,17 +102,12 @@ let meId=null,me=null,room=null,ch=null,timer=null,round=0,active=false,localPre
 
 const $=id=>document.getElementById(id);
 
+// الحصول على الـ ID من الرابط الممرر من الواجهة الرئيسية
 function getId(){
-  try{
-    const tg=window.Telegram?.WebApp;
-    if(tg){
-      tg.ready();
-      tg.expand();
-      const u=tg.initDataUnsafe?.user;
-      if(u?.id)return String(u.id);
-    }
-  }catch(e){}
-  return new URLSearchParams(location.search).get("user_id");
+  const urlParams = new URLSearchParams(window.location.search);
+  const idFromUrl = urlParams.get("user_id");
+  if(idFromUrl) return idFromUrl;
+  return null;
 }
 
 function setError(id,msg){$(id).textContent=msg||""}
@@ -128,11 +116,14 @@ function boot(){
   meId=getId();
   me=PLAYERS[meId];
   if(!me){
-    $("lobbyUser").textContent=meId?"الحساب غير مسجل: "+meId:"افتح اللعبة من داخل البوت";
+    $("lobbyUser").textContent= "خطأ في قراءة هويتك من تيليجرام.";
+    $("lobbyUser").style.color = "#ff6b7c";
     $("lobbyActions").classList.add("hidden");
     return;
   }
-  $("lobbyUser").textContent=me.icon+" "+me.name;
+  
+  $("lobbyUser").textContent= "أنت تلعب الآن كـ: " + me.icon + " " + me.name;
+  $("lobbyActions").classList.remove("hidden");
 }
 
 function showJoin(){
@@ -150,7 +141,7 @@ function randomCode(){return String(Math.floor(100000+Math.random()*900000))}
 
 async function createRoom(){
   if(!meId)return;
-  setError("lobbyError","");
+  setError("lobbyError","جاري إنشاء الغرفة...");
   for(let i=0;i<8;i++){
     const code=randomCode();
     const {data,error}=await sb.from("game_rooms").insert({
@@ -166,23 +157,23 @@ async function createRoom(){
       return;
     }
   }
-  setError("lobbyError","تعذر إنشاء الغرفة. تأكد أن SQL تم تنفيذه بنجاح.");
+  setError("lobbyError","تعذر إنشاء الغرفة. تأكد من تفعيل قواعد Supabase.");
 }
 
 async function joinRoom(){
   const code=$("joinCode").value.replace(/\D/g,"").slice(0,6);
-  if(code.length!==6){setError("joinError","اكتب كود الغرفة من 6 أرقام.");return}
-  setError("joinError","");
+  if(code.length!==6){setError("joinError","اكتب كود الغرفة المكون من 6 أرقام.");return}
+  setError("joinError","جاري الدخول...");
 
   const {data,error}=await sb.from("game_rooms").select("*").eq("code",code).eq("status","waiting").maybeSingle();
-  if(error||!data){setError("joinError","الغرفة غير موجودة أو ليست متاحة.");return}
-  if(String(data.host_id)===meId){setError("joinError","أنت منشئ هذه الغرفة بالفعل.");return}
+  if(error||!data){setError("joinError","الغرفة غير موجودة أو أن اللعبة بدأت بالفعل.");return}
+  if(String(data.host_id)===meId){setError("joinError","أنت منشئ هذه الغرفة بالفعل!");return}
 
   const {data:updated,error:upErr}=await sb.from("game_rooms")
     .update({guest_id:meId,status:"ready"})
     .eq("id",data.id).eq("status","waiting").is("guest_id",null).select().single();
 
-  if(upErr||!updated){setError("joinError","سبق لاعب آخر ودخل الغرفة.");return}
+  if(upErr||!updated){setError("joinError","سبق لاعب آخر ودخل الغرفة قبلك.");return}
   await enterRoom(updated);
 }
 
@@ -220,7 +211,7 @@ function renderRoom(r){
 
   if(phase==="lobby"){
     $("startLobbyBtn").disabled=!isHost||!hasGuest;
-    $("startLobbyBtn").textContent=!hasGuest?"في انتظار اللاعب الثاني...":isHost?"ابدأ الجولة":"انتظر منشئ الغرفة ليبدأ";
+    $("startLobbyBtn").textContent=!hasGuest?"في انتظار دخول الطرف الثاني...":isHost?"ابدأ الجولة الآن":"انتظر بدر ليبدأ الجولة";
   }
 
   if(phase==="round"||phase==="go"||phase==="result") renderGame(r);
@@ -234,8 +225,8 @@ function renderGame(r){
       active=false;localPressed=false;
       $("reaction").disabled=false;
       $("reaction").className="reaction wait";
-      $("reaction").textContent="استعد";
-      $("state").textContent="الجولة بدأت… لا تضغط قبل الأخضر";
+      $("reaction").textContent="استعد...";
+      $("state").textContent="الجولة بدأت… لا تضغط قبل الأخضر!";
       scheduleGo(Number(s.goAt)||Date.now()+1500);
     }
   }else if(s.phase==="go"){
@@ -252,10 +243,10 @@ function renderGame(r){
     $("reaction").className="reaction wait";
     $("reaction").textContent="🏆";
     if(s.winner==="false-start"){
-      $("state").textContent="ضغط أحد اللاعبين بدري ❌";
+      $("state").textContent="تسرع أحد اللاعبين وضغط بدري ❌";
     }else{
       const winName=PLAYERS[String(s.winner)]?.name||"اللاعب";
-      $("state").textContent=winName+" فاز بالجولة! ⚡";
+      $("state").textContent=winName+" كان الأسرع وفاز! ⚡";
     }
   }
 }
@@ -284,8 +275,8 @@ async function subscribeRoom(){
 }
 
 async function requestStart(){
-  if(!room?.guest_id){alert("استنى اللاعب الثاني يدخل الغرفة أولاً.");return}
-  if(String(room.host_id)!==meId){$("state").textContent="خلي بدر يبدأ الجولة.";return}
+  if(!room?.guest_id){alert("استنى الطرف الثاني يدخل الغرفة أولاً.");return}
+  if(String(room.host_id)!==meId){$("state").textContent="منشئ الغرفة هو الذي يمكنه بدء الجولة.";return}
 
   const next=(Number(room.state?.round)||0)+1;
   const goAt=Date.now()+1800+Math.floor(Math.random()*2600);
@@ -316,7 +307,7 @@ async function press(){
   const {data}=await sb.from("game_rooms").update({state}).eq("id",room.id).filter("state->>phase","eq","go").filter("state->>round","eq",String(round)).select().single();
   if(data)room=data;
   else { localPressed=true; return; }
-  $("state").textContent="رد فعلك: "+ms+"ms ⚡";
+  $("state").textContent="سرعة رد فعلك: "+ms+" جزء من الثانية ⚡";
 }
 
 async function leaveRoom(){
