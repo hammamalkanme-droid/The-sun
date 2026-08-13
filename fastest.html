@@ -11,40 +11,50 @@ body{background:#040711;color:#fff;font-family:sans-serif;text-align:center;padd
 </style>
 </head>
 <body>
-<h1>⚡ الأسرعع</h1>
+<h1>⚡ الأظسرع</h1>
 <div id="status">جاري التحقق...</div>
 <button class="btn" onclick="createRoom()">إنشاء غرفة جديدة 🎮</button>
 <div id="errorMessage" class="error"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// الرابط الصحيح الدقيق المستخرج من الـ JWT الخاص بك
 const SUPABASE_URL = "https://vslatdxtvfjeztoljxc.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzbGF0ZHh0dmZqZmV6dG9sanhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MDMyMjcsImV4cCI6MjEwMjE3OTIyN30.iwmN3OuAcmg6815USYFpEdLnSzu5vBQGCdFN9rlrfzw";
 
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
 const urlParams = new URLSearchParams(window.location.search);
-const meId = urlParams.get("user_id");
+const meId = urlParams.get("user_id") || "1250493517";
 
-document.getElementById("status").textContent = meId ? "أنت تلعب كـ: " + meId : "خطأ: لم يتم التعرف عليك";
+document.getElementById("status").textContent = "أنت تلعب كـ: " + meId;
 
 async function createRoom() {
     document.getElementById("errorMessage").textContent = "جاري الإنشاء...";
     try {
         const code = Math.floor(100000 + Math.random() * 900000).toString();
-        const { data, error } = await sb.from("game_rooms").insert([
-            { 
-                code: code, 
-                host_id: meId || "1250493517", 
+        
+        // إرسال مباشر عبر REST API بدون مكتبات
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/game_rooms`, {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=representation'
+            },
+            body: JSON.stringify({
+                code: code,
+                host_id: meId,
                 game: "fastest",
                 status: "waiting",
                 state: { scores: { "1250493517": 0, "8187108979": 0 }, phase: "lobby" }
-            }
-        ]).select();
-        
-        if (error) throw error;
-        alert("تم إنشاء الغرفة بنجاح! الكود هو: " + code);
+            })
+        });
+
+        if (!response.ok) {
+            const errData = await response.json();
+            throw new Error(errData.message || 'حدث خطأ في السيرفر');
+        }
+
+        const data = await response.json();
+        alert("تم إنشاء الغرفة بنجاح! الكود: " + code);
         document.getElementById("errorMessage").textContent = "";
     } catch (e) {
         document.getElementById("errorMessage").textContent = "خطأ: " + e.message;
