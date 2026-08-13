@@ -7,69 +7,89 @@
 <title>الأسرع — بدر × شمس</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;min-height:100%;font-family:Segoe UI,Tahoma,Arial,sans-serif;background:radial-gradient(circle at 50% -20%,#182b55,#090f21 45%,#040711);color:#fff}
-body{min-height:100vh}.wrap{width:min(680px,100%);margin:auto;padding:18px 14px 60px}
-.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.top h2{margin:0;font-size:21px}.back{color:#82c5ff;text-decoration:none;font-size:12px}
-.card{padding:21px;border-radius:25px;background:linear-gradient(145deg,#142444,#080d1b);border:1px solid #ffffff12;box-shadow:0 25px 80px #0008}
-.sub{color:#718098;font-size:11px;text-align:center}.title{text-align:center;font-size:27px;font-weight:900;margin:8px 0 4px}
-.lobby-actions{display:grid;gap:10px;margin-top:20px}.btn{width:100%;border:0;border-radius:15px;padding:15px;color:#fff;font-weight:900;background:linear-gradient(135deg,#1e67ba,#3286df)}.btn.secondary{background:#ffffff08;border:1px solid #ffffff10}.btn.orange{background:linear-gradient(135deg,#d86b16,#ff9d38)}
-.join{margin-top:12px}.code{direction:ltr;text-align:center;letter-spacing:7px;font-size:25px;font-weight:900;padding:14px;border-radius:14px;border:1px solid #ffffff12;background:#0004;color:#fff;width:100%;outline:none}
-.error{min-height:20px;text-align:center;color:#ff6b7c;font-size:11px;margin:7px}
-.room-code{font-size:42px;letter-spacing:9px;text-align:center;font-weight:900;margin:7px 0 18px}
-.players{display:grid;grid-template-columns:1fr 1fr;gap:10px}.player{padding:15px;text-align:center;border-radius:17px;background:#ffffff07;border:1px solid #ffffff0c}.player .icon{font-size:28px}.player strong,.player span{display:block}.player span{font-size:10px;color:#718098;margin-top:4px}
-.score{display:flex;justify-content:space-between;margin:12px 0;padding:13px 15px;border-radius:16px;background:#ffffff06}
-.divider{height:1px;background:#ffffff0b;margin:20px 0}
-.arena{display:flex;flex-direction:column;align-items:center;text-align:center}.state{min-height:43px;color:#8190a8;font-size:12px;line-height:1.7}
-.reaction{width:min(285px,75vw);height:min(285px,75vw);border-radius:50%;border:0;background:radial-gradient(circle,#243d6d,#101a31);box-shadow:0 0 70px #2b74d433;color:#fff;font-size:27px;font-weight:900;transition:.08s}.reaction.wait{background:radial-gradient(circle,#222d45,#0b1120)}.reaction.go{background:radial-gradient(circle,#2acb72,#0d5a37);box-shadow:0 0 90px #2acb7266;transform:scale(1.03)}.reaction.bad{background:radial-gradient(circle,#d34f61,#591e2b)}
-.small{font-size:10px;color:#647289;text-align:center;margin-top:12px;line-height:1.6}
-.badge{display:inline-block;padding:7px 10px;border-radius:20px;background:#55db8317;color:#65df92;font-size:10px}
+html,body{margin:0;min-height:100%;font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:radial-gradient(circle at 50% -20%,#182b55,#090f21 45%,#040711);color:#fff}
+body{min-height:100vh;overflow-x:hidden}
+.wrap{width:min(680px,100%);margin:auto;padding:25px 15px 60px}
+.card{padding:25px;border-radius:28px;background:linear-gradient(145deg,rgba(20,36,68,0.95),rgba(8,13,27,0.95));border:1px solid rgba(255,255,255,0.08);box-shadow:0 25px 80px rgba(0,0,0,0.5);backdrop-filter:blur(10px)}
+.sub{color:#718098;font-size:12px;text-align:center;letter-spacing:0.5px}
+.title{text-align:center;font-size:28px;font-weight:900;margin:10px 0 5px}
+.user-badge{display:table;margin:10px auto;padding:6px 15px;background:rgba(101,223,146,0.1);color:#65df92;border-radius:20px;font-size:12px;font-weight:bold;border:1px solid rgba(101,223,146,0.2)}
+.lobby-actions{display:grid;gap:12px;margin-top:25px}
+.btn{width:100%;border:0;border-radius:16px;padding:16px;color:#fff;font-size:15px;font-weight:900;background:linear-gradient(135deg,#1e67ba,#3286df);box-shadow:0 8px 25px rgba(30,103,186,0.25);transition:0.2s}
+.btn:active{transform:scale(0.97)}
+.btn:disabled{opacity:0.5;pointer-events:none;background:#2a364d;box-shadow:none}
+.btn.secondary{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);box-shadow:none}
+.btn.orange{background:linear-gradient(135deg,#d86b16,#ff9d38);box-shadow:0 8px 25px rgba(216,107,22,0.25)}
+.btn.danger{background:linear-gradient(135deg,#c92a42,#ff4b65);box-shadow:0 8px 25px rgba(201,42,66,0.25)}
+.code{direction:ltr;text-align:center;letter-spacing:10px;font-size:26px;font-weight:900;padding:16px;border-radius:16px;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.4);color:#fff;width:100%;outline:none;transition:0.2s}
+.code:focus{border-color:#3286df;background:rgba(0,0,0,0.6)}
+.error{min-height:20px;text-align:center;color:#ff6b7c;font-size:13px;margin:10px 0;font-weight:bold}
+.room-code{font-size:46px;letter-spacing:12px;text-align:center;font-weight:900;margin:10px 0 25px;color:#fff;text-shadow:0 0 20px rgba(255,255,255,0.2)}
+.players{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.player{padding:18px;text-align:center;border-radius:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);transition:0.3s}
+.player.active{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);box-shadow:inset 0 0 20px rgba(255,255,255,0.02)}
+.player .icon{font-size:32px;margin-bottom:8px}
+.player strong{display:block;font-size:15px}
+.player span{display:block;font-size:11px;color:#718098;margin-top:6px}
+.player .ready-dot{display:inline-block;width:8px;height:8px;background:#ff4b65;border-radius:50%;margin-left:4px;transition:0.3s}
+.player.active .ready-dot{background:#65df92;box-shadow:0 0 10px rgba(101,223,146,0.5)}
+.score{display:flex;justify-content:space-between;align-items:center;margin:15px 0;padding:18px 22px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06)}
+.score span{font-size:14px;color:#a4b1c6}
+.score b{font-size:22px;color:#fff;margin:0 5px}
+.divider{height:1px;background:rgba(255,255,255,0.08);margin:25px 0}
+.arena{display:flex;flex-direction:column;align-items:center;text-align:center}
+.state{min-height:48px;color:#8190a8;font-size:14px;line-height:1.6;font-weight:bold;margin-bottom:10px}
+.reaction{width:min(290px,75vw);height:min(290px,75vw);border-radius:50%;border:0;background:radial-gradient(circle,#243d6d,#101a31);box-shadow:0 0 70px rgba(43,116,212,0.2);color:#fff;font-size:28px;font-weight:900;transition:0.1s cubic-bezier(0.4, 0, 0.2, 1);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;cursor:pointer}
+.reaction.wait{background:radial-gradient(circle,#222d45,#0b1120);box-shadow:none;cursor:default}
+.reaction.go{background:radial-gradient(circle,#2acb72,#0d5a37);box-shadow:0 0 100px rgba(42,203,114,0.4);transform:scale(1.05);color:#fff}
+.reaction.go:active{transform:scale(0.95)}
+.reaction.bad{background:radial-gradient(circle,#d34f61,#591e2b);box-shadow:0 0 80px rgba(211,79,97,0.3)}
+.reaction small{font-size:14px;opacity:0.8;font-weight:normal}
 .hidden{display:none!important}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <!-- شاشة إنشاء/دخول الغرفة -->
+  <!-- شاشة الانضمام / إنشاء الغرفة -->
   <section id="lobby" class="card">
-    <div class="sub">لعبة سرعة وردة فعل مباشرة</div>
+    <div class="sub">تحدي سرعة البديهة وردة الفعل</div>
     <div class="title">⚡ الأسرع</div>
-    <div id="lobbyUser" class="sub" style="color:#65df92; font-weight:bold; margin-top:5px;">جاري التعرف عليك...</div>
+    <div id="lobbyUser" class="user-badge">جاري التحقق من الهوية...</div>
 
     <div id="lobbyActions" class="lobby-actions hidden">
-      <button class="btn" onclick="createRoom()">إنشاء غرفة جديدة</button>
-      <button class="btn secondary" onclick="showJoin()">دخول غرفة موجودة</button>
+      <button class="btn" onclick="createRoom()">إنشاء غرفة جديدة 🎮</button>
+      <button class="btn secondary" onclick="showJoin()">دخول غرفة موجودة 🔑</button>
     </div>
 
-    <div id="joinBox" class="join hidden">
-      <input id="joinCode" class="code" maxlength="6" inputmode="numeric" placeholder="كود الغرفة">
+    <div id="joinBox" class="lobby-actions hidden">
+      <input id="joinCode" class="code" maxlength="6" inputmode="numeric" placeholder="كود الغرفة" autocomplete="off">
       <div id="joinError" class="error"></div>
-      <div class="lobby-actions">
-        <button class="btn" onclick="joinRoom()">دخول</button>
-        <button class="btn secondary" onclick="hideJoin()">رجوع</button>
-      </div>
+      <button class="btn" onclick="joinRoom()">دخول الغرفة</button>
+      <button class="btn secondary" onclick="hideJoin()">رجوع</button>
     </div>
     <div id="lobbyError" class="error"></div>
   </section>
 
-  <!-- شاشة الغرفة -->
+  <!-- شاشة اللعب والغرفة -->
   <section id="roomView" class="card hidden">
-    <div class="sub">كود الغرفة (أرسله للطرف الثاني)</div>
+    <div class="sub" id="roomCodeLabel">كود الغرفة (شاركته مع الطرف الثاني)</div>
     <div id="roomCode" class="room-code">------</div>
 
     <div class="players">
-      <div class="player"><div class="icon">☾</div><strong id="baderName">بدر</strong><span id="baderStatus">متصل</span></div>
-      <div class="player"><div class="icon">☀</div><strong id="shamsName">في انتظار شمس...</strong><span id="shamsStatus">بانتظار اللاعب</span></div>
+      <div id="baderCard" class="player"><div class="icon">☾</div><strong id="baderName">بدر</strong><span><i class="ready-dot"></i> <span id="baderStatus">غير متصل</span></span></div>
+      <div id="shamsCard" class="player"><div class="icon">☀</div><strong id="shamsName">شمس</strong><span><i class="ready-dot"></i> <span id="shamsStatus">غير متصل</span></span></div>
     </div>
 
     <div class="score">
-      <span>☾ بدر: <b id="scoreA">0</b></span>
-      <span>☀ شمس: <b id="scoreB">0</b></span>
+      <span>☾ بدر: <b id="scoreBader">0</b></span>
+      <span>☀ شمس: <b id="scoreShams">0</b></span>
     </div>
 
     <div id="waitingBox">
       <div class="divider"></div>
-      <div style="text-align:center"><span class="badge">الغرفة جاهزة</span></div>
-      <button id="startLobbyBtn" class="btn orange" onclick="requestStart()" style="margin-top:15px;">ابدأ الجولة</button>
-      <button class="btn secondary" onclick="leaveRoom()" style="margin-top:10px;">مغادرة الغرفة</button>
+      <div id="lobbyStatus" class="state" style="color:#65df92">في انتظار اكتمال اللاعبين...</div>
+      <button id="startLobbyBtn" class="btn orange" onclick="requestStart()" disabled>ابدأ الجولة الآن</button>
+      <button class="btn secondary" onclick="leaveRoom()" style="margin-top:12px;">مغادرة الغرفة</button>
     </div>
 
     <div id="gameBox" class="hidden">
@@ -77,10 +97,9 @@ body{min-height:100vh}.wrap{width:min(680px,100%);margin:auto;padding:18px 14px 
       <div class="arena">
         <div id="state" class="state">استعد...</div>
         <button id="reaction" class="reaction wait" disabled>استعد</button>
-        <button id="nextBtn" class="btn" onclick="requestStart()" style="margin-top:20px;">جولة جديدة</button>
-        <div class="small">لا تضغط قبل أن تصبح الدائرة خضراء. أول ضغطة صحيحة تفوز.</div>
+        <button id="nextBtn" class="btn hidden" onclick="requestStart()" style="margin-top:25px;">جولة جديدة</button>
       </div>
-      <button class="btn secondary" onclick="leaveRoom()" style="margin-top:10px;">مغادرة الغرفة</button>
+      <button class="btn danger" onclick="leaveRoom()" style="margin-top:20px; padding:12px;">إنهاء التحدي</button>
     </div>
   </section>
 </div>
@@ -91,244 +110,323 @@ body{min-height:100vh}.wrap{width:min(680px,100%);margin:auto;padding:18px 14px 
 
 const SUPABASE_URL="https://vslatdxtvfjeftoljxc.supabase.co";
 const SUPABASE_KEY="sb_publishable_bxZkAQifpNf7yHYo_HuM-w_fUafg_Y2";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const PLAYERS={
-  "1250493517":{name:"بدر",icon:"☾"},
-  "8187108979":{name:"شمس",icon:"☀"}
+const PLAYERS = {
+  "1250493517": { name: "بدر", icon: "☾" },
+  "8187108979": { name: "شمس", icon: "☀" }
 };
 
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-let meId=null,me=null,room=null,ch=null,timer=null,round=0,active=false,localPressed=false,goAt=0;
+let meId = null, me = null;
+let room = null, ch = null;
+let timer = null, round = 0, active = false, localPressed = false;
+let goAt = 0;
 
-const $=id=>document.getElementById(id);
+const $ = id => document.getElementById(id);
+function setError(id, msg) { $(id).textContent = msg || ""; }
 
-// الحصول على الـ ID من الرابط الممرر من الواجهة الرئيسية
-function getId(){
+function boot() {
   const urlParams = new URLSearchParams(window.location.search);
-  const idFromUrl = urlParams.get("user_id");
-  if(idFromUrl) return idFromUrl;
-  return null;
-}
-
-function setError(id,msg){$(id).textContent=msg||""}
-
-function boot(){
-  meId=getId();
-  me=PLAYERS[meId];
-  if(!me){
-    $("lobbyUser").textContent= "خطأ في قراءة هويتك من تيليجرام.";
-    $("lobbyUser").style.color = "#ff6b7c";
-    $("lobbyActions").classList.add("hidden");
+  meId = urlParams.get("user_id");
+  
+  if (!meId || !PLAYERS[meId]) {
+    $("lobbyUser").textContent = "تعذر التعرف عليك. الرجاء فتح اللعبة من القائمة الرئيسية.";
+    $("lobbyUser").style.color = "#ff4b65";
+    $("lobbyUser").style.backgroundColor = "rgba(255,75,101,0.1)";
+    $("lobbyUser").style.borderColor = "rgba(255,75,101,0.2)";
     return;
   }
   
-  $("lobbyUser").textContent= "أنت تلعب الآن كـ: " + me.icon + " " + me.name;
+  me = PLAYERS[meId];
+  $("lobbyUser").textContent = "أنت تلعب كـ: " + me.icon + " " + me.name;
   $("lobbyActions").classList.remove("hidden");
 }
 
-function showJoin(){
+function showJoin() {
   $("lobbyActions").classList.add("hidden");
   $("joinBox").classList.remove("hidden");
   $("joinCode").focus();
+  setError("lobbyError", "");
 }
-function hideJoin(){
+
+function hideJoin() {
   $("joinBox").classList.add("hidden");
   $("lobbyActions").classList.remove("hidden");
-  setError("joinError","");
+  setError("joinError", "");
 }
 
-function randomCode(){return String(Math.floor(100000+Math.random()*900000))}
+function randomCode() { return String(Math.floor(100000 + Math.random() * 900000)); }
 
-async function createRoom(){
-  if(!meId)return;
-  setError("lobbyError","جاري إنشاء الغرفة...");
-  for(let i=0;i<8;i++){
-    const code=randomCode();
-    const {data,error}=await sb.from("game_rooms").insert({
-      code,
-      host_id:meId,
-      guest_id:null,
-      game:"fastest",
-      status:"waiting",
-      state:{scores:{"1250493517":0,"8187108979":0},phase:"lobby",round:0}
+async function createRoom() {
+  setError("lobbyError", "جاري إنشاء الغرفة... ⏳");
+  for (let i = 0; i < 5; i++) {
+    const code = randomCode();
+    const { data, error } = await sb.from("game_rooms").insert({
+      code: code,
+      host_id: meId,
+      guest_id: null,
+      game: "fastest",
+      status: "waiting",
+      state: { scores: { "1250493517": 0, "8187108979": 0 }, phase: "lobby", round: 0 }
     }).select().single();
-    if(!error&&data){
+    
+    if (!error && data) {
       await enterRoom(data);
       return;
     }
   }
-  setError("lobbyError","تعذر إنشاء الغرفة. تأكد من تفعيل قواعد Supabase.");
+  setError("lobbyError", "حدث خطأ في الاتصال، حاول مرة أخرى.");
 }
 
-async function joinRoom(){
-  const code=$("joinCode").value.replace(/\D/g,"").slice(0,6);
-  if(code.length!==6){setError("joinError","اكتب كود الغرفة المكون من 6 أرقام.");return}
-  setError("joinError","جاري الدخول...");
+async function joinRoom() {
+  const code = $("joinCode").value.trim();
+  if (code.length !== 6) { setError("joinError", "الكود يجب أن يتكون من 6 أرقام"); return; }
+  
+  setError("joinError", "جاري البحث عن الغرفة... ⏳");
+  const { data, error } = await sb.from("game_rooms").select("*").eq("code", code).eq("status", "waiting").maybeSingle();
+  
+  if (error || !data) { setError("joinError", "الغرفة غير موجودة أو ممتلئة ❌"); return; }
+  if (String(data.host_id) === meId) { setError("joinError", "أنت صاحب هذه الغرفة بالفعل!"); return; }
 
-  const {data,error}=await sb.from("game_rooms").select("*").eq("code",code).eq("status","waiting").maybeSingle();
-  if(error||!data){setError("joinError","الغرفة غير موجودة أو أن اللعبة بدأت بالفعل.");return}
-  if(String(data.host_id)===meId){setError("joinError","أنت منشئ هذه الغرفة بالفعل!");return}
+  const { data: updated, error: upErr } = await sb.from("game_rooms")
+    .update({ guest_id: meId, status: "ready" })
+    .eq("id", data.id).is("guest_id", null).select().single();
 
-  const {data:updated,error:upErr}=await sb.from("game_rooms")
-    .update({guest_id:meId,status:"ready"})
-    .eq("id",data.id).eq("status","waiting").is("guest_id",null).select().single();
-
-  if(upErr||!updated){setError("joinError","سبق لاعب آخر ودخل الغرفة قبلك.");return}
+  if (upErr || !updated) { setError("joinError", "لا يمكن الدخول، ربما دخل شخص آخر قبلك."); return; }
   await enterRoom(updated);
 }
 
-async function enterRoom(r){
-  room=r;
+async function enterRoom(r) {
+  room = r;
   $("lobby").classList.add("hidden");
   $("roomView").classList.remove("hidden");
-  $("roomCode").textContent=r.code;
+  $("roomCode").textContent = r.code;
+  
+  const isHost = String(r.host_id) === meId;
+  $("roomCodeLabel").textContent = isHost ? "كود الغرفة (أرسله للطرف الثاني)" : "كود الغرفة";
+  
   renderRoom(r);
   await subscribeRoom();
 }
 
-function renderRoom(r){
-  const scores=(r.state&&r.state.scores)||{};
-  const host=String(r.host_id);
-  const guest=r.guest_id ? String(r.guest_id) : null;
+function renderRoom(r) {
+  const scores = r.state?.scores || { "1250493517": 0, "8187108979": 0 };
+  const host = String(r.host_id);
+  const guest = r.guest_id ? String(r.guest_id) : null;
 
-  const baderPresent=host==='1250493517'||guest==='1250493517';
-  const shamsPresent=host==='8187108979'||guest==='8187108979';
+  const baderPresent = host === '1250493517' || guest === '1250493517';
+  const shamsPresent = host === '8187108979' || guest === '8187108979';
 
-  $("baderName").textContent=baderPresent?"بدر":"في انتظار بدر...";
-  $("baderStatus").textContent=baderPresent?"متصل":"بانتظار اللاعب";
-  $("shamsName").textContent=shamsPresent?"شمس":"في انتظار شمس...";
-  $("shamsStatus").textContent=shamsPresent?"متصل":"بانتظار اللاعب";
-
-  $("scoreA").textContent=Number(scores["1250493517"])||0;
-  $("scoreB").textContent=Number(scores["8187108979"])||0;
-
-  const isHost=host===meId;
-  const hasGuest=!!guest;
-  const phase=r.state?.phase||"lobby";
-
-  $("waitingBox").classList.toggle("hidden",phase!=="lobby" && phase!=="result");
-  $("gameBox").classList.toggle("hidden",phase==="lobby");
-
-  if(phase==="lobby"){
-    $("startLobbyBtn").disabled=!isHost||!hasGuest;
-    $("startLobbyBtn").textContent=!hasGuest?"في انتظار دخول الطرف الثاني...":isHost?"ابدأ الجولة الآن":"انتظر بدر ليبدأ الجولة";
+  // تحديث حالة بدر
+  if(baderPresent){
+      $("baderCard").classList.add("active");
+      $("baderStatus").textContent = "جاهز";
+  } else {
+      $("baderCard").classList.remove("active");
+      $("baderStatus").textContent = "في الانتظار";
   }
 
-  if(phase==="round"||phase==="go"||phase==="result") renderGame(r);
-}
+  // تحديث حالة شمس
+  if(shamsPresent){
+      $("shamsCard").classList.add("active");
+      $("shamsStatus").textContent = "جاهز";
+  } else {
+      $("shamsCard").classList.remove("active");
+      $("shamsStatus").textContent = "في الانتظار";
+  }
 
-function renderGame(r){
-  const s=r.state||{};
-  if(s.phase==="round"){
-    if(s.round!==round){
-      round=Number(s.round)||0;
-      active=false;localPressed=false;
-      $("reaction").disabled=false;
-      $("reaction").className="reaction wait";
-      $("reaction").textContent="استعد...";
-      $("state").textContent="الجولة بدأت… لا تضغط قبل الأخضر!";
-      scheduleGo(Number(s.goAt)||Date.now()+1500);
+  $("scoreBader").textContent = scores["1250493517"] || 0;
+  $("scoreShams").textContent = scores["8187108979"] || 0;
+
+  const isHost = host === meId;
+  const hasGuest = !!guest;
+  const phase = r.state?.phase || "lobby";
+
+  if (phase === "lobby") {
+    $("gameBox").classList.add("hidden");
+    $("waitingBox").classList.remove("hidden");
+    
+    if(hasGuest) {
+        $("lobbyStatus").textContent = "اللاعبان متصلان! الغرفة جاهزة.";
+        $("startLobbyBtn").disabled = !isHost;
+        $("startLobbyBtn").textContent = isHost ? "ابدأ الجولة الآن ⚡" : "في انتظار " + PLAYERS[host].name + " لبدء التحدي...";
+    } else {
+        $("lobbyStatus").textContent = "شارك الكود مع " + (meId === '1250493517' ? "شمس" : "بدر") + " للدخول...";
+        $("startLobbyBtn").disabled = true;
+        $("startLobbyBtn").textContent = "في انتظار دخول الطرف الثاني...";
     }
-  }else if(s.phase==="go"){
-    round=Number(s.round)||round;
-    active=true;localPressed=false;
-    goAt=Number(s.goAt)||Date.now();
-    $("reaction").disabled=false;
-    $("reaction").className="reaction go";
-    $("reaction").textContent="اضغط!";
-    $("state").textContent="الآن! ⚡";
-  }else if(s.phase==="result"){
-    active=false;
-    $("reaction").disabled=true;
-    $("reaction").className="reaction wait";
-    $("reaction").textContent="🏆";
-    if(s.winner==="false-start"){
-      $("state").textContent="تسرع أحد اللاعبين وضغط بدري ❌";
-    }else{
-      const winName=PLAYERS[String(s.winner)]?.name||"اللاعب";
-      $("state").textContent=winName+" كان الأسرع وفاز! ⚡";
-    }
+  } else {
+    $("waitingBox").classList.add("hidden");
+    $("gameBox").classList.remove("hidden");
+    renderGame(r);
   }
 }
 
-function scheduleGo(ts){
+function renderGame(r) {
+  const s = r.state || {};
+  const isHost = String(r.host_id) === meId;
+  $("nextBtn").classList.add("hidden");
+
+  if (s.phase === "round") {
+    if (s.round !== round) {
+      round = Number(s.round);
+      active = false;
+      localPressed = false;
+      $("reaction").disabled = false;
+      $("reaction").className = "reaction wait";
+      $("reaction").innerHTML = "استعد...<br><small>لا تضغط قبل الأخضر!</small>";
+      $("state").textContent = "الجولة " + round + " بدأت! ركز... 👀";
+      
+      const goTime = Number(s.goAt) || (Date.now() + 2000);
+      scheduleGoLocally(goTime);
+    }
+  } else if (s.phase === "go") {
+    // إذا دخلنا والحالة مسبقاً go
+    round = Number(s.round) || round;
+    active = true;
+    localPressed = false;
+    $("reaction").disabled = false;
+    $("reaction").className = "reaction go";
+    $("reaction").innerHTML = "اضغط الآن! ⚡";
+    $("state").textContent = "بسرررررعة!!";
+  } else if (s.phase === "result") {
+    active = false;
+    $("reaction").disabled = true;
+    $("nextBtn").classList.remove("hidden");
+    $("nextBtn").disabled = !isHost;
+    $("nextBtn").textContent = isHost ? "بدء جولة جديدة" : "بانتظار بدء الجولة...";
+
+    if (s.winner === "false-start") {
+      $("reaction").className = "reaction bad";
+      $("reaction").innerHTML = "❌";
+      $("state").textContent = (PLAYERS[s.guilty]?.name || "أحد اللاعبين") + " تسرع وضغط قبل الأخضر!";
+    } else {
+      $("reaction").className = "reaction wait";
+      $("reaction").innerHTML = "🏆";
+      $("state").textContent = PLAYERS[s.winner].name + " كان الأسرع وفاز بـ " + (s.winnerMs || "?") + "ms ⚡";
+    }
+  }
+}
+
+function scheduleGoLocally(targetTime) {
   clearTimeout(timer);
-  const delay=Math.max(100,ts-Date.now());
-  timer=setTimeout(async()=>{
-    if(!room)return;
-    const current=room.state||{};
-    if(current.phase!=="round"||Number(current.round)!==round)return;
-    const state={...current,phase:"go",goAt:Date.now()};
-    const {data,error}=await sb.from("game_rooms").update({state}).eq("id",room.id).filter("state->>phase","eq","round").filter("state->>round","eq",String(round)).select().single();
-    if(!error&&data)room=data;
-  },delay);
+  const delay = Math.max(50, targetTime - Date.now());
+  
+  timer = setTimeout(async () => {
+    if (!room || (room.state?.phase !== "round")) return;
+    
+    // تغيير الشاشة محلياً بسرعة للمستخدم
+    active = true;
+    goAt = Date.now(); // لحساب سرعة الاستجابة بدقة
+    $("reaction").className = "reaction go";
+    $("reaction").innerHTML = "اضغط الآن! ⚡";
+    $("state").textContent = "بسرررررعة!!";
+    
+    // صاحب الغرفة فقط يخبر الداتابيز أن الإشارة خضراء (لتجنب تضارب التحديثات)
+    if (String(room.host_id) === meId) {
+      const state = { ...room.state, phase: "go", goAt: Date.now() };
+      await sb.from("game_rooms").update({ state })
+        .eq("id", room.id).filter("state->>phase", "eq", "round").filter("state->>round", "eq", String(round));
+    }
+  }, delay);
 }
 
-async function subscribeRoom(){
-  if(ch)await sb.removeChannel(ch);
-  ch=sb.channel("fastest-room-"+room.id)
-    .on("postgres_changes",{event:"UPDATE",schema:"public",table:"game_rooms",filter:"id=eq."+room.id},payload=>{
-      room=payload.new;
+async function subscribeRoom() {
+  if (ch) await sb.removeChannel(ch);
+  ch = sb.channel("fastest-room-" + room.id)
+    .on("postgres_changes", { event: "UPDATE", schema: "public", table: "game_rooms", filter: "id=eq." + room.id }, payload => {
+      room = payload.new;
       renderRoom(room);
     })
     .subscribe();
 }
 
-async function requestStart(){
-  if(!room?.guest_id){alert("استنى الطرف الثاني يدخل الغرفة أولاً.");return}
-  if(String(room.host_id)!==meId){$("state").textContent="منشئ الغرفة هو الذي يمكنه بدء الجولة.";return}
+async function requestStart() {
+  if (!room?.guest_id) return;
+  if (String(room.host_id) !== meId) return;
 
-  const next=(Number(room.state?.round)||0)+1;
-  const goAt=Date.now()+1800+Math.floor(Math.random()*2600);
-  const state={...(room.state||{}),game:"fastest",phase:"round",round:next,goAt};
-  round=next;active=false;localPressed=false;
+  $("startLobbyBtn").disabled = true;
+  if(!$("nextBtn").classList.contains("hidden")) $("nextBtn").disabled = true;
 
-  const {data,error}=await sb.from("game_rooms").update({status:"playing",state}).eq("id",room.id).select().single();
-  if(error){$("state").textContent="تعذر بدء الجولة.";return}
-  room=data;renderRoom(room);
+  const next = (Number(room.state?.round) || 0) + 1;
+  const delay = 2000 + Math.floor(Math.random() * 3000); // وقت عشوائي بين 2 إلى 5 ثواني
+  const goAtTime = Date.now() + delay;
+  
+  const state = { ...(room.state || {}), phase: "round", round: next, goAt: goAtTime };
+  round = next;
+  active = false;
+  localPressed = false;
+
+  await sb.from("game_rooms").update({ status: "playing", state }).eq("id", room.id);
 }
 
-async function press(){
-  if(localPressed)return;
-  localPressed=true;
-  const current=room?.state||{};
+async function press() {
+  if (localPressed) return;
+  localPressed = true;
+  const current = room?.state || {};
 
-  if(!active||current.phase!=="go"){
-    const state={...current,phase:"result",winner:"false-start",round};
-    await sb.from("game_rooms").update({state}).eq("id",room.id).filter("state->>phase","eq","round").filter("state->>round","eq",String(round));
+  // إذا ضغط قبل الأخضر (تسرع)
+  if (!active || $("reaction").classList.contains("wait")) {
+    const state = { ...current, phase: "result", winner: "false-start", guilty: meId, round };
+    $("reaction").className = "reaction bad";
+    $("reaction").innerHTML = "❌";
+    $("state").textContent = "تسرعت!";
+    
+    await sb.from("game_rooms").update({ state })
+      .eq("id", room.id).filter("state->>phase", "eq", "round").filter("state->>round", "eq", String(round));
     return;
   }
 
-  const ms=Math.max(0,Date.now()-goAt);
-  const scores={...(current.scores||{})};
-  scores[meId]=(Number(scores[meId])||0)+1;
-  const state={...current,phase:"result",winner:meId,winnerMs:ms,scores};
+  // إذا ضغط بشكل صحيح بعد الأخضر
+  const ms = Math.max(1, Date.now() - goAt);
+  const scores = { ...(current.scores || {}) };
+  scores[meId] = (Number(scores[meId]) || 0) + 1;
+  
+  const state = { ...current, phase: "result", winner: meId, winnerMs: ms, scores };
 
-  const {data}=await sb.from("game_rooms").update({state}).eq("id",room.id).filter("state->>phase","eq","go").filter("state->>round","eq",String(round)).select().single();
-  if(data)room=data;
-  else { localPressed=true; return; }
-  $("state").textContent="سرعة رد فعلك: "+ms+" جزء من الثانية ⚡";
+  // نحاول إرسال النتيجة. أول شخص تصل نتيجته للسيرفر سيفوز
+  const { data } = await sb.from("game_rooms").update({ state })
+    .eq("id", room.id).filter("state->>phase", "eq", "go").filter("state->>round", "eq", String(round))
+    .select().single();
+    
+  if (data) {
+    room = data;
+    $("reaction").className = "reaction wait";
+    $("reaction").innerHTML = "🏆";
+    $("state").textContent = "أنت الأسرع! (" + ms + "ms)";
+  } else {
+    // إذا لم ينجح التحديث، هذا يعني أن الطرف الآخر سبقك
+    $("state").textContent = "الطرف الثاني كان أسرع 😔";
+  }
 }
 
-async function leaveRoom(){
+async function leaveRoom() {
   clearTimeout(timer);
-  if(room){
-    if(String(room.host_id)===meId){
-      await sb.from("game_rooms").update({status:"closed",state:{...(room.state||{}),phase:"closed"}}).eq("id",room.id);
-    }else{
-      await sb.from("game_rooms").update({guest_id:null,status:"waiting",state:{...(room.state||{}),phase:"lobby"}}).eq("id",room.id);
+  if (room) {
+    if (String(room.host_id) === meId) {
+      // إنهاء الغرفة إذا غادر المنشئ
+      await sb.from("game_rooms").update({ status: "closed", state: { ...(room.state || {}), phase: "closed" } }).eq("id", room.id);
+    } else {
+      // إعادة الغرفة للانتظار إذا غادر الضيف
+      await sb.from("game_rooms").update({ guest_id: null, status: "waiting", state: { ...(room.state || {}), phase: "lobby" } }).eq("id", room.id);
     }
   }
-  if(ch)await sb.removeChannel(ch);
-  ch=null;room=null;
+  
+  if (ch) await sb.removeChannel(ch);
+  ch = null; room = null;
+  
   $("roomView").classList.add("hidden");
   $("lobby").classList.remove("hidden");
   $("lobbyActions").classList.remove("hidden");
   $("joinBox").classList.add("hidden");
+  
+  // إعادة تعيين الحقول
+  $("joinCode").value = "";
+  setError("lobbyError", "");
 }
 
-$("reaction").addEventListener("click",press);
-window.addEventListener("load",boot);
+$("reaction").addEventListener("click", press);
+window.addEventListener("load", boot);
 </script>
 </body>
 </html>
